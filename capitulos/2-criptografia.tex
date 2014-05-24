@@ -57,6 +57,20 @@ Uma das vantagens em relação a criptografia assimétrica é que o custo para s
 \subsection{Cifra de Bloco}
 \label{block-cipher}
 
+A cifra de bloco tem como princípio o encriptamento de blocos com tamanhos definidos, sendo que o a mensagem criptografada deve ter o mesmo tamanho da mensagem em claro. Um algoritmo muito conhecido é o \textit{DES}. Desenvolvido pela \textit{IBM}, foi a primeira cifra comercialmente desenvolvida e que foi publicada por completo. ~\cite{achar-citação}. 
+
+A maior fraqueza do algoritmo \textit{DES} é o tamanho da chave que é utilizada. Muitos pesquisadores sabendo desse problema tentaram remediar o problema com novas maneiras criptográficas, um exemplo é o \textit{3-DES}, que utiliza duas chaves no processo, mas como consequência tem seu desempenho prejudicado. Outra medida para contornar o problema de ataques ao \textit{DES} foi a publicação de um concurso do \textit{NIST} para a escolha do novo padrão criptográfico. Assim surgiu o \textit{AES}, algoritmo que utiliza o sistema de permutação e substituição, tem o tamanho do bloco fixo de 128 bits e tamanho de chave variável entre 128, 192 ou 256 bits. Existem operações que podem ser aplicadas nas cifras de blocos para a produção de mensagens criptografadas, são elas:
+
+\begin{description}
+\item [ECB]consiste em encriptar os blocos de forma independente um do outro e com uma chave fixa.
+\item[CBC] utiliza da operação de ou-exclusivo entre um vetor de inicialização( para o primeiro bloco) e a mensagem em claro e por fim um ou-exclusivo do resultado com a chave. A partir do segundo bloco ao invés de um vetor de inicialização é utilizado o bloco criptografado anterior.
+\item[CFB] muito similar ao CBC, porém é feito um ou-exclusivo da chave com o vetor de inicialização ou bloco criptografado anterior e o resultado é feito um ou-exclusivo com a mensagem em claro.
+\item[OFB] a diferença entre o CFB é que o resultado entre o vetor de inicialização ou resultado da operação anterior e a chave serve de entrada para o próximo bloco, ao invés do bloco criptografado.
+\item[CTR] utiliza como entrada para a função criptográfica um contador que é acrescentado de um em um. 
+\end{description}
+
+
+
 \subsection{Cifra de Fluxo}
 \label{stream-cipher}
 
