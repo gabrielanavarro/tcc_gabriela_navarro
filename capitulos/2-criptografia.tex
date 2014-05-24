@@ -8,12 +8,45 @@ A necessidade de manter informações em sigilo impulsionou a evolução dos est
 Uma das primeiras formas de criptografia utilizada foi a substituição. A substituição primeiramente era feita de forma fixa, ou seja, era feita uma tabela fixa em que as letras do alfabeto eram trocadas por outras letras. Leon Battista Alberti introduziu uma maneira diferente de fazer a substituição, criando o algoritmo \textit{polyalphabetic substitution}. O princípio desse algoritmo era a criação de várias tabelas de substituição e a utilização de uma chave para definir a ordem que cada tabela seria usada para cifrar cada letra do texto em claro. O conjunto de tabelas de substituição é chamado de \textit{Vigenere tableau}
 
 %
-Durante a II Guerra Mundial a criação de novas máquinas foi incentivada e com isso máquinas para manter informações em sigilo foram criadas. Duas máquinas dessa época merecem destaque, o \textit{Enigma} e o 	\textit{SZ40}. Após a guerra, a publicação do algoritmo \textit{DES} serviu de incentivo para cientistas do mundo aprofundarem suas pesquisas em novos algoritmos. Nos dias de hoje existem duas linhas de pensamento sobre criptografia, a criptografia com chave simétrica e assimétrica. 
+Durante a II Guerra Mundial a criação de novas máquinas foi incentivada e com isso máquinas para manter informações em sigilo foram criadas. Duas máquinas dessa época merecem destaque, o \textit{Enigma} e o 	\textit{SZ40}. Após a guerra, a publicação do algoritmo \textit{DES} serviu de incentivo para cientistas do mundo aprofundarem suas pesquisas em novos algoritmos. Nos dias de hoje existem duas linhas de pensamento sobre a criptografia, a criptografia com chave simétrica e assimétrica. 
 
 
 \section{Criptografia Assimétrica}
 \label{assymmetric-cryptography}
 
+%
+A criptografia assimétrica é usada principalmente em dados pequenos. Um dos principais usos é a assinatura digital e funções de hash. Esse tipo de criptografia está associada a criptografia de chave pública. Nela é estabelecido que um par de chaves (chave pública e privada) façam a cifração e decifração da mensagem. 
+
+%
+O funcionamento é simples. Bob tem suas duas chaves e disponibiliza sua chave pública de forma que qualquer pessoa que tenha interesse em enviar uma mensagem criptografada utilize sua chave pública. Quando Bob recebe a mensagem cifrada, é realizada a decifração dessa mensagem utilizando sua chave privada.
+
+%
+Existem muitos algoritmos de criptografia assimétrica. O Elgamal tem sua principal força proveniente da dificuldade de se calcular um logaritmo discreto.  O Diffie-Hellman foram os visionários da chave pública, primeiramente definiram a idéia e algum tempo depois definiram um algoritmo que serve apenas para trocar uma chave secreta entre duas pessoas.  Na tabela abaixo descrevemos os principais usos de cada algoritmo. 
+
+\subsection{Algoritmo RSA}
+\label{algorithm-rsa}
+
+Tem seu nome baseado nas iniciais dos cientistas do \textit{MIT} que o inventaram: \textit{Ron Rivest, Adi Shamir} e \textit{Len Adleman}. A geração das chaves desse algoritmo é feita utilizando números primos e sua força está associada ao fato que é fácil realizar a multiplicação de dois números primos grandes, mas é difícil a decomposição desse resultado. Portanto a chave é gerada da seguinte forma:
+
+\begin{enumerate}
+\item Dois números \textbf{p} e \textbf{q} são escolhidos de forma aleatória e são primos.
+\item \textbf{p} $\neq$ \textbf{q}
+\item \textbf{n} é composto pela multiplicação de \textbf{p} e \textbf{q}.
+\item \textbf{e}, tal que mdc($\phi$(n, e)) = 1
+\item \textbf{d}, (e $^ {(-1)}$) * (mod $\phi$(n)) 
+\end{enumerate}
+
+%
+A chave pública "e" é usada para criptografar a mensagem e a chave privada "d" é usada para descriptografar. O método de crifra é simples, o texto é tratado como conjunto de inteiros e a cada inteiro é feito o seguinte cálculo:
+
+\begin{description}
+\item [Criptografar]
+C = M $^ e$ mod n. Sendo que M é o inteiro correspondente a parte da mensagem em claro e n o resultado da multiplicação dos dois números primos selecionados na confecção  das chaves, C é a mensagem cifrada e \textbf{e} é a chave pública. 
+\item [Descriptografar]
+M = C $^ d$ mod n. Sendo que C é o texto criptografado, M a mensagem em claro e \textbf{d} é a chave privada.
+\end{description}
+
+%
 \section{Criptografia Simétrica}
 \label{symmetric-cryptography}
 
