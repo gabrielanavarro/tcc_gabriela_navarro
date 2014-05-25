@@ -78,6 +78,17 @@ Os algoritmos que utilizam a cifra de fluxo o fazem de bit a bit ou byte a byte.
 \subsubsection{Algoritmo A5/1}
 \label{algorithm-a51}
 
+Principal algoritmo usado no mundo para a comunicação \textit{GSM}, foi desenvolvido em 1987 e teve seu funcionamento mantido em segredo e somente em 1999 foi revelado por engenharia reversa. Consiste de três \textit{Linear Feedback Shift register} ou \textit{LFSR} binários R1, R2 e R3 com cronômetro irregular. Um LFSR é registrador que mantém valores de estado anterior e é atualizado por uma função que normalmente é um ou-exclusivo. 
+
+Cada registrador contém bits importantes para a criptografia e que são predeterminados. São os bit do cronômetro e os \textit{tapping}. Os registradores tem tamanhos diferentes sendo que o R1 tem tamanho 19 bits, o R2 tem tamanho 22 bits e R3 de 23 bits. O algoritmo tem como entradas a chave secreta \textit{Kc} que tem 64 bits e um vetor de inicialização de 22 bits composto do \textit{frame number}. O \textit{keystream} de 228 bits é a saída do processo, sendo que os primeiros 114 bits é o \textit{keystream} de \textit{downlink} e os outros 114 bits é o \textit{keystream} de \textit{uplink}.Cada ciclo no algoritmo é composto por passos específicos em cada registrador:
+
+\begin{enumerate}
+\item função ou-exclusivo em cada um dos \textit{tapping bits}.
+\item utilizando a regra de maioridade com os bits de cronômetro. O registrador então é acionado se o valor do tempo for igual ao resultado da regra de maioridade então os bits do registrador é deslocado da direita para esquerda.
+\item se o registrador for acionado, então o resultado do ou-exclusivo do primeiro passo deve ser passado para a posição zero do registrador correspondente.
+\end{enumerate}
+
+Finalmente com saída o ou-exclusivo do R1[18], R2[21] e R[22]. Para a fase de iniciação é utilizado a chave de 64 bits e passa de bit por bit fazendo ou-exclusivo da posição 0 de cada registrador com o bit da chave. O algoritmo ignora o resultado das primeiras 100 execuções e depois devolve os bits do \textit{keystream} a cada 228 ciclos.
 \subsubsection{Algoritmo A5/2}
 \label{algorithm-a52}
 
