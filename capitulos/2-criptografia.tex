@@ -88,14 +88,23 @@ Cada registrador contém bits importantes para a criptografia e que são predete
 \item se o registrador for acionado, então o resultado do ou-exclusivo do primeiro passo deve ser passado para a posição zero do registrador correspondente.
 \end{enumerate}
 
-Finalmente com saída o ou-exclusivo do R1[18], R2[21] e R[22]. Para a fase de iniciação é utilizado a chave de 64 bits e passa de bit por bit fazendo ou-exclusivo da posição 0 de cada registrador com o bit da chave. O algoritmo ignora o resultado das primeiras 100 execuções e depois devolve os bits do \textit{keystream} a cada 228 ciclos.
+Finalmente com saída o ou-exclusivo do R1[18], R2[21] e R[22]. Para a fase de iniciação é utilizado a chave de 64 bits e passa de bit por bit fazendo ou-exclusivo da posição 0 de cada registrador com o bit da chave. O algoritmo ignora o resultado das primeiras 100 execuções e depois devolve os bits do \textit{keystream} a cada 228 ciclos, gerando 228 bits de saída.
 \subsubsection{Algoritmo A5/2}
 \label{algorithm-a52}
 
+Esse algoritmo tem uma estrutura similar ao A5/1, com algumas exceções como por exemplo: o A5/2 utiliza 4 registradores. Outra diferença é o fato que o cronômetro dos registradores R1,R2 e R3 são acionados baseados na regra de maioridade do R4. Ou seja cada registrador é acionada dependendo dos bits do registrador R4. 
+
+Caso o resultado seja igual ao do bit 3 então o registrador 2 é acionado, caso seja igual ao bit 7 então o registrador 3 é acionado e se for igual ao bit 10 então o registrador 1 é acionado. Depois que os registradores são acionados, então o registrador 4 é acionado também. O restante é igual ao A5/1, incluindo os 228 bits de saída do processo.
 \subsubsection{Algoritmo E0}
 \label{algorithm-e0}
 
+Utilizada para proteger informações que utilizam a tecnologia \textit{bluetooth}. O principal objetivo dessa tecnologia é conectar dois aparelhos para transferência de algum tipo de informação.
+
+O algoritmo também é baseado no uso de registradores e a saída é gerada em ou-exclusivo de bits de cada registrador. Nessa estrutura são utilizados 4 registradores com tamanhos 25, 31, 33 e 39 bits. O sistema da geração do \textit{keystream} é um pouco diferente, a cada \textit{clock tick} todos os registradores são acionados e é feito um ou-exclusivo da saída de cada um.
+
 \subsubsection{Algoritmo RC4}
 \label{algorithm-rc4}
+
+Projetado em 1987 por Ron Rivest, é muito utilizado em sistemas de redes como TLS/SSL e WEP por conta de sua simplicidade e alto desempenho. Tem tamanho de chave variável e se baseia em permutações aleatórias.
 
 \section{Criptoanálise}
