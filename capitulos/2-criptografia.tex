@@ -84,37 +84,42 @@ Existem operações que podem ser aplicadas nas cifras de blocos e que podem ser
 \centering
 \includegraphics[keepaspectratio=true,scale=0.7]
 	{figuras/ecb.eps}
-	\caption{\textit{Electronic Codebook Mode}}
+	\caption[\textit{Electronic Codebook Mode}]{\textit{Electronic Codebook Mode}\protect\footnotemark}
 	
-\end{figure} \footnote{$http://cryptodox.com/Block\_cipher\_modes\_of\_operation$}
+\end{figure} 
+\footnotetext{$http://cryptodox.com/Block\_cipher\_modes\_of\_operation$}
 \item[CBC] utiliza da operação de ou-exclusivo entre um vetor de inicialização( para o primeiro bloco) e o texto em claro e por fim um ou-exclusivo do resultado com a chave. A partir do segundo bloco ao invés de um vetor de inicialização é utilizado o bloco criptografado anterior.
 \begin{figure}[h]
 \centering
 \includegraphics[keepaspectratio=true,scale=0.7]
     {figuras/cbc.eps}
-    \caption{\textit{Cipher Block Chaining Mode}}
-\end{figure} \footnote{$https://www.adayinthelifeof.nl/2010/12/08/encryption-operating-modes-ecb-vs-cbc/$}
+    \caption[\textit{Cipher Block Chaining Mode}]{\textit{Cipher Block Chaining Mode}\protect\footnotemark}
+\end{figure} 
+\footnotetext{$https://www.adayinthelifeof.nl/2010/12/08/encryption-operating-modes-ecb-vs-cbc/$}
 \item[CFB] muito similar ao CBC, porém é feito um ou-exclusivo da chave com o vetor de inicialização ou bloco criptografado anterior e o resultado é feito um ou-exclusivo com a mensagem em claro.
 \begin{figure}[h]
 \centering
 \includegraphics[keepaspectratio=true,scale=0.7]
     {figuras/cfb.eps}
-    \caption{\textit{Cipher Feedback Mode } } 
-\end{figure}\footnote{$http://crypto.stackexchange.com/questions/2476/cipher-feedback-mode$}
+    \caption[\textit{Cipher Feedback Mode }]{\textit{Cipher Feedback Mode } \protect\footnotemark} 
+\end{figure}
+\footnotetext{$http://crypto.stackexchange.com/questions/2476/cipher-feedback-mode$}
 \item[OFB] a diferença em relação ao CFB é que o resultado entre o vetor de inicialização ou resultado da operação anterior e a chave serve de entrada para o próximo bloco, ao invés do bloco criptografado.
 \begin{figure}[h]
 \centering
 \includegraphics[keepaspectratio=true,scale=0.7]
     {figuras/ofb.eps}
-    \caption{\textit{Output Feedback Mode } } 
-\end{figure}\footnote{$http://commons.wikimedia.org/wiki/File:Ofb\_decryption.png$}
+    \caption[\textit{Output Feedback Mode}]{\textit{Output Feedback Mode}\protect\footnotemark} 
+\end{figure}
+\footnotetext{$http://commons.wikimedia.org/wiki/File:Ofb\_decryption.png$}
 \item[CTR] utiliza como entrada para a função criptográfica um contador que é acrescentado de um em um. 
 \begin{figure}[h]
 \centering
 \includegraphics[keepaspectratio=true,scale=0.5]
     {figuras/ctr.eps}
-    \caption{\textit{Counter Mode} } 
-\end{figure}\footnote{$http://crypto.stackexchange.com/questions/8151/counter-mode-static-iv-but-different-keys$}
+    \caption[\textit{Counter Mode}]{\textit{Counter Mode}\protect\footnotemark} 
+\end{figure}
+\footnotetext{$http://crypto.stackexchange.com/questions/8151/counter-mode-static-iv-but-different-keys$}
 \end{description}
 
 \subsection{Cifra de Fluxo}
@@ -125,8 +130,9 @@ Os algoritmos que utilizam a cifra de fluxo o fazem bit a bit ou byte a byte. Um
 \centering
 \includegraphics[keepaspectratio=true,scale=0.7]
     {figuras/stream_cipher.eps}
-    \caption{\textit{Funcionamento da cifra de fluxo } } 
-\end{figure}\footnote{$http://www.globalspec.com/reference/81191/203279/2-6-stream-ciphers$}
+    \caption[\textit{Funcionamento da cifra de fluxo }]{\textit{Funcionamento da cifra de fluxo }\protect\footnotemark} 
+\end{figure}
+\footnotetext{$http://www.globalspec.com/reference/81191/203279/2-6-stream-ciphers$}
 
 Normalmente, a cifra de fluxo utiliza 
 \subsubsection{Algoritmo A5/1}
@@ -134,22 +140,70 @@ Normalmente, a cifra de fluxo utiliza
 
 Principal algoritmo usado no mundo para a comunicação \textit{GSM}, foi desenvolvido em 1987 e teve seu funcionamento mantido em segredo e somente em 1999 foi revelado por engenharia reversa. Consiste de três \textit{Linear Feedback Shift register} ou \textit{LFSR} binários R1, R2 e R3 com cronômetro irregular. Um LFSR é um registrador que mantém valores de estado anterior e é atualizado por uma função que normalmente é um ou-exclusivo. 
 
+\begin{figure}[h]
+\centering
+\includegraphics[keepaspectratio=true,scale=0.7]
+    {figuras/a5_1.eps}
+    \caption[\textit{Estrura do algoritmo A5/1}]{\textit{Estrura do algoritmo A5/1}\protect\footnotemark} 
+\end{figure}
+\footnotetext{$http://cryptome.org/a51-bsw.htm$}
+
 Cada registrador contém bits importantes para a criptografia e que suas posições são predeterminadas. São os bit do \textit{clocking} e os \textit{tapping}. Os registradores tem tamanhos diferentes sendo que o R1 tem 19 bits, o R2 tem 22 bits e o R3 tem 23 bits. O algoritmo tem como entradas a chave secreta \textit{Kc}, que tem 64 bits e um vetor de inicialização de 22 bits composto do \textit{frame number}. O \textit{keystream}, de 228 bits, é a saída do processo, sendo que os primeiros 114 bits são o \textit{keystream} de \textit{downlink} e os outros 114 bits são o \textit{keystream} de \textit{uplink}.Cada ciclo no algoritmo é composto por passos específicos em cada registrador:
+
+\begin{table}[h]
+\centering
+	\begin{tabular}{|l|l|l|}
+		\hline
+		Registrador & \textit{Clocking Bits} & \textit{Tapping Bits} \\ \hline
+		R1 & 8 & 13, 16, 17, 18 \\ \hline
+		R2 & 10 & 20,21 \\ \hline
+		R3 & 10 & 7,20,21,22 \\ \hline	
+	\end{tabular}
+	\caption{Bits importantes do algoritmo A5/1}
+\end{table}
 
 \begin{enumerate}
 \item função ou-exclusivo em cada um dos \textit{tapping bits}.
-\item utilizando a regra de maioridade com os \textit{clocking} bits. O registrador então é acionado se o valor do tempo for igual ao resultado da regra de maioridade então os bits do registrador é deslocado da direita para esquerda.
+\item utilizando a regra de maioridade\footnote{Essa regra funciona da seguinte maneira, os três \textit{clocking} bits de cada registrador são comparados e os registradores que tiverem os bits que teve maior ocorrência na comparação são acionados, por exemplo o R1 tem bit 1, o R2 tem bit 0 e o R3 tem bit 1, então o bit com maior ocorrência é o 1, sendo assim somente os registradores R1 e R3 são acionados naquele ciclo.} com os \textit{clocking} bits. O registrador então é acionado se o valor do tempo for igual ao resultado da regra de maioridade então os bits do registrador é deslocado da direita para esquerda.
 \item se o registrador for acionado, então o resultado do ou-exclusivo do primeiro passo deve ser passado para a posição zero do registrador correspondente.
 \end{enumerate}
 
-Finalmente com saída o ou-exclusivo do R1[18], R2[21] e R[22]. Para a fase de iniciação é utilizado a chave de 64 bits e passa de bit por bit fazendo ou-exclusivo da posição 0 de cada registrador com o bit da chave. O algoritmo ignora o resultado das primeiras 100 execuções e depois devolve os bits do \textit{keystream} a cada 228 ciclos, gerando 228 bits de saída.
+Finalmente com a saída o ou-exclusivo do R1[18], R2[21] e R[22]. Para a fase de iniciação é utilizado a chave de 64 bits e passa de bit por bit fazendo ou-exclusivo da posição 0 de cada registrador com o bit da chave. O algoritmo ignora o resultado das primeiras 100 execuções e depois devolve os bits do \textit{keystream} a cada 228 ciclos, gerando 228 bits de saída.
 
 \subsubsection{Algoritmo A5/2}
 \label{algorithm-a52}
 
-Esse algoritmo tem uma estrutura similar ao A5/1, com algumas exceções como por exemplo: o A5/2 utiliza 4 registradores. Outra diferença é o fato que o cronômetro dos registradores R1,R2 e R3 são acionados baseados na regra de maioridade do R4. Ou seja cada registrador é acionada dependendo dos bits do registrador R4. 
+Esse algoritmo foi desenvolvido por motivos de restrições de exportação do A5/1 e tem uma estrutura similar ao A5/1, com algumas exceções como por exemplo: o A5/2 utiliza 4 registradores. Outra diferença é o fato que o \textit{clocking} dos registradores R1, R2 e R3 são acionados baseados na regra de maioridade do R4. Ou seja cada registrador é acionada dependendo dos bits do registrador R4. 
 
-Caso o resultado seja igual ao do bit 3 então o registrador 2 é acionado, caso seja igual ao bit 7 então o registrador 3 é acionado e se for igual ao bit 10 então o registrador 1 é acionado. Depois que os registradores são acionados, então o registrador 4 é acionado também. O restante é igual ao A5/1, incluindo os 228 bits de saída do processo.
+\begin{table}[h]
+\centering
+	\begin{tabular}{|l|l|l|l|}
+		\hline
+		Registrador & \textit{Clocking Bits} & \textit{Tapping Bits} & Bits utilizados na função maioridade \\ \hline
+		R1 & 8 & 13, 16, 17, 18  & 12,14*\footnote{Bit complementar},15\\ \hline
+		R2 & 10 & 20,21 & 9,13,16*\\ \hline
+		R3 & 10 & 7,20,21,22 & 13*,16,18\\ \hline	
+		R4 & 3,7,10 & - & -\\ \hline
+	\end{tabular}
+	\caption{Bits importantes do algoritmo A5/2}
+\end{table}
+
+\begin{figure}[h]
+\centering
+\includegraphics[keepaspectratio=true,scale=0.5]
+    {figuras/a5_2.eps}
+    \caption[\textit{Estrura do algoritmo A5/2}]{\textit{Estrura do algoritmo A5/2}\protect\footnotemark } 
+\end{figure}
+\footnotetext{$http://blog.cryptographyengineering.com/2012/02/sattelite-phone-encryption-is-terrible.html$}
+
+Caso o resultado da regra da maioridade dos \textit{clocking} bits do R4 seja igual ao do bit na posição 3 então o registrador R2 é acionado, caso seja igual ao bit na posição 7 então o registrador R3 é acionado e se for igual ao bit na posição 10 então o registrador R1 é acionado. Depois que os registradores são acionados, então o registrador R4 é acionado também. A saída desse algoritmo é feita da seguinte forma:
+
+\begin{enumerate}
+	\item É calculado o complementar de um bit.
+	\item Em cada registrador é utilizado a regra da maioridade para dois bits e o complementar do bit calculado anteriormente. 
+	\item É feito um ou-exclusivo do resultado do item anterior com o bit mais significativo do registrador de cada registrador.
+\end{enumerate}
+
 \subsubsection{Algoritmo E0}
 \label{algorithm-e0}
 
