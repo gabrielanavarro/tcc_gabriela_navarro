@@ -16,48 +16,25 @@ Durante a II Guerra Mundial informações relacionadas a estratégias de guerra 
   \centering
   \includegraphics[keepaspectratio=true,scale=1]
   {figuras/enigma.eps}
-  \caption{Máquina Enigma}
+  \caption{Máquina Enigma\protect\footnotemark}
   \label{enigma-machine}
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
   \centering
   \includegraphics[keepaspectratio=true,scale=0.1]
   {figuras/sz40.eps}
-  \caption{Máquina SZ40}
+  \caption{Máquina SZ40\protect\footnotemark}
     \label{sz40-machine}
 \end{minipage}
-\end{figure}\footnote{ http://www.bbc.co.uk/history/topics/enigma e http://www.cryptomuseum.com/crypto/lorenz/sz40/}
-
+\end{figure}
+\footnotetext{http://www.bbc.co.uk/history/topics/enigma}
+\footnotetext{http://www.cryptomuseum.com/crypto/lorenz/sz40/}
 %
-\section{Termos}
-\label{terms}
 
-No decorrer do trabalho iremos utilizar alguns termos específicos do estudo da criptografia e essa seção visa apresenta-los e esclarece-los.
-
-\begin{table}[h]
-\begin{center}
-    \begin{tabular}{|l| p{10cm}|}
-    \hline
-    Termo & Descrição \\ \hline
-    Cifrar & Função que tem como objetivo transformar uma mensagem que deve estar em sigilo e transforma-la em algo inintelegível \\ \hline
-    Decifrar & Função que transforma uma mensagem inintelegível para a mensagem original. \\ \hline
-    Texto em claro & Mensagem que deve ser mantida em sigilo e que se deseja cifrar. \\ \hline
-    Texto cifrado & Mensagem inintelegível e que se deseja decifrar. \\ \hline
-    Chave & Entrada para as funções cifrar e decifrar, é usada para que duas pessoas consigam se comunicar em segredo. \\ \hline
-    MDC & Operação matemática que visa descobrir o maior divisor comum entre dois ou mais números. \\ \hline
-    $\phi$ & Teorema de Euler, retorna a quantidade de números inteiros positivos menores ou igual a um determinado número e que são primos relativos de desse número. \\ \hline 
-    e & Chave pública, para cifrar um texto. \\ \hline
-    d & Chave privada, para decrifrar um texto \\ \hline
-    \end{tabular}
-    \caption{Termos da criptografia}
-\end{center}
-\end{table}
-
-%
 \section{Criptografia Simétrica}
 \label{symmetric-cryptography}
 
-A criptografia simétrica utiliza a mesma chave para cifrar e decifrar uma mensagem. É objeto de estudo para muitos cientistas e existem muitos algoritmos que ainda são utilizados pelo mundo. Sua vantagem é que o custo para ser utilizada não é tão elevado e sua possibilidade de uso é maior. 
+A criptografia simétrica utiliza a mesma chave\footnote{Entrada para as funções cifrar e decifrar, é usada para que duas pessoas consigam se comunicar em segredo.} para cifrar\footnote{Função que tem como objetivo transformar uma mensagem que deve estar em sigilo e transforma-la em algo inintelegível} e decifrar\footnote{Função que transforma uma mensagem inintelegível para a mensagem original} uma mensagem. É objeto de estudo para muitos cientistas e existem muitos algoritmos que ainda são utilizados pelo mundo. Sua vantagem é que o custo para ser utilizada não é tão elevado e sua possibilidade de uso é maior. 
 
 \begin{figure}[h]
 \centering
@@ -88,7 +65,7 @@ Existem operações que podem ser aplicadas nas cifras de blocos e que podem ser
 	
 \end{figure} 
 \footnotetext{$http://cryptodox.com/Block\_cipher\_modes\_of\_operation$}
-\item[CBC] utiliza da operação de ou-exclusivo entre um vetor de inicialização( para o primeiro bloco) e o texto em claro e por fim um ou-exclusivo do resultado com a chave. A partir do segundo bloco ao invés de um vetor de inicialização é utilizado o bloco criptografado anterior.
+\item[CBC] utiliza da operação de ou-exclusivo entre um vetor de inicialização( para o primeiro bloco) e o texto em claro\footnote{Mensagem que deve ser mantida em sigilo e que se deseja cifrar.} e por fim um ou-exclusivo do resultado com a chave. A partir do segundo bloco ao invés de um vetor de inicialização é utilizado o bloco criptografado anterior.
 \begin{figure}[h]
 \centering
 \includegraphics[keepaspectratio=true,scale=0.7]
@@ -134,7 +111,6 @@ Os algoritmos que utilizam a cifra de fluxo o fazem bit a bit ou byte a byte. Um
 \end{figure}
 \footnotetext{$http://www.globalspec.com/reference/81191/203279/2-6-stream-ciphers$}
 
-Normalmente, a cifra de fluxo utiliza 
 \subsubsection{Algoritmo A5/1}
 \label{algorithm-a51}
 
@@ -209,12 +185,31 @@ Caso o resultado da regra da maioridade dos \textit{clocking} bits do R4 seja ig
 
 Utilizado para proteger informações que utilizam a tecnologia \textit{bluetooth}. O principal objetivo dessa tecnologia é conectar dois aparelhos para transferência de algum tipo de informação.
 
-O algoritmo também é baseado no uso de registradores e a saída é gerada em ou-exclusivo de bits de cada registrador. Nessa estrutura são utilizados 4 registradores com tamanhos 25, 31, 33 e 39 bits. O sistema da geração do \textit{keystream} é um pouco diferente, a cada \textit{clock tick} todos os registradores são acionados e é feito um ou-exclusivo da saída de cada um.
+O algoritmo também é baseado no uso de registradores e a saída é gerada em ou-exclusivo de bits de cada registrador. Nessa estrutura são utilizados 4 registradores com tamanhos 25, 31, 33 e 39 bits. O sistema da geração do \textit{keystream} é um pouco diferente, a cada \textit{clock tick} todos os registradores são acionados e é feito um ou-exclusivo da saída de cada um. A operação é descrita a seguir:
+
+\begin{enumerate}
+	\item Além dos 4 registradores, o sistema é composto de dois registradores de 2 bits $c_t$ e $c_{t-1}$.
+	\item A cada \textit{clock tick} todos os registradores são acionados e o valor de $ c_t $ é transferido para $ c_{t-1}$ e o valor de $ c_t$ é atualizado com os valores do do $ c_{t-1}$ e dos registradores.
+\end{enumerate}
 
 \subsubsection{Algoritmo RC4}
 \label{algorithm-rc4}
 
-Projetado em 1987 por Ron Rivest, é muito utilizado em sistemas de redes como TLS/SSL e WEP por conta de sua simplicidade e alto desempenho. Tem tamanho de chave variável e se baseia em permutações aleatórias.
+Projetado em 1987 por Ron Rivest, é muito utilizado em sistemas de redes como TLS/SSL e WEP por conta de sua simplicidade e alto desempenho. Tem tamanho de chave variável e se baseia em permutações aleatórias. Utiliza um gerador de números aleatórios e as permutações são realizadas sobre esses números aleatórios.
+
+O funcionamento do algoritmo é realizado com uma leitura do texto em claro feita a cada byte e cada byte produz um byte de texto cifrado. Seu funcionamento está ligado a um gerador de \textit{keystream}, ou seja, utilizando como entrada uma chave é criada uma sequência de números aleatórios.
+
+\begin{enumerate}
+	\item Dois bits \textit{i} e \textit{j} são usados para permutar um conjunto \textit{S}.
+	\item No processo de inicialização a chave é tratada como um \textit{array} definido como \textit{K}.
+	\item Primeiramente o bit \textit{j} é igualado a 0 e o conjunto \textit{S} é definido como sua identidade, ou seja, \textit{S}[i] = i, para i = 0, 1, 2, ... 255
+	\item Depois da fase de inicialição, para todos os valores de \textit{i}, que estão entre 0 e 255, o seguinte calculo é feito:
+	\begin{itemize}
+		\item j = j + S[i] + K[i mod \textit{l}], sendo que \textit{l} é o tamanho da chave.
+		\item Troca de S[i] por S[j]	
+	\end{itemize}	 
+	\item O resultado dessa operação é utilizado para um ou-exclusivo com o byte do texto em claro correspondente.
+\end{enumerate} 
 
 %
 \section{Criptografia Assimétrica}
@@ -240,8 +235,8 @@ Tem seu nome baseado nas iniciais dos cientistas do \textit{MIT} que o inventara
 \item Dois números \textbf{p} e \textbf{q} são escolhidos de forma aleatória e são primos.
 \item \textbf{p} $\neq$ \textbf{q}
 \item \textbf{n} é composto pela multiplicação de \textbf{p} e \textbf{q}.
-\item \textbf{e}, tal que mdc($\phi$(n, e)) = 1
-\item \textbf{d}, (e $^ {(-1)}$) * (mod $\phi$(n)) 
+\item \textbf{e\footnote{Chave pública, para cifrar um texto.}}, tal que mdc\footnote{Operação matemática que visa descobrir o maior divisor comum entre dois ou mais números}($\phi$(n, e)) = 1
+\item \textbf{d\footnote{Chave privada, para decrifrar um texto }}, (e $^ {(-1)}$) * (mod $\phi$(n)) 
 \end{enumerate}
 
 %
