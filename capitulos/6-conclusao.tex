@@ -1,2 +1,28 @@
 \chapter{Conclusão}
 \label{conclusion}
+
+A proposta desse trabalho era fazer a definição de um algoritmo de cifra de fluxo com balanceamento de saída.
+
+Existem diversas técnicas de criptoanálise e uma das mais antigas e que se aplicam a qualquer tipo de algoritmo de criptografia é a análise de frequência de um texto cifrado. Essa proposta de algoritmo irá dificultar esse método, visto que todas as frequências no texto cifrado serão as mesmas.
+
+\section{Trabalhos Futuros}
+\label{future-work}
+
+	\subsection{Implementação}
+	\label{implementation}
+	
+	O primeiro passo para os próximos trabalhos é a implementação do algoritmo. Para esse trabalho, o mesmo será realizado em linguagem C, tomando os devidos cuidados na alocação de memória. 
+	A implementação de vários geradores de números pseudo-aleatórios também será realizada e de alguns algoritmos como por exemplo o RC4.
+	
+	\subsection{Testes}
+	\label{tests}
+	
+	Um problema identificado no decorrer da definição do algoritmo foi a possível queda de desempenho na produção do texto cifrado, principalmente nas situações de confito de posições.Para isso, após a implementação dos algoritmos, serão realizados testes para medir o desempenho do algoritmo.
+	
+	Também serão feitos testes de desempenho em outros algoritmos de cifra de fluxo e análises serão realizadas comparando o desempenho dos mesmos e do algoritmo proposto.
+	
+	\subsection{Melhorias na Implementação}
+	\label{improments}
+	
+	Espera-se obter um desempenho inferior quando comparado a outros algoritmos de cifra de fluxo, porém se o mesmo for muito discrepante entre o algoritmo proposto e os outros algoritmos, melhorias serão avaliadas e se julgadas necessárias, serão implementadas.
+	
