@@ -2,7 +2,7 @@
 \label{cryptograhy}
 
 %
-A criptografia é a ciência dos códigos secretos, permitindo a confidencialidade de uma comunicação que utiliza um meio inseguro.~\cite{vauldenay}. Então a necessidade de manter informações em sigilo impulsionou a evolução dos estudos da criptografia. O exato início da criptografia é incerto, mas na Renascença,assim como outros em muitos outros campos, o estudo da criptografia começou a ser aprofundado e suas técnicas armazenadas e ensinadas. ~\cite{donald-davies}
+A criptografia é a ciência dos códigos secretos, permitindo a confidencialidade de uma comunicação que utiliza um meio inseguro.~\cite{vauldenay}. Então a necessidade de manter informações em sigilo impulsionou a evolução dos estudos da criptografia. O exato início da criptografia é incerto, mas na Renascença,assim como outros em muitos outros campos, o estudo da criptografia começou a ser aprofundado e suas técnicas armazenadas e ensinadas. \cite{donald-davies}
 
 %
 Uma das primeiras formas de criptografia utilizada foi a substituição. A substituição primeiramente era feita de forma fixa, ou seja, era usada uma única tabela em que as letras do alfabeto eram trocadas por outras letras. Leon Battista Alberti introduziu uma maneira diferente de fazer a substituição, criando o algoritmo \textit{polyalphabetic substitution}. O princípio desse algoritmo era a criação de várias tabelas de substituição e a utilização de uma chave para definir a ordem que cada tabela seria usada para cifrar cada letra do texto em claro. O conjunto de tabelas de substituição é chamado de \textit{Vigenere tableau}.
@@ -27,8 +27,8 @@ Durante a II Guerra Mundial informações relacionadas a estratégias de guerra 
     \label{sz40-machine}
 \end{minipage}
 \end{figure}
-\footnotetext{http://www.bbc.co.uk/history/topics/enigma}
-\footnotetext{http://www.cryptomuseum.com/crypto/lorenz/sz40/}
+\footnotetext{\url{http://www.bbc.co.uk/history/topics/enigma}}
+\footnotetext{\url{http://www.cryptomuseum.com/crypto/lorenz/sz40/}}
 %
 
 \section{Criptografia Simétrica}
@@ -43,7 +43,7 @@ A criptografia simétrica utiliza a mesma chave\footnote{Entrada para as funçõ
 \caption[Funcionamento básico da criptografia simétrica] {Funcionamento básico da criptografia simétrica\protect\footnotemark}
 \end{figure}
 
-\footnotetext{$http://www.codeproject.com/Articles/21076/Securing-Data-in-NET$}
+\footnotetext{\url{http://www.codeproject.com/Articles/21076/Securing-Data-in-NET}}
 Os algoritmos são divididos em: cifra de bloco e cifra de fluxo.
 
 \subsection{Cifra de Bloco}
@@ -64,7 +64,7 @@ Existem operações que podem ser aplicadas nas cifras de blocos e que podem ser
 	\caption[\textit{Electronic Codebook Mode}]{\textit{Electronic Codebook Mode}\protect\footnotemark}
 	
 \end{figure} 
-\footnotetext{$http://cryptodox.com/Block\_cipher\_modes\_of\_operation$}
+\footnotetext{\url{http://cryptodox.com/Block\_cipher\_modes\_of\_operation}}
 \item[CBC] utiliza da operação de ou-exclusivo entre um vetor de inicialização( para o primeiro bloco) e o texto em claro\footnote{Mensagem que deve ser mantida em sigilo e que se deseja cifrar.} e por fim um ou-exclusivo do resultado com a chave. A partir do segundo bloco ao invés de um vetor de inicialização é utilizado o bloco criptografado anterior.
 \begin{figure}[h]
 \centering
@@ -72,7 +72,7 @@ Existem operações que podem ser aplicadas nas cifras de blocos e que podem ser
     {figuras/cbc.eps}
     \caption[\textit{Cipher Block Chaining Mode}]{\textit{Cipher Block Chaining Mode}\protect\footnotemark}
 \end{figure} 
-\footnotetext{$https://www.adayinthelifeof.nl/2010/12/08/encryption-operating-modes-ecb-vs-cbc/$}
+\footnotetext{\url{https://www.adayinthelifeof.nl/2010/12/08/encryption-operating-modes-ecb-vs-cbc/}}
 \item[CFB] muito similar ao CBC, porém é feito um ou-exclusivo da chave com o vetor de inicialização ou bloco criptografado anterior e o resultado é feito um ou-exclusivo com a mensagem em claro.
 \begin{figure}[h]
 \centering
@@ -80,7 +80,7 @@ Existem operações que podem ser aplicadas nas cifras de blocos e que podem ser
     {figuras/cfb.eps}
     \caption[\textit{Cipher Feedback Mode }]{\textit{Cipher Feedback Mode } \protect\footnotemark} 
 \end{figure}
-\footnotetext{$http://crypto.stackexchange.com/questions/2476/cipher-feedback-mode$}
+\footnotetext{\url{http://crypto.stackexchange.com/questions/2476/cipher-feedback-mode}}
 \item[OFB] a diferença em relação ao CFB é que o resultado entre o vetor de inicialização ou resultado da operação anterior e a chave serve de entrada para o próximo bloco, ao invés do bloco criptografado.
 \begin{figure}[h]
 \centering
@@ -88,7 +88,7 @@ Existem operações que podem ser aplicadas nas cifras de blocos e que podem ser
     {figuras/ofb.eps}
     \caption[\textit{Output Feedback Mode}]{\textit{Output Feedback Mode}\protect\footnotemark} 
 \end{figure}
-\footnotetext{$http://commons.wikimedia.org/wiki/File:Ofb\_decryption.png$}
+\footnotetext{\url{http://commons.wikimedia.org/wiki/File:Ofb\_decryption.png}}
 \item[CTR] utiliza como entrada para a função criptográfica um contador que é acrescentado de um em um. 
 \begin{figure}[h]
 \centering
@@ -96,7 +96,7 @@ Existem operações que podem ser aplicadas nas cifras de blocos e que podem ser
     {figuras/ctr.eps}
     \caption[\textit{Counter Mode}]{\textit{Counter Mode}\protect\footnotemark} 
 \end{figure}
-\footnotetext{$http://crypto.stackexchange.com/questions/8151/counter-mode-static-iv-but-different-keys$}
+\footnotetext{\url{http://crypto.stackexchange.com/questions/8151/counter-mode-static-iv-but-different-keys}}
 \end{description}
 
 \subsection{Cifra de Fluxo}
@@ -109,7 +109,7 @@ Os algoritmos que utilizam a cifra de fluxo o fazem bit a bit ou byte a byte. Um
     {figuras/stream_cipher.eps}
     \caption[\textit{Funcionamento da cifra de fluxo }]{\textit{Funcionamento da cifra de fluxo }\protect\footnotemark} 
 \end{figure}
-\footnotetext{$http://www.globalspec.com/reference/81191/203279/2-6-stream-ciphers$}
+\footnotetext{\url{http://www.globalspec.com/reference/81191/203279/2-6-stream-ciphers}}
 
 \subsubsection{Algoritmo A5/1}
 \label{algorithm-a51}
@@ -122,7 +122,7 @@ Principal algoritmo usado no mundo para a comunicação \textit{GSM}, foi desenv
     {figuras/a5_1.eps}
     \caption[\textit{Estrura do algoritmo A5/1}]{\textit{Estrura do algoritmo A5/1}\protect\footnotemark} 
 \end{figure}
-\footnotetext{$http://cryptome.org/a51-bsw.htm$}
+\footnotetext{\url{http://cryptome.org/a51-bsw.htm}}
 
 Cada registrador contém bits importantes para a criptografia e que suas posições são predeterminadas. São os bit do \textit{clocking} e os \textit{tapping}. Os registradores tem tamanhos diferentes sendo que o R1 tem 19 bits, o R2 tem 22 bits e o R3 tem 23 bits. O algoritmo tem como entradas a chave secreta \textit{Kc}, que tem 64 bits e um vetor de inicialização de 22 bits composto do \textit{frame number}. O \textit{keystream}, de 228 bits, é a saída do processo, sendo que os primeiros 114 bits são o \textit{keystream} de \textit{downlink} e os outros 114 bits são o \textit{keystream} de \textit{uplink}.Cada ciclo no algoritmo é composto por passos específicos em cada registrador:
 
@@ -170,7 +170,7 @@ Esse algoritmo foi desenvolvido por motivos de restrições de exportação do A
     {figuras/a5_2.eps}
     \caption[\textit{Estrura do algoritmo A5/2}]{\textit{Estrura do algoritmo A5/2}\protect\footnotemark } 
 \end{figure}
-\footnotetext{$http://blog.cryptographyengineering.com/2012/02/sattelite-phone-encryption-is-terrible.html$}
+\footnotetext{\url{http://blog.cryptographyengineering.com/2012/02/sattelite-phone-encryption-is-terrible.html}}
 
 Caso o resultado da regra da maioridade dos \textit{clocking} bits do R4 seja igual ao do bit na posição 3 então o registrador R2 é acionado, caso seja igual ao bit na posição 7 então o registrador R3 é acionado e se for igual ao bit na posição 10 então o registrador R1 é acionado. Depois que os registradores são acionados, então o registrador R4 é acionado também. A saída desse algoritmo é feita da seguinte forma:
 
@@ -250,3 +250,70 @@ M = C $^ d$ mod n. Sendo que C é o texto criptografado, M a mensagem em claro e
 \end{description}
 
 %
+\section{Criptoanálise}
+\label{cryptanalysis}
+
+Estudo que tem como objetivo criação de técnicas e métodos que ajudam a obter informações de um texto cifrado sem ter a devida autorização. Conforme a criptografia cresceu e seus estudos se aprofundaram, os estudos da criptoanálise também cresceram. Abaixo algumas técnicas de criptoanálise.
+
+\subsection{Força Bruta}
+\label{brute-force}
+
+Esse ataque visa procurar por exaustão a chave usada para cifrar a mensagem. Testa todas as possibilidades de chave e análisa o texto produzido. 
+
+É eficiente para chaves pquenas pois as possiblidades de chaves diminuem. Por se tratar de uma procura pela chave, essse método por ser aplicado em diferentes tipos de algoritmo criptográfico.
+
+\begin{table}[h]
+\centering
+	\begin{tabular}{|l|l|}
+		\hline
+		Tamanho da chave & Tempo para quebrar \\ \hline
+		32 & 2.15 milisegundos \\ \hline
+		56 & 10.01 horas \\ \hline
+		128 & 5.4 X $ 10 ^ 18$ \\ \hline
+		168 & 5.9 X $ 10 ^30$ \\ \hline
+	\end{tabular}
+\caption{Tempo gasto para encontrar chaves}
+\end{table}
+
+\subsection{Análise de Frequência}
+\label{frequency-analysis}
+
+Esse método visa analisar a frequência de cada byte de um texto cifrado. Existem diversos estudos que indicam a frequência média de cada letra em um texto. 
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|l|}
+	\hline
+	Letra & Frequência no texto & Letra & Frequência no texto \\ \hline
+	a & 8.167 & n & 6.749 \\ \hline
+	b & 1.492 & o & 7.507 \\ \hline
+	c & 2.782 & p & 1.929 \\ \hline
+	d & 4.253 & q & 0.095 \\ \hline
+	e & 12.702 & r & 5.987 \\ \hline
+	f & 2.228 & s & 6.327 \\ \hline
+	g & 2.015 & t & 9.056 \\ \hline
+	h & 6.094 & u & 2.758 \\ \hline
+	i & 6.966 & v & 0.978 \\ \hline
+	j & 0.153 & w & 2.360 \\ \hline
+	k & 0.772 & x & 0.150 \\ \hline
+	l & 4.025 & y & 1.974 \\ \hline
+	m & 2.406 & z & 0.074 \\ \hline
+\end{tabular}
+\caption{Frequência média de letras em um texto ~\cite{robert-lewand}} 
+\end{table}
+
+A idéia é identificar as frequências do texto cifrado e substituir as letras a medida que for identificado, até conseguir produzir um texto coeso.
+
+\subsection{Time memory tradeoff attack}
+\label{time-memory-tradeoff-attack}
+
+Desse método é produzido uma tabela para armazenar os números de uma sequência aleatória e seus respectivos bits do \textit{keystream}. O método encontra em $2^r$ estados aleatórios e para cada estado produzir os bits \textbf{s} correspondente do \textit{keystream}. 
+
+Na tabela, se armazena os dados do estado e os \textbf{s} produzidos. Após isso, uma comparação é feita com os \textbf{s} produzido e o correpondente \textit{keystream}.
+
+\subsection{Differential Cryptanalysis}
+\label{differential-cryptanalysis}
+
+Esse método foi sugerido como uma forma geral de analisar primitivas criptográficas. ~\cite{eli-orr} 
+
+O método foca em produzir diferenças na chave durante o processament odo algoritmo e assim obter uma saída com erros. A partir desses erros, informações podem ser deduzidas analisando o texto sem erros e o texto cifrado com erros. 
