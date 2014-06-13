@@ -32,7 +32,7 @@ Um gerador de números pseudo-aleatórios tem como entrada uma semente \footnote
 	{figuras/prng.eps}
 	\caption[Esquema de um \textit{PRNG}]{Esquema de um \textit{PRNG}\protect\footnotemark}
 \end{figure}
-\footnotetext{\url{http://pit-claudel.fr/clement/blog/how-random-is-pseudo-random-testing-pseudo-random-number-generators-and-measuring-randomness/}}
+\footnotetext{\url{www.pit-claudel.fr/clement/blog/how-random-is-pseudo-random-testing-pseudo-random-number-generators-and-measuring-randomness/}}
 
 
 \section{Geradores}
@@ -41,7 +41,7 @@ Um gerador de números pseudo-aleatórios tem como entrada uma semente \footnote
 Uma técnica muito usada para geração de números pseudo-aleatórios é um algoritmo que primeiramente foi proposto por Lehmer, que é conhecido como método \textit{Linear Congruential}. \cite{william-stallings} O algoritmo gera uma sequência dependendo das entradas e a função utilizada para essa geração é:
 \begin{equation}
 	\label{Função para geração de números aleatórios.}
-	\mathcal{X_n} = (a * X_{n - 1} + c) mod n
+	\mathcal{X}_n = (a * X_{n - 1} + c) mod n
 \end{equation}
 
 Para cada número na sequência, essa formula é aplicada. A eficiência dessa sequência está diretamente relacionada a escolha das variáveis. A variável \textbf{m} é o módulo da equação e condição de escolha dessa variável é ser maior que 0. Para a variável \textbf{a} é o multiplicador da função e sua condição é ser maior que 0 e menor que \textbf{m}. A variável c é o incremento, sua condição é é estar entre 0 e \textbf{m}. O \textbf{$X_0$} é a semente para a sequência, será o primeiro elemento da sequência e sua condição é estar entre 0 e \textbf{m}.
@@ -65,48 +65,48 @@ Portanto o primeiro valor da sequência é o 1, por ser a semente. O segundo val
 
 \begin{equation}
 	\label{Cálculo do segundo valor}
-	\mathcal{X_n} = ( 5 * 1 + 0) mod 16
+	\mathcal{X}_n = ( 5 * 1 + 0) mod 16
 \end{equation}
 
 \begin{equation}
 	\label{Resultado do segundo valor}
-	\mathcal{X_n} = 5
+	\mathcal{X}_n = 5
 \end{equation}
 
 Para o terceiro valor, o cálculo é feito utilizando o resultado do anterior:
 
 \begin{equation}
 	\label{Cálculo do terceiro valor}
-	\mathcal{X_n} = ( 5 * 5 + 0) mod 16
+	\mathcal{X}_n = ( 5 * 5 + 0) mod 16
 \end{equation}
 
 \begin{equation}
 	\label{Resultado do terceiro valor}
-	\mathcal{X_n} = 9
+	\mathcal{X}_n = 9
 \end{equation}
 
 Finalmente para o quarto valor, também se utiliza o valor anterior em seu cálculo:
 
 \begin{equation}
 	\label{Cálculo do quarto valor}
-	\mathcal{X_n} = ( 5 * 9 + 0) mod 16
+	\mathcal{X}_n = ( 5 * 9 + 0) mod 16
 \end{equation}
 
 \begin{equation}
 	\label{Resultado do quarto valor}
-	\mathcal{X_n} = 13
+	\mathcal{X}_n = 13
 \end{equation}
 
 A partir do quinto valor, a sequência se repete:
 
 \begin{equation}
 	\label{Cálculo do quinto valor}
-	\mathcal{X_n} = ( 5 * 13 + 0) mod 16
+	\mathcal{X}_n = ( 5 * 13 + 0) mod 16
 \end{equation}
 
 \begin{equation}
 	\label{Resultado do quinto valor}
-	\mathcal{X_n} = 1
+	\mathcal{X}_n = 1
 \end{equation}
 
 Ou seja, as escolhas dos parâmetros é um passo extremamente importante para esse gerador. Um exemplo com uma periodicidade relativamente grande pode ser obtida trocando apenas o valor de \textbf{m} da resolução anterior:
@@ -126,12 +126,46 @@ Ou seja, as escolhas dos parâmetros é um passo extremamente importante para es
 
 A sequência gerada a partir dessas variáveis, é:
 
-[1,5,25,14,33,17,11,18,16,6,30,2,10,13,28,29,34,22,36,32,12,23,4,20,
-26,19,21,31,7,25,24,9,8,3,15]
+[1, 5, 25, 14, 33, 17, 11, 18, 16, 6, 30, 2, 10, 13, 28, 29, 34, 22, 36, 32, 12, 23, 4, 20, 26, 19, 21, 31, 7, 25, 24, 9, 8, 3, 15]
 
 Apesar de ter sido maior que a sequência anterior, isso não necessariamente prova sua eficiência, visto que para aplicações como a criptografia, números muito maiores seriam utilizados e sua periodicidade deve ser maior também.
 
 
 \subsection{Blum Blum Shub Generator}
+Uma estratégia para se gerar números pseudo-aleatórios seguramente é conhecido como Blum Blum Shub, nomeado pelos seus desenvolvedores. Tem talvez a prova pública de sua força criptográfica de algoritmos para qualquer propósito. ~\cite{william-stallings} Os primeiros passos para o algoritmo são:
 
-\section{Testes NIST SP 800-22}
+\begin{enumerate}
+	\item Escolha números primos \textbf{p} e \textbf{q}.
+	\item \textbf{p} e \textbf{q} devem ter resto 4 quando divididos por 4.
+	\item Obtenha \textbf{n}, multiplicando \textbf{p} e \textbf{q}.
+	\item Escolha \textbf{s} tal que \textbf{s} é primo relativo de \textbf{n}\footnote{p e q não são fatores de s}.
+\end{enumerate}
+
+Com isso o gerador produzirá uma sequência com as seguintes condições:
+
+\begin{equation}
+	\label{Equação para produzir a sequência}
+	\mathcal{X}_0 = s^2 mod n
+\end{equation}
+
+\begin{equation}
+	\label{Equação para produzir a sequência}
+	\mathcal{X}_n = (X_{n-1})^2 mod n
+\end{equation}
+
+\begin{equation}
+	\label{Equação para produzir a sequência}
+	\mathcal{B}_n = X_n mod 2
+\end{equation}
+Ou seja, os bits menos significantes são retirados a cada número produzido.
+
+\subsection{Multiple Recursive Generator}
+\label{multiple-recursive-generator}
+Multiple recursive generator se tornou recentemente o gerador de números pseudo-aleatórios mais popular. ~\cite{lih-yuan} A geração desses números é feito utilizando:
+
+\begin{equation}
+	\label{Função para produção dos números}
+	\mathcal{X}_n = (a_1*X_(n-1) + ... + a_k * X_{n-k} * C) mod n
+\end{equation}
+
+Utilizando sementes (X$_0$, X$_1$, ... X$_{k-1}$. Para cada valor da sequência é utilizado o valor k do número anterior. 
