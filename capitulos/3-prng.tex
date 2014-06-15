@@ -159,13 +159,70 @@ Com isso o gerador produzirá uma sequência com as seguintes condições:
 \end{equation}
 Ou seja, os bits menos significantes são retirados a cada número produzido.
 
-\subsection{Multiple Recursive Generator}
-\label{multiple-recursive-generator}
-Multiple recursive generator se tornou recentemente o gerador de números pseudo-aleatórios mais popular. ~\cite{lih-yuan} A geração desses números é feito utilizando:
+\subsection{Gerador Blum Micali}
+\label{blum-micali-generator}
+
+O gerador Blum Micali é um gerador de números pseudo-aleatórios provadamente seguro e foi criado por Manuel Blum, que também participou do desenvolvimento do Blum Blum Shub, e Silvio Micali. ~\cite{josefin-martin}
+
+O gerador é executado utilizando os seguintes passos iniciais:
+
+\begin{enumerate}
+	\item Escolha um número primo \textbf{p}
+	\item Então o grupo cíclico\footnote{•} Z$_p$ = [1, p-1]
+	\item a é um elemento de Z$_p$ e é o número aleatório resultante
+\end{enumerate}
+
+
+Com esses passos, o algoritmo tem as entradas para que possa ser realizada a geração dos números. A função que de geração é:
 
 \begin{equation}
-	\label{Função para produção dos números}
-	\mathcal{X}_n = (a_1\: \times \: X_{n-1} \: + \: ...  \: + \: a_k \: \times \: X_{n-k} \: \times \:  C) \: \bmod \: n
+	\mathcal{G}^k \equiv a \bmod p
 \end{equation}
 
-Utilizando sementes (X$_0$, X$_1$, ... X$_{k-1}$. Para cada valor da sequência é utilizado o valor k do número anterior. 
+Em que \textbf{k} é um número inteiro postivo e g um inteiro que representará um grupo de números inteiros aleatórios.
+
+\subsection{Exemplo}
+
+Dado que:
+
+\begin{enumerate}
+	\item p = 17
+	\item Z$_p$ = [1,16]
+\end{enumerate}
+
+Então para g = 3 e k = 4: 3$^4$ $\equiv$ 13 $\bmod$ 17. Ou seja, o número aleatório 13 satisfaz a condição de estar incluso no grupo Z$_p$ e é o número aleatório do grupo 3.
+
+\section{Segurança comprovada em geradores de números pseudo-aleatórios}
+\label{security-of-prng}
+
+Segurança comprovada em criptografia significa que quebrar um algoritmo critpográfico específico é tão difícil quanto resolver um problema específico conhecido por ser difícil. ~\cite{josefin-martin}
+
+Uma das aplicações de números pseudo aleatórios seguros é servir de geradores de \textit{keystream} para a cifra de fluxo. O algoritmo nesse trabalho proposto, irá utilizar esse de tipo de gerador de \textit{keystream}.
+
+Existem dois geradores de números pseudo-aleatórios que são publicamente comprovados em segurança: \textit{Blum Blum Shub} e \textit{Blum Micali}.
+
+\subsection{Segurança do Blum Blum Shub}
+
+A segurança do \textit{Blum Blum Shub} é obtida pelo fato de que seu funcionamento se baseia na residuasidade quadrática. Esse problema é relacionado em decidir se \textbf{x}, em que mdc(x,N) = 1 e que \textbf{x} está entre 1 $\le$  x $\le$ N. \footnote{N é igual a multiplicação dos números primos escolhidos para a geração dos números.}
+
+Para ser um resíduo quadrático, \textbf{x} tem que ter a seguinte propriedade $y ^ 2 \equiv x \: \bmod N$, para um inteiro y. Para esse cálculo, um algoritmo recebe N e x como parâmetros e retorna 1 se for resíduo quadrático e 0 se não for.~\cite{josefin-martin}
+
+\subsection{Segurança do Blum Micali}
+
+Essa segurança é provida pelo problema do logaritmo discreto. Esse gerador utiliza da seguinte função:
+
+\begin{equation}
+	\mathcal{G}^k \equiv a \: \bmod \: p 
+\end{equation}
+
+Realizar a exponenciação logarítmica é um problema fácil de resolver, porém o inverso, o logarítmo discreto, é uma operação comprovadamente difícil.
+
+\subsection{Comparação do Blum Blum Shub E Blum Micali}
+
+No trabalho de Josefin e Martin ~\citeyear(josefin-martin), foi realizado uma comparação dos dois geradores de números pseudo aleatórios que são comprovadamente seguros nos quesitos de aplicação, velocidade e segurança.
+
+No quesito aplicação, o \textit{Blum Blum Shub} foi considerado mais vantajoso pelo fato que esse gerador é melhor aplicacado para cifração de chave público e o \textit{Blum Micali} ser mais vantajoso para cifrações de chave privada. Como a cifração de chave pública é mais utilizada na criptografia, o \textit{Blum Blum Shub} foi ganhador nesse quesito.
+
+No quesito velocidade, os autores não conseguiram determinar qual gerador é mais rápido, visto que para um gerador ser considerado seguro, o desempenho do mesmo é prejudicado já que suas operações são mais complexas.
+
+No quesito segurança, os autores também não conseguiram chegar em um consenso, visto que o problema que dificulta a quebra dos dois geradores são distintos e igualmente difíceis de serem resolvidos.
