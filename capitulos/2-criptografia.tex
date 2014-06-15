@@ -352,16 +352,4 @@ Esse método visa analisar a frequência de cada byte de um texto cifrado. Exist
 
 A idéia é identificar as frequências do texto cifrado e substituir as letras a medida que for identificado, até conseguir produzir um texto coeso.
 
-\subsection{Time memory tradeoff attack}
-\label{time-memory-tradeoff-attack}
-
-Desse método é produzido uma tabela para armazenar os números de uma sequência aleatória e seus respectivos bits do \textit{keystream}. O método encontra em $2^r$ estados aleatórios e para cada estado produzir os bits \textbf{s} correspondente do \textit{keystream}. 
-
-Na tabela, se armazena os dados do estado e os \textbf{s} produzidos. Após isso, uma comparação é feita com os \textbf{s} produzido e o correpondente \textit{keystream}.
-
-\subsection{Differential Cryptanalysis}
-\label{differential-cryptanalysis}
-
-Esse método foi sugerido como uma forma geral de analisar primitivas criptográficas. ~\cite{eli-orr}%ok
-
-O método foca em produzir diferenças na chave durante o processament odo algoritmo e assim obter uma saída com erros. A partir desses erros, informações podem ser deduzidas analisando o texto sem erros e o texto cifrado com erros. 
+Esse é o método que o algoritmo proposto nesse trabalho visa dificultar, visto que sua aplicação pode ser utilizada em qualquer tipo de algoritmo criptográfico e seus resultados podem ser satisfatórios. Com a equalização da saída, as frequências de cada letra não poderão utilizadas, visto que cada letra terá a mesma quantidade de frequência.
