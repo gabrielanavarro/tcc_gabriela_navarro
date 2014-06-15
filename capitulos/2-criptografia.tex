@@ -99,6 +99,54 @@ Existem operações que podem ser aplicadas nas cifras de blocos e que podem ser
 \footnotetext{\url{http://crypto.stackexchange.com/questions/8151/counter-mode-static-iv-but-different-keys}}
 \end{description}
 
+\subsubsection{Algoritmo DES}
+
+Como dito anteriormente, o DES foi o primeiro algoritmo que foi publicado e utilizado de forma comercial. Esse algoritmo utiliza o príncipio da cifra de \textit{fiestel}\footnote{•} com 16 \textit{rounds} de processamento.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.5]
+		{figuras/des_cipher.eps}
+		\caption[\textit{Cifra DES}]{\textit{Cifra DES}\protect\footnotemark} 
+\end{figure}
+\footnotetext{\url{http://www.eventid.net/show-DocId-19.htm}}
+
+Propriedades desse algoritmo:
+
+\begin{itemize}
+	\item Utiliza chave de 56 \textit{bit}.
+	\item Opera em blocos de data de 64 \textit{bit}.
+	\item A fase de inicialização é feito uma permutação do bloco.
+	\item Depois o bloco é dividido em dois blocos de 32 \textit{bit}
+	\item A operações são executadas sempre no bloco do lado direito.
+	\item Contém uma camada de substituição \textit{S-box} para introduzir confusão a cifra.
+	\item Contém uma camada de permutação \textit{p-box} para introduzir a difusão a cifra.
+	\item O resultado dessas duas operações no bloco do lado direito é então feito um ou-exclusivo com o lado esquerdo e isso resulta no lado direito do próximo \textit{round}.
+\end{itemize}
+
+\subsubsection{Algoritmo AES}
+
+O algoritmo \textit{AES} foi inventado com o intuito de dar mais segurança ao processo de criptografia e foi adotado como algoritmo padrão pelo \textit{NIST}.Esse algoritmo, ao contrário do \textit{DES} não utiliza a cifra de \textit{feistel} como base. 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=2]
+		{figuras/aes_cipher.eps}
+		\caption[\textit{Cifra AES}]{\textit{Cifra AES}\protect\footnotemark} 
+\end{figure}
+\footnotetext{\url{http://www.ecs.umass.edu/ece/koren/FaultTolerantSystems/simulator/AES-L/help.html}}
+
+Propriedades do algoritmo:
+
+\begin{itemize}
+	\item Utiliza chaves com tamanhos variáveis, que dependem da quantidade de \textit{rounds} são utilizadas. Para 10 \textit{rounds} o tamanho da chave é 128 \textit{bits}. Para 12 \textit{rounds} o tamanho da chave é 192 \textit{bits} e para 14 \textit{rounds} o tamanho da chave é 256 \textit{bits}.
+	\item Tamanho do bloco é de 128 \textit{bits} conhecido como estado.
+	\item O bloco é dividido em uma matriz 4 $\times$ 4.
+	\item Todos os \textit{rounds} no \textit{AES} são idênticos, exceto o último.
+	\item Utiliza substituição com a função \textit{S-box} para introduzir confusão.
+	\item Utiliza permutação com a função \textit{p-box} para introduzir difusão. 
+	\item A permutação é composta pela mistura de colunas e linhas da matriz.
+\end{itemize}
 \subsection{Cifra de Fluxo}
 \label{stream-cipher}
 
