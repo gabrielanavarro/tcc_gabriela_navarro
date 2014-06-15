@@ -2,7 +2,7 @@
 \label{pseudo-random-number-generator}
 
 % 
-Há muitos anos a geração de números aleatórios é objeto de estudo da matemática. Por muito tempo não tinha um algoritmo determinístico para a geração de números que tivesse um período de repetição suficientemente longa para aplicações complexas. Em 1998, os matemáticos japoneses Matishumote e Nishimura inventaram o primeiro algoritmo em que a periocidade ( $2 ^ {19937}$ - 1) excede o número de \textbf{eletrons spin changes} desde a criação do universo. ~\cite{cristophe-diethelm} 
+Há muitos anos a geração de números aleatórios é objeto de estudo da matemática. Por muito tempo não tinha um algoritmo determinístico para a geração de números que tivesse um período de repetição suficientemente longa para aplicações complexas. Em 1998, os matemáticos japoneses Matishumote e Nishimura inventaram o primeiro algoritmo em que a periocidade ( $2 ^ {19937}$ - 1) excede o número de mudanças rotatórias de elétrons desde a criação do universo. ~\cite{cristophe-diethelm} 
 
 %
 Apesar de existir o \textit{TRNG} ou \textit{True Random Number Generator}, que oferece sequências de números que são aleatórios, as mesmas não são determinísticas e isso faz com que sua utilização seja limitada, visto que em aplicações como a criptografia é necessário reproduzir a mesma sequência para a função de cifrar e de decifrar. 
@@ -168,7 +168,7 @@ O gerador é executado utilizando os seguintes passos iniciais:
 
 \begin{enumerate}
 	\item Escolha um número primo \textbf{p}
-	\item Então o grupo cíclico\footnote{•} Z$_p$ = [1, p-1]
+	\item Então o grupo cíclico\footnote{Grupo que é gerado por um elemento que e que o grupo finaliza nesse mesmo elemento.} Z$_p$ = [1, p-1]
 	\item a é um elemento de Z$_p$ e é o número aleatório resultante
 \end{enumerate}
 
@@ -219,7 +219,7 @@ Realizar a exponenciação logarítmica é um problema fácil de resolver, poré
 
 \subsection{Comparação do Blum Blum Shub E Blum Micali}
 
-No trabalho de Josefin e Martin ~\citeyear(josefin-martin), foi realizado uma comparação dos dois geradores de números pseudo aleatórios que são comprovadamente seguros nos quesitos de aplicação, velocidade e segurança.
+No trabalho de Josefin Agerblad e  Martin Andersen em \textit{Provably Secure Pseudo-Random Generators}, foi realizado uma comparação dos dois geradores de números pseudo aleatórios que são comprovadamente seguros nos quesitos de aplicação, velocidade e segurança.
 
 No quesito aplicação, o \textit{Blum Blum Shub} foi considerado mais vantajoso pelo fato que esse gerador é melhor aplicacado para cifração de chave público e o \textit{Blum Micali} ser mais vantajoso para cifrações de chave privada. Como a cifração de chave pública é mais utilizada na criptografia, o \textit{Blum Blum Shub} foi ganhador nesse quesito.
 

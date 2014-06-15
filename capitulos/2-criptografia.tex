@@ -16,14 +16,14 @@ Durante a II Guerra Mundial informações relacionadas a estratégias de guerra 
   \centering
   \includegraphics[keepaspectratio=true,scale=1]
   {figuras/enigma.eps}
-  \caption{Máquina Enigma\protect\footnotemark}
+  \caption[{Máquina Enigma}]{Máquina Enigma\protect\footnotemark}
   \label{enigma-machine}
 \end{minipage}%
 \begin{minipage}{.5\textwidth}
   \centering
   \includegraphics[keepaspectratio=true,scale=0.1]
   {figuras/sz40.eps}
-  \caption{Máquina SZ40\protect\footnotemark}
+  \caption[{Máquina SZ40}]{Máquina SZ40\protect\footnotemark}
     \label{sz40-machine}
 \end{minipage}
 \end{figure}
@@ -61,7 +61,7 @@ Existem operações que podem ser aplicadas nas cifras de blocos e que podem ser
 \centering
 \includegraphics[keepaspectratio=true,scale=0.7]
 	{figuras/ecb.eps}
-	\caption[\textit{Electronic Codebook Mode}]{\textit{Electronic Codebook Mode}\protect\footnotemark}
+	\caption[Electronic Codebook Mode]{\textit{Electronic Codebook Mode}\protect\footnotemark}
 	
 \end{figure} 
 \footnotetext{\url{http://cryptodox.com/Block\_cipher\_modes\_of\_operation}}
@@ -70,7 +70,7 @@ Existem operações que podem ser aplicadas nas cifras de blocos e que podem ser
 \centering
 \includegraphics[keepaspectratio=true,scale=0.7]
     {figuras/cbc.eps}
-    \caption[\textit{Cipher Block Chaining Mode}]{\textit{Cipher Block Chaining Mode}\protect\footnotemark}
+    \caption[Cipher Block Chaining Mode]{\textit{Cipher Block Chaining Mode}\protect\footnotemark}
 \end{figure} 
 \footnotetext{\url{https://www.adayinthelifeof.nl/2010/12/08/encryption-operating-modes-ecb-vs-cbc/}}
 \item[CFB] muito similar ao CBC, porém é feito um ou-exclusivo da chave com o vetor de inicialização ou bloco criptografado anterior e o resultado é feito um ou-exclusivo com a mensagem em claro.
@@ -78,7 +78,7 @@ Existem operações que podem ser aplicadas nas cifras de blocos e que podem ser
 \centering
 \includegraphics[keepaspectratio=true,scale=0.7]
     {figuras/cfb.eps}
-    \caption[\textit{Cipher Feedback Mode }]{\textit{Cipher Feedback Mode } \protect\footnotemark} 
+    \caption[Cipher Feedback Mode]{\textit{Cipher Feedback Mode } \protect\footnotemark} 
 \end{figure}
 \footnotetext{\url{http://crypto.stackexchange.com/questions/2476/cipher-feedback-mode}}
 \item[OFB] a diferença em relação ao CFB é que o resultado entre o vetor de inicialização ou resultado da operação anterior e a chave serve de entrada para o próximo bloco, ao invés do bloco criptografado.
@@ -86,7 +86,7 @@ Existem operações que podem ser aplicadas nas cifras de blocos e que podem ser
 \centering
 \includegraphics[keepaspectratio=true,scale=0.7]
     {figuras/ofb.eps}
-    \caption[\textit{Output Feedback Mode}]{\textit{Output Feedback Mode}\protect\footnotemark} 
+    \caption[Output Feedback Mode]{\textit{Output Feedback Mode}\protect\footnotemark} 
 \end{figure}
 \footnotetext{\url{http://commons.wikimedia.org/wiki/File:Ofb\_decryption.png}}
 \item[CTR] utiliza como entrada para a função criptográfica um contador que é acrescentado de um em um. 
@@ -94,30 +94,30 @@ Existem operações que podem ser aplicadas nas cifras de blocos e que podem ser
 \centering
 \includegraphics[keepaspectratio=true,scale=0.5]
     {figuras/ctr.eps}
-    \caption[\textit{Counter Mode}]{\textit{Counter Mode}\protect\footnotemark} 
+    \caption[Counter Mode]{\textit{Counter Mode}\protect\footnotemark} 
 \end{figure}
 \footnotetext{\url{http://crypto.stackexchange.com/questions/8151/counter-mode-static-iv-but-different-keys}}
 \end{description}
 
 \subsubsection{Algoritmo DES}
 
-Como dito anteriormente, o DES foi o primeiro algoritmo que foi publicado e utilizado de forma comercial. Esse algoritmo utiliza o príncipio da cifra de \textit{fiestel}\footnote{•} com 16 \textit{rounds} de processamento.
+Como dito anteriormente, o DES foi o primeiro algoritmo que foi publicado e utilizado de forma comercial. Esse algoritmo utiliza o príncipio da cifra de \textit{feistel}\footnote{Estrutura de criptografia simétrica que inclui dividir o bloco de dados e depois realizar operações em um deles e ao final realizar um ou-exclusivo nos dois blocos.} com 16 \textit{rounds} de processamento.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.5]
 		{figuras/des_cipher.eps}
-		\caption[\textit{Cifra DES}]{\textit{Cifra DES}\protect\footnotemark} 
+		\caption[Cifra \textit{DES}]{Cifra DES\protect\footnotemark} 
 \end{figure}
 \footnotetext{\url{http://www.eventid.net/show-DocId-19.htm}}
 
 Propriedades desse algoritmo:
 
 \begin{itemize}
-	\item Utiliza chave de 56 \textit{bit}.
-	\item Opera em blocos de data de 64 \textit{bit}.
+	\item Utiliza chave de 56 \textit{bits}.
+	\item Opera em blocos de data de 64 \textit{bits}.
 	\item A fase de inicialização é feito uma permutação do bloco.
-	\item Depois o bloco é dividido em dois blocos de 32 \textit{bit}
+	\item Depois o bloco é dividido em dois blocos de 32 \textit{bits}
 	\item A operações são executadas sempre no bloco do lado direito.
 	\item Contém uma camada de substituição \textit{S-box} para introduzir confusão a cifra.
 	\item Contém uma camada de permutação \textit{p-box} para introduzir a difusão a cifra.
@@ -132,7 +132,7 @@ O algoritmo \textit{AES} foi inventado com o intuito de dar mais segurança ao p
 	\centering
 	\includegraphics[scale=2]
 		{figuras/aes_cipher.eps}
-		\caption[\textit{Cifra AES}]{\textit{Cifra AES}\protect\footnotemark} 
+		\caption[Cifra\textit{AES}]{Cifra AES\protect\footnotemark} 
 \end{figure}
 \footnotetext{\url{http://www.ecs.umass.edu/ece/koren/FaultTolerantSystems/simulator/AES-L/help.html}}
 
@@ -155,7 +155,7 @@ Os algoritmos que utilizam a cifra de fluxo o fazem bit a bit ou byte a byte. Um
 \centering
 \includegraphics[keepaspectratio=true,scale=0.7]
     {figuras/stream_cipher.eps}
-    \caption[\textit{Funcionamento da cifra de fluxo }]{\textit{Funcionamento da cifra de fluxo }\protect\footnotemark} 
+    \caption[Funcionamento da cifra de fluxo]{Funcionamento da cifra de fluxo\protect\footnotemark} 
 \end{figure}
 \footnotetext{\url{http://www.globalspec.com/reference/81191/203279/2-6-stream-ciphers}}
 
@@ -168,7 +168,7 @@ Principal algoritmo usado no mundo para a comunicação \textit{GSM}, foi desenv
 \centering
 \includegraphics[keepaspectratio=true,scale=0.7]
     {figuras/a5_1.eps}
-    \caption[\textit{Estrura do algoritmo A5/1}]{\textit{Estrura do algoritmo A5/1}\protect\footnotemark} 
+    \caption[Estrura do algoritmo A5/1]{Estrura do algoritmo A5/1\protect\footnotemark} 
 \end{figure}
 \footnotetext{\url{http://cryptome.org/a51-bsw.htm}}
 
@@ -216,7 +216,7 @@ Esse algoritmo foi desenvolvido por motivos de restrições de exportação do A
 \centering
 \includegraphics[keepaspectratio=true,scale=0.5]
     {figuras/a5_2.eps}
-    \caption[\textit{Estrura do algoritmo A5/2}]{\textit{Estrura do algoritmo A5/2}\protect\footnotemark } 
+    \caption[Estrura do algoritmo A5/2]{Estrura do algoritmo A5/2\protect\footnotemark } 
 \end{figure}
 \footnotetext{\url{http://blog.cryptographyengineering.com/2012/02/sattelite-phone-encryption-is-terrible.html}}
 
@@ -284,7 +284,7 @@ Tem seu nome baseado nas iniciais dos cientistas do \textit{MIT} que o inventara
 \item \textbf{p} $\neq$ \textbf{q}
 \item \textbf{n} é composto pela multiplicação de \textbf{p} e \textbf{q}.
 \item \textbf{e\footnote{Chave pública, para cifrar um texto.}}, tal que mdc\footnote{Operação matemática que visa descobrir o maior divisor comum entre dois ou mais números}($\phi$(n, e)) = 1
-\item \textbf{d\footnote{Chave privada, para decrifrar um texto }}, (e $^ {(-1)}$) * (mod $\phi$(n)) 
+\item \textbf{d\footnote{Chave privada, para decrifrar um texto }}, (e $^ {(-1)}$) $\times$ ($\bmod$ $\phi$(n)) 
 \end{enumerate}
 
 %
@@ -292,9 +292,9 @@ A chave pública "e" é usada para criptografar a mensagem e a chave privada "d"
 
 \begin{description}
 \item [Criptografar]
-C = M $^ e$ mod n. Sendo que M é o inteiro correspondente a parte da mensagem em claro e n o resultado da multiplicação dos dois números primos selecionados na confecção  das chaves, C é a mensagem cifrada e \textbf{e} é a chave pública. 
+C = M $^ e$ $\bmod$ n. Sendo que M é o inteiro correspondente a parte da mensagem em claro e n o resultado da multiplicação dos dois números primos selecionados na confecção  das chaves, C é a mensagem cifrada e \textbf{e} é a chave pública. 
 \item [Descriptografar]
-M = C $^ d$ mod n. Sendo que C é o texto criptografado, M a mensagem em claro e \textbf{d} é a chave privada.
+M = C $^ d$ $\bmod$ n. Sendo que C é o texto criptografado, M a mensagem em claro e \textbf{d} é a chave privada.
 \end{description}
 
 %
@@ -347,7 +347,7 @@ Esse método visa analisar a frequência de cada byte de um texto cifrado. Exist
 	l & 4.025 & y & 1.974 \\ \hline
 	m & 2.406 & z & 0.074 \\ \hline
 \end{tabular}
-\caption{Frequência média de letras em um texto ~\cite{robert-lewand}} 
+\caption[{Frequência média de letras em um texto}]{Frequência média de letras em um texto ~\cite{robert-lewand}} 
 \end{table}
 
 A idéia é identificar as frequências do texto cifrado e substituir as letras a medida que for identificado, até conseguir produzir um texto coeso.
