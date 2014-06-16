@@ -8,23 +8,23 @@ Neste capítulo será apresentado o algoritmo que este trabalho visa propor e de
 
 A evolução no campo da criptografia é constante e há sempre novas propostas de algoritmos que focam em solucionar um obstáculo imposto por possíveis atacantes e seus métodos para se obter informações sigilosas.
 
-O algoritmo nesse trabalho proposto visa diminuir as possibilidades de análises de frequência de um texto cifrado. É uma nova modalidade na produção de texto cifrado utilizando cifra de fluxo. 
+O algoritmo proposto neste trabalho visa diminuir as possibilidades de análises de frequência de um texto cifrado. É uma nova modalidade na produção de texto cifrado utilizando cifra de fluxo. 
 
 
 \section{Funcionamento}
 \label{functioning}
 
-O algoritmo terá como entrada uma sequência de números pseudo-aleatórios e terá como objetivo produzir um texto cifrado totalmente balanceado.
+O algoritmo terá como entrada uma sequência de números pseudo-aleatórios e terá como objetivo produzir um texto cifrado onde as frequências de ocorrência dos caracteres é totalmente balanceada.
 
-A cada byte de texto em claro será feito um ou-exclusivo com o número na posição correspondente da sequência e com isso vai se preenchendo uma tabela de bytes que tem posições de 0 a 255.
+A cada \textit{byte} de texto em claro será feito um ou-exclusivo com o número na posição correspondente da sequência e com isso vai se preenchendo uma tabela de equalização de \textit{bytes} que tem posições de 0 a 255.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.7]{figuras/tabela.eps}
-	\caption{Tabela de bytes para uso do algoritmo}
+	\caption{Tabela de \textit{byte} para uso do algoritmo}
 \end{figure}
 
-Como a produção deverá ser totalmente balanceada, há a possibilidade de se produzir um resultado em uma posição na tabela já ocupada, para contornarmos esse problema, propomos a seguinte solução: a introdução da variável \textbf{j}.
+Como o resultado deverá ser totalmente balanceado, há a possibilidade de se produzir um resultado em uma posição na tabela já ocupada, para contornarmos esse problema, propomos a seguinte solução: a introdução da variável \textbf{j}.
 
 \begin{figure}[h]
 	\centering
@@ -43,7 +43,7 @@ Essa variável visa quantificar os números pseudo-aleatórios que deverão ser 
 
 O caminho ideal é o que o resultado da operação ou-exclusivo entre o \textit{byte} do texto em claro e o número aleatório correpondente sempre seja igual a uma posição livre na tabela de balanceamento.
 
-Caso se detecte um conflito de resultados na tabela de balanceamento, é enviado o valor S$_k$ para o receptor da mensagem, pois com isso, ao se fazer o ou-exclusivo de S$_k$ com S$_k$ na decifração se obterá o valor zero e assim o receptor saberá que o próximo valor recebido será a quantidade de números pseudo-aleatórios que deverá ser descartado da sequência. Então o algoritmo vai executar o comando de descartar os números pseudo-aleatórios, até que se encontre um resultado em uma posição que esteja livre na tabela de balanceamento. Ao encontrar essa posição livre, o algoritmo deverá enviar o resultado do ou-exclusivo entre j(quantidade de números descartados) e S$_{old}$ e o valor de j é novamente estabelecido como 0.
+Caso se detecte um conflito de resultados na tabela de balanceamento, é enviado o valor S$_k$ para o receptor da mensagem, pois com isso, ao se fazer o ou-exclusivo de S$_k$ com S$_k$ na decifração se obterá o valor zero e assim o receptor saberá que o próximo valor recebido será a quantidade de números pseudo-aleatórios que deverão ser descartados da sequência. Então o algoritmo vai executar o comando de descartar os números pseudo-aleatórios, até que se encontre um resultado em uma posição que esteja livre na tabela de balanceamento. Ao encontrar essa posição livre, o algoritmo deverá enviar o resultado do ou-exclusivo entre j(quantidade de números descartados) e S$_{old}$ e o valor de j é novamente estabelecido como 0.
 
 Quando a tabela for totalmente concluída, o processo se inicia de novo e suas posições ficam livres e o algoritmo continua com o processo de preenche-la novamente. Esse processo só finaliza quando os bytes do texto em claro forem todos cifrados. 
 
@@ -53,7 +53,7 @@ Quando a tabela for totalmente concluída, o processo se inicia de novo e suas p
 	\caption{Esquema do algoritmo de decifração}
 \end{figure}
 
-Podemos observar o processo de decifrar na figura \ref{pseudo-codigo-decifrar}. É um processo diferente do processo de cifrar, pois não inclui a tabela de balanceamento e assim o processo de balanceamento não se faz necessário. Portanto, para decifrar é necessário ter a capacidade de produzir a mesma sequência de números aleatórios e isso indica ter a mesma chave que foi utilizado no processo de cifrar. 
+Podemos observar o processo de decifrar na figura \ref{pseudo-codigo-decifrar}. É um processo diferente do processo de cifrar, pois não inclui a tabela de balanceamento e assim o processo de balanceamento não se faz necessário. Portanto, para decifrar é necessário ter a capacidade de produzir a mesma sequência de números aleatórios e, portanto, ter a mesma chave que foi utilizada no processo de cifrar. 
 
 
 \begin{figure}[h]
@@ -63,7 +63,7 @@ Podemos observar o processo de decifrar na figura \ref{pseudo-codigo-decifrar}. 
 	\label{pseudo-codigo-decifrar}
 \end{figure}
 
-O primeiro passo da decifração é realizar a função ou-exclusivo entre o byte do texto cifrado e o número aleatório correspondente. O caminho ideal é que o resultado dessa operação seja diferente de zero, pois assim, esse resultado é o \textit{byte} do texto em claro.
+O primeiro passo da decifração é realizar a função ou-exclusivo entre o \textit{byte} do texto cifrado e o número aleatório correspondente. O caminho ideal é que o resultado dessa operação seja diferente de zero, pois assim, esse resultado é o \textit{byte} do texto em claro.
 
 Se o resultado da operação ou-exclusivo entre \textit{byte} do texto cifrado e o número aleatório for igual a zero, isso quer dizer que o próximo \textit{byte} do texto cifrado será o resultado da variável \textbf{j}, que indica quantos números aleatórios devem ser descartados para o processo de decifração. Ao se descartar esses números, o processo volta para o percurso normal de execução. 
 

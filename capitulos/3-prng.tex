@@ -1,17 +1,17 @@
-\chapter{Pseudo Random Number Generator}
+\chapter{Gerador de Números Pseudo-Aleatórios}
 \label{pseudo-random-number-generator}
 
 % 
-Há muitos anos a geração de números aleatórios é objeto de estudo da matemática. Por muito tempo não tinha um algoritmo determinístico para a geração de números que tivesse um período de repetição suficientemente longa para aplicações complexas. Em 1998, os matemáticos japoneses Matishumote e Nishimura inventaram o primeiro algoritmo em que a periocidade ( $2 ^ {19937}$ - 1) excede o número de mudanças rotatórias de elétrons desde a criação do universo. ~\cite{cristophe-diethelm} 
+Há muitos anos a geração de números aleatórios é objeto de estudo da matemática. Por muito tempo não existiu um algoritmo determinístico para a geração de números que tivesse um período de repetição suficientemente longo para aplicações complexas. Em 1998, os matemáticos japoneses Matishumote e Nishimura inventaram o primeiro algoritmo em que a periocidade ( $2 ^ {19937}$ - 1) excede o número de mudanças rotatórias de elétrons desde a criação do universo. ~\cite{cristophe-diethelm} 
 
 %
 Apesar de existir o \textit{TRNG} ou \textit{True Random Number Generator}, que oferece sequências de números que são aleatórios, as mesmas não são determinísticas e isso faz com que sua utilização seja limitada, visto que em aplicações como a criptografia é necessário reproduzir a mesma sequência para a função de cifrar e de decifrar. 
 
 %
-Com isso a utilização de geradores de números pseudo aleatórios se faz necessária, porém a sequência gerada deve seguir dois critérios para que seus números possam ser considerados aleatórios:
+Com isso a utilização de geradores de números pseudo-aleatórios se faz necessária, porém a sequência gerada deve seguir dois critérios para que seus números possam ser considerados aleatórios:
 
 \begin{description}
-	\item [Aleatoriedade]
+	\item [1 - Aleatoriedade]
 	O principal requisito para uma sequência ser considerada aleatória é seus números serem aleatórios. Dois critérios podem ser usados para validar uma sequência:
 		\begin{description}
 			\item [Distribuição uniforme]
@@ -20,11 +20,11 @@ Com isso a utilização de geradores de números pseudo aleatórios se faz neces
 			Os números não devem ter relação entre si.
 			
 		\end{description}
-	\item [Imprevisibilidade]
+	\item [2 - Imprevisibilidade]
 	Esse critério serve para garantir que sabendo um número da sequência, é impossível prever o número anterior ou posterior.
 \end{description}
 
-Um gerador de números pseudo-aleatórios tem como entrada uma semente \footnote{Termo para especificar um número para geração de uma sequência.} A semente normalmente é gerada de um algoritmo \textit{TRNG}. Pelo fato de serem utilizadas como entrada em algoritmos determinísticos as sementes devem ser guardadas de forma segura.
+Um gerador de números pseudo-aleatórios tem como entrada uma semente \footnote{Termo para especificar um número para geração de uma sequência.} A semente normalmente é gerada a partir de um algoritmo \textit{TRNG}. Pelo fato de serem utilizadas como entrada em algoritmos determinísticos as sementes devem ser guardadas de forma segura.
 
 %\begin{figure}[h]
 %	\centering
@@ -36,15 +36,15 @@ Um gerador de números pseudo-aleatórios tem como entrada uma semente \footnote
 
 
 \section{Geradores}
-\subsection{Linear Congruential Generator}
+\subsection{Gerador Linear Congruente}
 
-Uma técnica muito usada para geração de números pseudo-aleatórios é um algoritmo que primeiramente foi proposto por Lehmer, que é conhecido como método \textit{Linear Congruential}. \cite{william-stallings} O algoritmo gera uma sequência dependendo das entradas e a função utilizada para essa geração é:
+Uma técnica muito usada para geração de números pseudo-aleatórios é um algoritmo que primeiramente foi proposto por \textit{Lehmer}, que é conhecido como método Linear Congruente. \cite{william-stallings} O algoritmo gera uma sequência dependendo das entradas e a função utilizada para essa geração é:
 \begin{equation}
 	\label{Função para geração de números aleatórios.}
 	\mathcal{X}_n = (a \times X_{n - 1} + c)\: \bmod \: n
 \end{equation}
 
-Para cada número na sequência, essa formula é aplicada. A eficiência dessa sequência está diretamente relacionada a escolha das variáveis. A variável \textbf{m} é o módulo da equação e condição de escolha dessa variável é ser maior que 0. Para a variável \textbf{a} é o multiplicador da função e sua condição é ser maior que 0 e menor que \textbf{m}. A variável c é o incremento, sua condição é é estar entre 0 e \textbf{m}. O \textbf{$X_0$} é a semente para a sequência, será o primeiro elemento da sequência e sua condição é estar entre 0 e \textbf{m}.
+Para cada número produzido na sequência, essa formula é aplicada. A eficiência dessa sequência está diretamente relacionada a escolha das variáveis. A variável \textbf{m} é o módulo da equação e condição de escolha dessa variável é ser maior que 0. Para a variável \textbf{a} é o multiplicador da função e sua condição é ser maior que 0 e menor que \textbf{m}. A variável c é o incremento, sua condição é é estar entre 0 e \textbf{m}. O \textbf{$X_0$} é a semente para a sequência, será o primeiro elemento da sequência e sua condição é estar entre 0 e \textbf{m}.
 
 A escolha dessas entradas determina a periodicidade da sequência e por consequência seu desempenho. Como exemplo de uma sequência com periodicidade 4, as entradas seriam:
 
@@ -131,7 +131,7 @@ A sequência gerada a partir dessas variáveis, é:
 Apesar de ter sido maior que a sequência anterior, isso não necessariamente prova sua eficiência, visto que para aplicações como a criptografia, números muito maiores seriam utilizados e sua periodicidade deve ser maior também.
 
 
-\subsection{Blum Blum Shub Generator}
+\subsection{Gerador Blum Blum Shub}
 Uma estratégia para se gerar números pseudo-aleatórios seguramente é conhecido como Blum Blum Shub, nomeado pelos seus desenvolvedores. Tem talvez a prova pública de sua força criptográfica de algoritmos para qualquer propósito. ~\cite{william-stallings} Os primeiros passos para o algoritmo são:
 
 \begin{enumerate}
@@ -157,7 +157,7 @@ Com isso o gerador produzirá uma sequência com as seguintes condições:
 	\label{Equação para produzir a sequência}
 	\mathcal{B}_n = X_n \: \bmod \: 2
 \end{equation}
-Ou seja, os bits menos significantes são retirados a cada número produzido.
+Ou seja, os \textit{bits} menos significantes são retirados a cada número produzido.
 
 \subsection{Gerador Blum Micali}
 \label{blum-micali-generator}
@@ -181,7 +181,7 @@ Com esses passos, o algoritmo tem as entradas para que possa ser realizada a ger
 
 Em que \textbf{k} é um número inteiro postivo e g um inteiro que representará um grupo de números inteiros aleatórios.
 
-\subsection{Exemplo}
+\subsubsection{Exemplo}
 
 Dado que:
 
@@ -197,7 +197,7 @@ Então para g = 3 e k = 4: 3$^4$ $\equiv$ 13 $\bmod$ 17. Ou seja, o número alea
 
 Segurança comprovada em criptografia significa que quebrar um algoritmo critpográfico específico é tão difícil quanto resolver um problema específico conhecido por ser difícil. ~\cite{josefin-martin}
 
-Uma das aplicações de números pseudo aleatórios seguros é servir de geradores de \textit{keystream} para a cifra de fluxo. O algoritmo nesse trabalho proposto, irá utilizar esse de tipo de gerador de \textit{keystream}.
+Uma das aplicações de números pseudo-aleatórios seguros é servir de geradores de \textit{keystream} para a cifra de fluxo. O algoritmo nesse trabalho proposto, irá utilizar esse de tipo de gerador de \textit{keystream}.
 
 Existem dois geradores de números pseudo-aleatórios que são publicamente comprovados em segurança: \textit{Blum Blum Shub} e \textit{Blum Micali}.
 

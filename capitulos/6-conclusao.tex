@@ -1,9 +1,10 @@
 \chapter{Conclusão}
 \label{conclusion}
 
-A proposta desse trabalho era fazer a definição de um algoritmo de cifra de fluxo com balanceamento de saída.
 
-Existem diversas técnicas de criptoanálise e uma das mais antigas e que se aplicam a qualquer tipo de algoritmo de criptografia é a análise de frequência de um texto cifrado. Essa proposta de algoritmo irá dificultar esse método, visto que todas as frequências no texto cifrado serão as mesmas.
+Conforme visto ao longo deste trabalho, existem formas de se obter informações, que devem ser mantidas em sigilo, mesmo não tendo a devida autorização e isto faz com que tenha uma insegurança por parte dos usuários dos algoritmos criptográficos em utiliza-los. Visando esse problema, a proposta deste trabalho é fazer a definição de um algoritmo de cifra de fluxo com balanceamento de frequência de ocorrência de caracteres.
+
+Existem diversas técnicas de criptoanálise. Uma dessas é a análise de frequência de ocorrência de caracteres de um texto cifrado. Com essa técnica, o atacante pode ter acesso ao texto em claro, utilizando referências de frequência de ocorrência média de caracteres para cada idioma. O algoritmo neste trabalho proposto tem como foco dificultar a execução dessa técnica, pois as frequências de ocorrência dos caracteres do texto cifrado serão balanceados e assim torna-se impossível determinar qual caractere terá maior frequência no mesmo.
 
 \section{Trabalhos Futuros}
 \label{future-work}
@@ -11,18 +12,51 @@ Existem diversas técnicas de criptoanálise e uma das mais antigas e que se apl
 	\subsection{Implementação}
 	\label{implementation}
 	
-	O primeiro passo para os próximos trabalhos é a implementação do algoritmo. Para esse trabalho, o mesmo será realizado em linguagem C, tomando os devidos cuidados na alocação de memória. 
-	A implementação de vários geradores de números pseudo-aleatórios também será realizada e de alguns algoritmos como por exemplo o RC4.
+	O primeiro passo será a implementação do algoritmo. Para este trabalho será realizado em linguagem C, tomando os devidos cuidados na alocação de memória. 
+	A implementação dos seguintes geradores de números pseudo-aleatórios também será realizada:
+		\begin{enumerate}
+			\item \textit{Blum Blum Shub}
+			\item \textit{Blum Micali}
+			\item Gerador linear congruente 
+		\end{enumerate}		 
+	O motivo para escolha desses geradores deve-se ao fato de que os dois primeiros são comprovadamente seguros e o último é um exemplo de geradores de números aleatórios que usa registradores como base. 
+	Como há a possiblidade de utilizar o algoritmo de equalização em conjunto com outros algoritmos de cifra de fluxo, o algoritmo que será utilizado em conjunto com esse equalizador será o \textit{RC4}
 	
-	\subsection{Testes}
+	\subsection{Testes de Desempenho}
 	\label{tests}
 	
-	Um problema identificado no decorrer da definição do algoritmo foi a possível queda de desempenho na produção do texto cifrado, principalmente nas situações de confito de posições.Para isso, após a implementação dos algoritmos, serão realizados testes para medir o desempenho do algoritmo.
+	Um problema identificado no decorrer da definição do algoritmo foi a possível queda de desempenho na produção do texto cifrado, principalmente nas situações de conflito de posições. Para isso, após a implementação dos algoritmos, serão realizados testes para medir o desempenho do algoritmo.
+
+	Os testes serão realizados nas implementação do algoritmo equalizador em conjunto com:
+	\begin{enumerate}
+		\item Gerador de números pseudo-aleatórios \textit{Blum Blum Shub}.
+		\item Gerador de números pseudo-aleatórios \textit{Blum Micali}.
+		\item Gerador linear congruente. 
+		\item Algoritmo RC4 com gerador de números pseudo-aleatórios \textit{Blum Blum Shub}.
+		\item Algoritmo RC4 com gerador de números pseudo-aleatórios \textit{Blum Micali}.
+		\item Algoritmo RC4 com gerador linear congruente.
+	\end{enumerate}
 	
-	Também serão feitos testes de desempenho em outros algoritmos de cifra de fluxo e análises serão realizadas comparando o desempenho dos mesmos e do algoritmo proposto.
+	Para obter dados que possam ser comparativos, os seguintes algoritmos serão implementados e comparados com os resultados obtidos utilizando o algoritmo equalizador.
+	
+	\begin{enumerate}
+		\item Algoritmo RC4 com gerador de números pseudo-aleatórios \textit{Blum Blum Shub}.
+		\item Algoritmo RC4 com gerador de números pseudo-aleatórios \textit{Blum Micali}.
+		\item Algoritmo RC4 com gerador linear congruente.
+	\end{enumerate}
+
+%	\subsection{Testes de Segurança}
+	
+%	O documento NIST SP 800-22 produzido pelo NIST especifica testes estatísticos que definem se um dado algoritmo produz um resultado seguro. Neste documento são especificados os seguintes testes:
+	
+%	\begin{description}
+%		\item 
+%	\end{description}	 
+	
+%	Esses testes serão implementados. Esses testes serão executados para análise de segurança do algoritmo equalizador de frequência de ocorrências. A partir desses resultados, um relatório será produzido especificando e explicando os resultados.
 	
 	\subsection{Melhorias na Implementação}
 	\label{improments}
 	
-	Espera-se obter um desempenho inferior quando comparado a outros algoritmos de cifra de fluxo, porém se o mesmo for muito discrepante entre o algoritmo proposto e os outros algoritmos, melhorias serão avaliadas e se julgadas necessárias, serão implementadas.
+	A depender dos resultados obtidos nas comparações dos testes de desempenho, melhorias serão propostas ao algoritmo equalizador de frequência de ocorrência. Se julgadas necessárias, serão implementadas, após isso, os testes de desempenho serão executados novamente no algoritmo e novas comparações serão realizadas. 
 	

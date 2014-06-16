@@ -2,13 +2,15 @@
 \label{cryptograhy}
 
 %
-A criptografia é a ciência dos códigos secretos, permitindo a confidencialidade de uma comunicação que utiliza um meio inseguro.~\cite{vauldenay}. Então a necessidade de manter informações em sigilo impulsionou a evolução dos estudos da criptografia. O exato início da criptografia é incerto, mas na Renascença,assim como outros em muitos outros campos, o estudo da criptografia começou a ser aprofundado e suas técnicas armazenadas e ensinadas. \cite{donald-davies}
+A criptografia é a ciência dos códigos secretos, permitindo a confidencialidade de uma comunicação que utiliza um meio inseguro.~\cite{vauldenay}. A necessidade de manter informações em sigilo impulsionou a evolução dos estudos da criptografia. O exato início da criptografia é incerto, mas na Renascença, assim como outros em muitos outros campos, o estudo da criptografia começou a ser aprofundado e suas técnicas armazenadas e ensinadas. \cite{donald-davies}
 
 %
-Uma das primeiras formas de criptografia utilizada foi a substituição. A substituição primeiramente era feita de forma fixa, ou seja, era usada uma única tabela em que as letras do alfabeto eram trocadas por outras letras. Leon Battista Alberti introduziu uma maneira diferente de fazer a substituição, criando o algoritmo \textit{polyalphabetic substitution}. O princípio desse algoritmo era a criação de várias tabelas de substituição e a utilização de uma chave para definir a ordem que cada tabela seria usada para cifrar cada letra do texto em claro. O conjunto de tabelas de substituição é chamado de \textit{Vigenere tableau}.
+Uma das primeiras formas de criptografia utilizada foi a substituição de caracteres. A substituição primeiramente era feita de forma fixa, ou seja, era usada uma única tabela em que as letras do alfabeto eram trocadas por outras letras. Leon Battista Alberti introduziu uma maneira diferente de fazer a substituição, criando o algoritmo \textit{polyalphabetic substitution}. O princípio desse algoritmo era a criação de várias tabelas de substituição e a utilização de uma chave para definir a ordem que cada tabela seria usada para cifrar cada letra do texto em claro. O conjunto de tabelas de substituição é chamado de \textit{Vigenere tableau}.
 
 %
-Durante a II Guerra Mundial informações relacionadas a estratégias de guerra deveriam ser mantidas em sigilo. Com isso duas máquinas foram criadas e merecem destaque, a \textit{Enigma} e a \textit{SZ40}. Após a guerra, a publicação do algoritmo \textit{DES} serviu de incentivo para cientistas do mundo todo aprofundarem suas pesquisas em novos algoritmos. Nos dias de hoje existem duas linhas de estudo sobre a criptografia, a criptografia com chave simétrica e a com chave assimétrica. 
+Durante a II Guerra Mundial informações relacionadas a estratégias de guerra deveriam ser mantidas em sigilo. Com isso duas máquinas foram criadas e merecem destaque, a \textit{Enigma} e a \textit{Lorenz SZ40}. A máquna \textit{Enigma} foi baseada nas capacidades criptográficas de uma série de motores conectadas por fio e \textit{plugboard}.~\cite{jennifer-wilcox} O \textit{plugboard} fazia a substituição de uma letra por outra letra. A máquina \textit{Lorenz} foi um impressor anexado que automaticamente cifra o texto em claro pelo operador e envia o texto cifrado por um fio de comunicação. No outro lado da comunicação, tinha uma máquina \textit{Lorenz} idêntica que fazia a decifração automaticamente e imprimia o texto em claro no papel. ~\cite{chris-collins}
+
+Após a guerra, a publicação do algoritmo \textit{DES} serviu de incentivo para cientistas do mundo todo aprofundarem suas pesquisas em novos algoritmos. Nos dias de hoje existem duas linhas de estudo sobre a criptografia, a criptografia com chave simétrica e a com chave assimétrica. 
 
 \begin{figure}[h]
 \centering
@@ -27,23 +29,23 @@ Durante a II Guerra Mundial informações relacionadas a estratégias de guerra 
     \label{sz40-machine}
 \end{minipage}
 \end{figure}
-\footnotetext{\url{http://www.bbc.co.uk/history/topics/enigma}}
-\footnotetext{\url{http://www.cryptomuseum.com/crypto/lorenz/sz40/}}
+\footnotetext{Disponível em: \url{http://www.bbc.co.uk/history/topics/enigma}}
+\footnotetext{Disponível em: \url{http://www.cryptomuseum.com/crypto/lorenz/sz40/}}
 %
 
-\section{Criptografia Simétrica}
+\section{Criptografia de Chave Simétrica}
 \label{symmetric-cryptography}
 
 A criptografia simétrica utiliza a mesma chave\footnote{Entrada para as funções cifrar e decifrar, é usada para que duas pessoas consigam se comunicar em segredo.} para cifrar\footnote{Função que tem como objetivo transformar uma mensagem que deve estar em sigilo e transforma-la em algo inintelegível} e decifrar\footnote{Função que transforma uma mensagem inintelegível para a mensagem original} uma mensagem. É objeto de estudo para muitos cientistas e existem muitos algoritmos que ainda são utilizados pelo mundo. Sua vantagem é que o custo para ser utilizada não é tão elevado e sua possibilidade de uso é maior. 
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.5]
+\includegraphics[scale=0.7]
 {figuras/SymmetricCipher.eps}
 \caption[Funcionamento básico da criptografia simétrica] {Funcionamento básico da criptografia simétrica\protect\footnotemark}
 \end{figure}
 
-\footnotetext{\url{http://www.codeproject.com/Articles/21076/Securing-Data-in-NET}}
+\footnotetext{Disponível em: \url{http://www.codeproject.com/Articles/21076/Securing-Data-in-NET}}
 Os algoritmos são divididos em: cifra de bloco e cifra de fluxo.
 
 \subsection{Cifra de Bloco}
@@ -51,7 +53,9 @@ Os algoritmos são divididos em: cifra de bloco e cifra de fluxo.
 
 A cifra de bloco tem como princípio a cifra de blocos com tamanho definido e a mensagem criptografada deve ter o mesmo tamanho da mensagem em claro. Um algoritmo muito conhecido é o \textit{DES} e que foi desenvolvido pela \textit{IBM}. Foi a primeira cifra comercialmente desenvolvida e sua estrutura foi divulgada por completo. ~\cite{alex-biryukov}. 
 
-O tamanho da chave utilizada no \textit{DES} é considerado um problema nos dias atuais. Muitos pesquisadores sabendo desse problema tentaram remediar o problema com novas maneiras criptográficas, um exemplo é o \textit{3-DES}, que utiliza duas chaves no processo, mas como consequência tem seu desempenho prejudicado. Outra medida para contornar o problema de ataques ao \textit{DES} foi a publicação de um concurso do \textit{NIST} para a escolha do novo padrão criptográfico. Assim surgiu o \textit{AES}, algoritmo que utiliza o sistema de permutação e substituição, tem o tamanho do bloco fixo de 128 bits e tamanho de chave variável entre 128, 192 ou 256 bits. 
+O tamanho da chave utilizada no \textit{DES} é considerado um problema nos dias atuais. Muitos pesquisadores sabendo desse problema tentaram remediar o problema com novas variantes criptográficas, um exemplo é o \textit{3-DES}, que utiliza duas chaves no processo, mas que, como consequência, tem seu desempenho prejudicado. 
+
+Outra medida para contornar o problema de ataques ao \textit{DES} foi a publicação de um concurso do \textit{NIST} para a escolha do novo padrão criptográfico. Assim surgiu o \textit{AES}, algoritmo que utiliza o sistema de permutação e substituição, tem o tamanho do bloco fixo de 128 bits e tamanho de chave variável entre 128, 192 ou 256 bits. 
 
 Existem operações que podem ser aplicadas nas cifras de blocos e que podem ser utilizadas nos algoritmos \textit{DES} e \textit{AES} para a produção de mensagens criptografadas, são elas:
 
@@ -61,42 +65,42 @@ Existem operações que podem ser aplicadas nas cifras de blocos e que podem ser
 \centering
 \includegraphics[keepaspectratio=true,scale=0.7]
 	{figuras/ecb.eps}
-	\caption[Electronic Codebook Mode]{\textit{Electronic Codebook Mode}\protect\footnotemark}
+	\caption[Modo Electronic Codebook]{Modo \textit{Electronic Codebook}\protect\footnotemark}
 	
 \end{figure} 
-\footnotetext{\url{http://cryptodox.com/Block\_cipher\_modes\_of\_operation}}
+\footnotetext{Disponível em: \url{http://cryptodox.com/Block\_cipher\_modes\_of\_operation}}
 \item[CBC] utiliza da operação de ou-exclusivo entre um vetor de inicialização( para o primeiro bloco) e o texto em claro\footnote{Mensagem que deve ser mantida em sigilo e que se deseja cifrar.} e por fim um ou-exclusivo do resultado com a chave. A partir do segundo bloco ao invés de um vetor de inicialização é utilizado o bloco criptografado anterior.
 \begin{figure}[h]
 \centering
 \includegraphics[keepaspectratio=true,scale=0.7]
     {figuras/cbc.eps}
-    \caption[Cipher Block Chaining Mode]{\textit{Cipher Block Chaining Mode}\protect\footnotemark}
+    \caption[Modo Cipher Block Chaining]{Modo \textit{Cipher Block Chaining}\protect\footnotemark}
 \end{figure} 
-\footnotetext{\url{https://www.adayinthelifeof.nl/2010/12/08/encryption-operating-modes-ecb-vs-cbc/}}
+\footnotetext{Disponível em:\url{https://www.adayinthelifeof.nl/2010/12/08/encryption-operating-modes-ecb-vs-cbc/}}
 \item[CFB] muito similar ao CBC, porém é feito um ou-exclusivo da chave com o vetor de inicialização ou bloco criptografado anterior e o resultado é feito um ou-exclusivo com a mensagem em claro.
 \begin{figure}[h]
 \centering
 \includegraphics[keepaspectratio=true,scale=0.7]
     {figuras/cfb.eps}
-    \caption[Cipher Feedback Mode]{\textit{Cipher Feedback Mode } \protect\footnotemark} 
+    \caption[Modo Cipher Feedback]{Modo \textit{Cipher Feedback} \protect\footnotemark} 
 \end{figure}
-\footnotetext{\url{http://crypto.stackexchange.com/questions/2476/cipher-feedback-mode}}
+\footnotetext{Disponível em: \url{http://crypto.stackexchange.com/questions/2476/cipher-feedback-mode}}
 \item[OFB] a diferença em relação ao CFB é que o resultado entre o vetor de inicialização ou resultado da operação anterior e a chave serve de entrada para o próximo bloco, ao invés do bloco criptografado.
 \begin{figure}[h]
 \centering
 \includegraphics[keepaspectratio=true,scale=0.7]
     {figuras/ofb.eps}
-    \caption[Output Feedback Mode]{\textit{Output Feedback Mode}\protect\footnotemark} 
+    \caption[Modo Output Feedback]{Modo \textit{Output Feedback}\protect\footnotemark} 
 \end{figure}
-\footnotetext{\url{http://commons.wikimedia.org/wiki/File:Ofb\_decryption.png}}
+\footnotetext{Disponível em: \url{http://commons.wikimedia.org/wiki/File:Ofb\_decryption.png}}
 \item[CTR] utiliza como entrada para a função criptográfica um contador que é acrescentado de um em um. 
 \begin{figure}[h]
 \centering
 \includegraphics[keepaspectratio=true,scale=0.5]
     {figuras/ctr.eps}
-    \caption[Counter Mode]{\textit{Counter Mode}\protect\footnotemark} 
+    \caption[Modo Counter]{Modo \textit{Counter}\protect\footnotemark} 
 \end{figure}
-\footnotetext{\url{http://crypto.stackexchange.com/questions/8151/counter-mode-static-iv-but-different-keys}}
+\footnotetext{Disponível em: \url{http://crypto.stackexchange.com/questions/8151/counter-mode-static-iv-but-different-keys}}
 \end{description}
 
 \subsubsection{Algoritmo DES}
@@ -109,19 +113,19 @@ Como dito anteriormente, o DES foi o primeiro algoritmo que foi publicado e util
 		{figuras/des_cipher.eps}
 		\caption[Cifra \textit{DES}]{Cifra DES\protect\footnotemark} 
 \end{figure}
-\footnotetext{\url{http://www.eventid.net/show-DocId-19.htm}}
+\footnotetext{Disponível em: \url{http://www.eventid.net/show-DocId-19.htm}}
 
 Propriedades desse algoritmo:
 
 \begin{itemize}
 	\item Utiliza chave de 56 \textit{bits}.
-	\item Opera em blocos de data de 64 \textit{bits}.
-	\item A fase de inicialização é feito uma permutação do bloco.
-	\item Depois o bloco é dividido em dois blocos de 32 \textit{bits}
-	\item A operações são executadas sempre no bloco do lado direito.
-	\item Contém uma camada de substituição \textit{S-box} para introduzir confusão a cifra.
-	\item Contém uma camada de permutação \textit{p-box} para introduzir a difusão a cifra.
-	\item O resultado dessas duas operações no bloco do lado direito é então feito um ou-exclusivo com o lado esquerdo e isso resulta no lado direito do próximo \textit{round}.
+	\item Opera em blocos de dados de 64 \textit{bits}.
+	\item Na fase de inicialização é feito uma permutação do bloco de dados.
+	\item Depois o bloco de dados é dividido em dois blocos de 32 \textit{bits}
+	\item As operações são executadas sempre no bloco que fica ao lado direito do algoritmo.
+	\item Contém uma camada de substituição \textit{S-box} para introduzir confusão na cifra.
+	\item Contém uma camada de permutação \textit{p-box} para introduzir a difusão na cifra.
+	\item O resultado dessas duas operações no bloco do lado direito é feito um ou-exclusivo com o lado esquerdo e isso resulta no lado direito do próximo \textit{round}.
 \end{itemize}
 
 \subsubsection{Algoritmo AES}
@@ -134,13 +138,13 @@ O algoritmo \textit{AES} foi inventado com o intuito de dar mais segurança ao p
 		{figuras/aes_cipher.eps}
 		\caption[Cifra\textit{AES}]{Cifra AES\protect\footnotemark} 
 \end{figure}
-\footnotetext{\url{http://www.ecs.umass.edu/ece/koren/FaultTolerantSystems/simulator/AES-L/help.html}}
+\footnotetext{Disponível em: \url{http://www.ecs.umass.edu/ece/koren/FaultTolerantSystems/simulator/AES-L/help.html}}
 
 Propriedades do algoritmo:
 
 \begin{itemize}
-	\item Utiliza chaves com tamanhos variáveis, que dependem da quantidade de \textit{rounds} são utilizadas. Para 10 \textit{rounds} o tamanho da chave é 128 \textit{bits}. Para 12 \textit{rounds} o tamanho da chave é 192 \textit{bits} e para 14 \textit{rounds} o tamanho da chave é 256 \textit{bits}.
-	\item Tamanho do bloco é de 128 \textit{bits} conhecido como estado.
+	\item Utiliza chaves com tamanhos variáveis, que dependem da quantidade de \textit{rounds} que são utilizadas. Para 10 \textit{rounds} o tamanho da chave é 128 \textit{bits}. Para 12 \textit{rounds} o tamanho da chave é 192 \textit{bits} e para 14 \textit{rounds} o tamanho da chave é 256 \textit{bits}.
+	\item Tamanho do bloco é de 128 \textit{bits} e é conhecido como estado.
 	\item O bloco é dividido em uma matriz 4 $\times$ 4.
 	\item Todos os \textit{rounds} no \textit{AES} são idênticos, exceto o último.
 	\item Utiliza substituição com a função \textit{S-box} para introduzir confusão.
@@ -150,19 +154,19 @@ Propriedades do algoritmo:
 \subsection{Cifra de Fluxo}
 \label{stream-cipher}
 
-Os algoritmos que utilizam a cifra de fluxo o fazem bit a bit ou byte a byte. Uma das vantagens da cifra de fluxo em relação a cifra de bloco é seu desempenho superior e, por esse motivo, é muito utilizado em sistemas de redes,tais como \textit{bluetooth}, \textit{SSL} e outros. Outra vantagem é a possibilidade de transformar uma cifra de bloco em cifra de fluxo. Para isto basta definir que o tamanho do bloco seja bit ou byte. Alguns dos algoritmos de fluxo mais populares que, hoje cobrem mais de 80$\%$ do mundo na telecomunicação e \textit{cyber space}, são: A5/1, A5/2, E0 e RC4. ~\cite{majid-mohd}
+Os algoritmos que utilizam a cifra de fluxo o fazem \textit{bit} a \textit{bit} ou \textit{byte} a \textit{byte}. Uma das vantagens da cifra de fluxo em relação a cifra de bloco é seu desempenho superior e, por esse motivo, é muito utilizado em sistemas de redes,tais como \textit{bluetooth}, \textit{SSL} e outros. Outra vantagem é a possibilidade de transformar uma cifra de bloco em cifra de fluxo. Para isto basta definir que o tamanho do bloco seja bit ou byte. Alguns dos algoritmos de fluxo mais populares que, hoje cobrem mais de 80$\%$ do mundo na telecomunicação e \textit{cyber space}, são: A5/1, A5/2, E0 e RC4. ~\cite{majid-mohd}
 \begin{figure}[h]
 \centering
 \includegraphics[keepaspectratio=true,scale=0.7]
     {figuras/stream_cipher.eps}
     \caption[Funcionamento da cifra de fluxo]{Funcionamento da cifra de fluxo\protect\footnotemark} 
 \end{figure}
-\footnotetext{\url{http://www.globalspec.com/reference/81191/203279/2-6-stream-ciphers}}
+\footnotetext{Disponível em: \url{http://www.globalspec.com/reference/81191/203279/2-6-stream-ciphers}}
 
 \subsubsection{Algoritmo A5/1}
 \label{algorithm-a51}
 
-Principal algoritmo usado no mundo para a comunicação \textit{GSM}, foi desenvolvido em 1987 e teve seu funcionamento mantido em segredo e somente em 1999 foi revelado por engenharia reversa. Consiste de três \textit{Linear Feedback Shift register} ou \textit{LFSR} binários R1, R2 e R3 com cronômetro irregular. Um LFSR é um registrador que mantém valores de estado anterior e é atualizado por uma função que normalmente é um ou-exclusivo. 
+Principal algoritmo usado no mundo para a comunicação \textit{GSM}, foi desenvolvido em 1987 e teve seu funcionamento mantido em segredo e somente em 1999 foi revelado por engenharia reversa. Consiste de três \textit{Linear Feedback Shift register} ou \textit{LFSR} binários R1, R2 e R3 com cronômetro irregular. Um \textit{LFSR} é um registrador que mantém valores de estado anterior e é atualizado por uma função que normalmente é um ou-exclusivo. 
 
 \begin{figure}[h]
 \centering
@@ -170,9 +174,9 @@ Principal algoritmo usado no mundo para a comunicação \textit{GSM}, foi desenv
     {figuras/a5_1.eps}
     \caption[Estrura do algoritmo A5/1]{Estrura do algoritmo A5/1\protect\footnotemark} 
 \end{figure}
-\footnotetext{\url{http://cryptome.org/a51-bsw.htm}}
+\footnotetext{Disponível em: \url{http://cryptome.org/a51-bsw.htm}}
 
-Cada registrador contém bits importantes para a criptografia e que suas posições são predeterminadas. São os bit do \textit{clocking} e os \textit{tapping}. Os registradores tem tamanhos diferentes sendo que o R1 tem 19 bits, o R2 tem 22 bits e o R3 tem 23 bits. O algoritmo tem como entradas a chave secreta \textit{Kc}, que tem 64 bits e um vetor de inicialização de 22 bits composto do \textit{frame number}. O \textit{keystream}, de 228 bits, é a saída do processo, sendo que os primeiros 114 bits são o \textit{keystream} de \textit{downlink} e os outros 114 bits são o \textit{keystream} de \textit{uplink}.Cada ciclo no algoritmo é composto por passos específicos em cada registrador:
+Cada registrador contém bits importantes para a criptografia e que suas posições são predeterminadas. São os \textit{bits} do \textit{clocking} e os \textit{tapping}, que estão definidos na tabela \ref{important-bits}. Os registradores tem tamanhos diferentes sendo que o R1 tem 19 \textit{bits}, o R2 tem 22 \textit{bits} e o R3 tem 23 \textit{bits}. O algoritmo tem como entradas a chave secreta \textit{Kc}, que tem 64 bits e um vetor de inicialização de 22 bits composto do \textit{frame number}. O \textit{keystream}, de 228 \textit{bits}, é a saída do processo, sendo que os primeiros 114 \textit{bits} são o \textit{keystream} de \textit{downlink} e os outros 114 \textit{bits} são o \textit{keystream} de \textit{uplink}.Cada ciclo no algoritmo é composto por passos específicos em cada registrador:
 
 \begin{table}[h]
 \centering
@@ -184,20 +188,21 @@ Cada registrador contém bits importantes para a criptografia e que suas posiç�
 		R3 & 10 & 7,20,21,22 \\ \hline	
 	\end{tabular}
 	\caption{Bits importantes do algoritmo A5/1}
+	\label{important-bits}
 \end{table}
 
 \begin{enumerate}
-\item função ou-exclusivo em cada um dos \textit{tapping bits}.
-\item utilizando a regra de maioridade\footnote{Essa regra funciona da seguinte maneira, os três \textit{clocking} bits de cada registrador são comparados e os registradores que tiverem os bits que teve maior ocorrência na comparação são acionados, por exemplo o R1 tem bit 1, o R2 tem bit 0 e o R3 tem bit 1, então o bit com maior ocorrência é o 1, sendo assim somente os registradores R1 e R3 são acionados naquele ciclo.} com os \textit{clocking} bits. O registrador então é acionado se o valor do tempo for igual ao resultado da regra de maioridade então os bits do registrador é deslocado da direita para esquerda.
-\item se o registrador for acionado, então o resultado do ou-exclusivo do primeiro passo deve ser passado para a posição zero do registrador correspondente.
+\item Função ou-exclusivo em cada um dos \textit{tapping bits}.
+\item Utilizando a regra de maioridade\footnote{Essa regra funciona da seguinte maneira, os três \textit{clocking bits} de cada registrador são comparados e os registradores que tiverem os \textit{bits} que teve maior ocorrência na comparação são acionados, por exemplo o R1 tem \textit{bit} 1, o R2 tem \textit{bit} 0 e o R3 tem \textit{bit} 1, então o \textit{bit} com maior ocorrência é o 1, sendo assim somente os registradores R1 e R3 são acionados naquele ciclo.} com os \textit{clocking} bits. O registrador então é acionado se o valor do tempo for igual ao resultado da regra de maioridade então os bits do registrador é deslocado da direita para esquerda.
+\item Se o registrador for acionado, então o resultado do ou-exclusivo do primeiro passo deve ser passado para a posição zero do registrador correspondente.
 \end{enumerate}
 
-Finalmente com a saída o ou-exclusivo do R1[18], R2[21] e R[22]. Para a fase de iniciação é utilizado a chave de 64 bits e passa de bit por bit fazendo ou-exclusivo da posição 0 de cada registrador com o bit da chave. O algoritmo ignora o resultado das primeiras 100 execuções e depois devolve os bits do \textit{keystream} a cada 228 ciclos, gerando 228 bits de saída.
+Finalmente a saída é definida pelo ou-exclusivo dos \textit{bits} dos registradores nas posições: R1[18], R2[21] e R[22]. Para a fase de iniciação é utilizado a chave de 64 \textit{bits} e passa de \textit{bit} por \textit{bit} fazendo ou-exclusivo da posição 0 de cada registrador com o \textit{bit} da chave. O algoritmo ignora o resultado das primeiras 100 execuções e depois retorna os \textit{bits} do \textit{keystream} a cada 228 ciclos, gerando os 228 \textit{bits} de saída.
 
 \subsubsection{Algoritmo A5/2}
 \label{algorithm-a52}
 
-Esse algoritmo foi desenvolvido por motivos de restrições de exportação do A5/1 e tem uma estrutura similar ao A5/1, com algumas exceções como por exemplo: o A5/2 utiliza 4 registradores. Outra diferença é o fato que o \textit{clocking} dos registradores R1, R2 e R3 são acionados baseados na regra de maioridade do R4. Ou seja cada registrador é acionada dependendo dos bits do registrador R4. 
+Esse algoritmo foi desenvolvido por motivos de restrições de exportação do A5/1 e tem uma estrutura similar ao A5/1, com algumas exceções como por exemplo: o A5/2 utiliza 4 registradores. Outra diferença é o fato que o \textit{clocking} dos registradores R1, R2 e R3 são acionados baseados na regra de maioridade do R4. Ou seja cada registrador é acionado dependendo dos \textit{bits} do registrador R4. 
 
 \begin{table}[h]
 \centering
@@ -218,14 +223,14 @@ Esse algoritmo foi desenvolvido por motivos de restrições de exportação do A
     {figuras/a5_2.eps}
     \caption[Estrura do algoritmo A5/2]{Estrura do algoritmo A5/2\protect\footnotemark } 
 \end{figure}
-\footnotetext{\url{http://blog.cryptographyengineering.com/2012/02/sattelite-phone-encryption-is-terrible.html}}
+\footnotetext{Disponível em: \url{http://blog.cryptographyengineering.com/2012/02/sattelite-phone-encryption-is-terrible.html}}
 
-Caso o resultado da regra da maioridade dos \textit{clocking} bits do R4 seja igual ao do bit na posição 3 então o registrador R2 é acionado, caso seja igual ao bit na posição 7 então o registrador R3 é acionado e se for igual ao bit na posição 10 então o registrador R1 é acionado. Depois que os registradores são acionados, então o registrador R4 é acionado também. A saída desse algoritmo é feita da seguinte forma:
+Caso o resultado da regra da maioridade dos \textit{clocking} \textit{bits} do R4 seja igual ao do \textit{bit} que se encontra na posição 3 então o registrador R2 é acionado, caso seja igual ao \textit{bit} que se encontra na posição 7 então o registrador R3 é acionado e se for igual ao \textit{bit} que está na posição 10 então o registrador R1 é acionado. Depois que os registradores são acionados, então o registrador R4 é acionado também. A saída desse algoritmo é feita da seguinte forma:
 
 \begin{enumerate}
-	\item É calculado o complementar de um bit.
-	\item Em cada registrador é utilizado a regra da maioridade para dois bits e o complementar do bit calculado anteriormente. 
-	\item É feito um ou-exclusivo do resultado do item anterior com o bit mais significativo do registrador de cada registrador.
+	\item É calculado o complementar de um \textit{bit}.
+	\item Em cada registrador é utilizado a regra da maioridade para dois \textit{bits} e o complementar do \textit{bit} calculado anteriormente. 
+	\item É feito um ou-exclusivo do resultado do item anterior com o \textit{bit} mais significativo do registrador de cada registrador.
 \end{enumerate}
 
 \subsubsection{Algoritmo E0}
@@ -233,7 +238,7 @@ Caso o resultado da regra da maioridade dos \textit{clocking} bits do R4 seja ig
 
 Utilizado para proteger informações que utilizam a tecnologia \textit{bluetooth}. O principal objetivo dessa tecnologia é conectar dois aparelhos para transferência de algum tipo de informação.
 
-O algoritmo também é baseado no uso de registradores e a saída é gerada em ou-exclusivo de bits de cada registrador. Nessa estrutura são utilizados 4 registradores com tamanhos 25, 31, 33 e 39 bits. O sistema da geração do \textit{keystream} é um pouco diferente, a cada \textit{clock tick} todos os registradores são acionados e é feito um ou-exclusivo da saída de cada um. A operação é descrita a seguir:
+O algoritmo também é baseado no uso de registradores e a saída é gerada em ou-exclusivo de \textit{bits} de cada registrador. Nessa estrutura são utilizados 4 registradores com tamanhos 25, 31, 33 e 39 \textit{bits}. O sistema da geração do \textit{keystream} é um pouco diferente, a cada \textit{clock tick} todos os registradores são acionados e é feito um ou-exclusivo da saída de cada um. A operação é descrita a seguir:
 
 \begin{enumerate}
 	\item Além dos 4 registradores, o sistema é composto de dois registradores de 2 bits $c_t$ e $c_{t-1}$.
@@ -245,18 +250,18 @@ O algoritmo também é baseado no uso de registradores e a saída é gerada em o
 
 Projetado em 1987 por Ron Rivest, é muito utilizado em sistemas de redes como TLS/SSL e WEP por conta de sua simplicidade e alto desempenho. Tem tamanho de chave variável e se baseia em permutações aleatórias. Utiliza um gerador de números aleatórios e as permutações são realizadas sobre esses números aleatórios.
 
-O funcionamento do algoritmo é realizado com uma leitura do texto em claro feita a cada byte e cada byte produz um byte de texto cifrado. Seu funcionamento está ligado a um gerador de \textit{keystream}, ou seja, utilizando como entrada uma chave é criada uma sequência de números aleatórios.
+O funcionamento do algoritmo é realizado com uma leitura do texto em claro feita a cada \textit{byte} e cada \textit{byte} produz um \textit{byte} de texto cifrado. Seu funcionamento está ligado a um gerador de \textit{keystream}, ou seja, utilizando como entrada uma chave é criada uma sequência de números aleatórios.
 
 \begin{enumerate}
-	\item Dois bits \textit{i} e \textit{j} são usados para permutar um conjunto \textit{S}.
+	\item Dois \textit{bits} \textit{i} e \textit{j} são usados para permutar um conjunto \textit{S}.
 	\item No processo de inicialização a chave é tratada como um \textit{array} definido como \textit{K}.
-	\item Primeiramente o bit \textit{j} é igualado a 0 e o conjunto \textit{S} é definido como sua identidade, ou seja, \textit{S}[i] = i, para i = 0, 1, 2, ... 255
+	\item Primeiramente o \textit{bit} \textit{j} é igualado a 0 e o conjunto \textit{S} é definido como sua identidade, ou seja, \textit{S}[i] = i, para i = 0, 1, 2, ... 255
 	\item Depois da fase de inicialição, para todos os valores de \textit{i}, que estão entre 0 e 255, o seguinte calculo é feito:
 	\begin{itemize}
 		\item j = j + S[i] + K[i mod \textit{l}], sendo que \textit{l} é o tamanho da chave.
 		\item Troca de S[i] por S[j]	
 	\end{itemize}	 
-	\item O resultado dessa operação é utilizado para um ou-exclusivo com o byte do texto em claro correspondente.
+	\item O resultado dessa operação é utilizado para um ou-exclusivo com o \textit{byte} do texto em claro correspondente.
 \end{enumerate} 
 
 %
@@ -264,20 +269,18 @@ O funcionamento do algoritmo é realizado com uma leitura do texto em claro feit
 \label{assymmetric-cryptography}
 
 %
-A criptografia assimétrica é usada principalmente para cifrar dados pequenos. Um dos principais usos é a assinatura digital e para realizar a troca de chaves. Esse tipo de criptografia está associada à criptografia de chave pública. Nela é estabelecido que um par de chaves (chave pública e privada) sejam usadas para a cifração e decifração da mensagem. 
+A criptografia assimétrica é usada principalmente para cifrar dados pequenos. Um dos principais usos é a assinatura digital e para realizar a troca de chaves de forma segura. Esse tipo de criptografia está associada à criptografia de chave pública. Nela é estabelecido que um par de chaves (chave pública e privada) sejam usadas para a cifração e decifração da mensagem. 
 
 %
 O funcionamento é simples. Bob tem suas duas chaves e disponibiliza sua chave pública de forma que qualquer pessoa que tenha interesse em lhe enviar uma mensagem criptografada utilize sua chave pública. Quando Bob recebe a mensagem cifrada, é realizada a decifração dessa mensagem utilizando sua chave privada.
 
 %
-Alguns dos algoritmos mais conhecidos são o Elgamal e o Diffie-Hellman. O algoritmo \textit{RSA} foi o primeiro algoritmo a cifrar e decifrar com sucesso utilizando o princípio da chave pública. O Elgamal tem sua força proveniente da dificuldade de se calcular um logaritmo discreto. Com o Elgamal pode-se realizar a assinatura digital de um documento. O Diffie-Hellman foram os visionários da chave pública, primeiramente definiram a idéia e algum tempo depois definiram um algoritmo que serve apenas para trocar uma chave secreta entre duas pessoas.  Na tabela abaixo descrevemos os principais usos de cada algoritmo. 
-
-
+Alguns dos algoritmos mais conhecidos são o \textit{Elgamal} e o \textit{Diffie-Hellman}. O algoritmo \textit{RSA} foi o primeiro algoritmo a cifrar e decifrar com sucesso utilizando o princípio da chave pública. O \textit{Elgamal} tem sua força proveniente da dificuldade de se calcular um logaritmo discreto. Com o Elgamal pode-se realizar a assinatura digital de um documento. \textit{Diffie-Hellman} foram os visionários da chave pública, primeiramente definiram a idéia e algum tempo depois definiram um algoritmo que serve apenas para trocar uma chave secreta entre duas pessoas. 
 
 \subsection{Algoritmo RSA}
 \label{algorithm-rsa}
 
-Tem seu nome baseado nas iniciais dos cientistas do \textit{MIT} que o inventaram: \textit{Ron Rivest, Adi Shamir} e \textit{Len Adleman}. A geração das chaves desse algoritmo é feita utilizando números primos e sua força está associada ao fato que é fácil realizar a multiplicação de dois números primos grandes, mas é difícil a decomposição desse resultado. Portanto a chave é gerada da seguinte forma:
+Tem seu nome baseado nas iniciais dos cientistas do \textit{MIT} que o inventaram: \textit{Ron Rivest, Adi Shamir} e \textit{Len Adleman}. A geração das chaves desse algoritmo é feita utilizando números primos e sua força está associada ao fato de que é fácil realizar a multiplicação de dois números primos grandes, mas é difícil a decomposição desse resultado. Portanto a chave é gerada da seguinte forma:
 
 \begin{enumerate}
 \item Dois números \textbf{p} e \textbf{q} são escolhidos de forma aleatória e são primos.
@@ -288,27 +291,27 @@ Tem seu nome baseado nas iniciais dos cientistas do \textit{MIT} que o inventara
 \end{enumerate}
 
 %
-A chave pública "e" é usada para criptografar a mensagem e a chave privada "d" é usada para descriptografar. O método de crifra é simples, o texto é tratado como conjunto de inteiros e a cada inteiro é feito o seguinte cálculo:
+A chave pública "e"  é usada para cifrar a mensagem e a chave privada "d" é usada para decifrar. O método de cifra é simples, o texto é tratado como conjunto de inteiros e a cada inteiro é feito o seguinte cálculo:
 
 \begin{description}
-\item [Criptografar]
-C = M $^ e$ $\bmod$ n. Sendo que M é o inteiro correspondente a parte da mensagem em claro e n o resultado da multiplicação dos dois números primos selecionados na confecção  das chaves, C é a mensagem cifrada e \textbf{e} é a chave pública. 
-\item [Descriptografar]
-M = C $^ d$ $\bmod$ n. Sendo que C é o texto criptografado, M a mensagem em claro e \textbf{d} é a chave privada.
+\item [Cifrar]
+C = M $^ e$ $\bmod$ n. Sendo que M é o inteiro correspondente a parte do texto em claro e n o resultado da multiplicação dos dois números primos selecionados na confecção  das chaves, C é o texto cifrado e \textbf{e} é a chave pública. 
+\item [Decifrar]
+M = C $^ d$ $\bmod$ n. Sendo que C é o texto cifrado, M o texto em claro e \textbf{d} é a chave privada.
 \end{description}
 
 %
 \section{Criptoanálise}
 \label{cryptanalysis}
 
-Estudo que tem como objetivo criação de técnicas e métodos que ajudam a obter informações de um texto cifrado sem ter a devida autorização. Conforme a criptografia cresceu e seus estudos se aprofundaram, os estudos da criptoanálise também cresceram. Abaixo algumas técnicas de criptoanálise.
+Estudo que tem como objetivo a criação de técnicas e métodos que ajudam a obter o texto em claro a partir de um texto cifrado sem ter a devida autorização. Conforme a criptografia cresceu e seus estudos se aprofundaram, os estudos da criptoanálise também cresceram. Abaixo algumas técnicas de criptoanálise.
 
 \subsection{Força Bruta}
 \label{brute-force}
 
 Esse ataque visa procurar por exaustão a chave usada para cifrar a mensagem. Testa todas as possibilidades de chave e análisa o texto produzido. 
 
-É eficiente para chaves pquenas pois as possiblidades de chaves diminuem. Por se tratar de uma procura pela chave, essse método por ser aplicado em diferentes tipos de algoritmo criptográfico.
+É eficiente para chaves pequenas pois a quantidade de chaves possíveis é pequena. Por se tratar de uma procura pela chave, essse método pode ser aplicado em diferentes tipos de algoritmo criptográfico.
 
 \begin{table}[h]
 \centering
@@ -317,8 +320,8 @@ Esse ataque visa procurar por exaustão a chave usada para cifrar a mensagem. Te
 		Tamanho da chave & Tempo para quebrar \\ \hline
 		32 & 2.15 milisegundos \\ \hline
 		56 & 10.01 horas \\ \hline
-		128 & 5.4 X $ 10 ^ 18$ \\ \hline
-		168 & 5.9 X $ 10 ^30$ \\ \hline
+		128 & 5.4 X $ 10 ^{18}$ \\ \hline
+		168 & 5.9 X $ 10 ^{30}$ \\ \hline
 	\end{tabular}
 \caption{Tempo gasto para encontrar chaves}
 \end{table}
@@ -326,7 +329,7 @@ Esse ataque visa procurar por exaustão a chave usada para cifrar a mensagem. Te
 \subsection{Análise de Frequência}
 \label{frequency-analysis}
 
-Esse método visa analisar a frequência de cada byte de um texto cifrado. Existem diversos estudos que indicam a frequência média de cada letra em um texto. 
+Esse método visa analisar a frequência de ocorrência de cada caracter de um texto cifrado. Existem diversos estudos que indicam a frequência média de ocorrência de cada letra em um texto. 
 
 \begin{table}[h]
 \centering
@@ -347,9 +350,9 @@ Esse método visa analisar a frequência de cada byte de um texto cifrado. Exist
 	l & 4.025 & y & 1.974 \\ \hline
 	m & 2.406 & z & 0.074 \\ \hline
 \end{tabular}
-\caption[{Frequência média de letras em um texto}]{Frequência média de letras em um texto ~\cite{robert-lewand}} 
+\caption[{Frequência média de letras em um texto em inglês}]{Frequência média de letras em um texto em inglês ~\cite{robert-lewand}} 
 \end{table}
 
 A idéia é identificar as frequências do texto cifrado e substituir as letras a medida que for identificado, até conseguir produzir um texto coeso.
 
-Esse é o método que o algoritmo proposto nesse trabalho visa dificultar, visto que sua aplicação pode ser utilizada em qualquer tipo de algoritmo criptográfico e seus resultados podem ser satisfatórios. Com a equalização da saída, as frequências de cada letra não poderão utilizadas, visto que cada letra terá a mesma quantidade de frequência.
+Esse é o método que o algoritmo proposto nesse trabalho visa dificultar, visto que sua aplicação pode ser utilizada em diversos tipos de algoritmos criptográficos e seus resultados podem ser satisfatórios. Com o balanceamento das ocorrêcias do texto cifrado, as frequências médias conhecidas não servirão de apoio para possíveis ataques, visto que cada caracter terá a mesma quantidade de ocorrência.
