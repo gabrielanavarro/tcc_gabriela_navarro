@@ -29,8 +29,8 @@ Após a guerra, a publicação do algoritmo \textit{DES} serviu de incentivo par
     \label{sz40-machine}
 \end{minipage}
 \end{figure}
-\footnotetext{Disponível em: \url{http://www.bbc.co.uk/history/topics/enigma}}
-\footnotetext{Disponível em: \url{http://www.cryptomuseum.com/crypto/lorenz/sz40/}}
+\footnotetext{Disponível e adaptado de: \url{http://www.bbc.co.uk/history/topics/enigma}}
+\footnotetext{Disponível e adaptado de: \url{http://www.cryptomuseum.com/crypto/lorenz/sz40/}}
 %
 
 \section{Criptografia de Chave Simétrica}
@@ -45,7 +45,7 @@ A criptografia simétrica utiliza a mesma chave\footnote{Entrada para as funçõ
 \caption[Funcionamento básico da criptografia simétrica] {Funcionamento básico da criptografia simétrica\protect\footnotemark}
 \end{figure}
 
-\footnotetext{Disponível em: \url{http://www.codeproject.com/Articles/21076/Securing-Data-in-NET}}
+\footnotetext{Disponível e adaptado de: \url{http://www.codeproject.com/Articles/21076/Securing-Data-in-NET}}
 Os algoritmos são divididos em: cifra de bloco e cifra de fluxo.
 
 \subsection{Cifra de Bloco}
@@ -68,7 +68,7 @@ Existem operações que podem ser aplicadas nas cifras de blocos e que podem ser
 	\caption[Modo Electronic Codebook]{Modo \textit{Electronic Codebook}\protect\footnotemark}
 	
 \end{figure} 
-\footnotetext{Disponível em: \url{http://cryptodox.com/Block\_cipher\_modes\_of\_operation}}
+\footnotetext{Disponível e adaptado de: \url{http://cryptodox.com/Block\_cipher\_modes\_of\_operation}}
 \item[CBC] utiliza da operação de ou-exclusivo entre um vetor de inicialização( para o primeiro bloco) e o texto em claro\footnote{Mensagem que deve ser mantida em sigilo e que se deseja cifrar.} e por fim um ou-exclusivo do resultado com a chave. A partir do segundo bloco ao invés de um vetor de inicialização é utilizado o bloco criptografado anterior.
 \begin{figure}[h]
 \centering
@@ -76,7 +76,7 @@ Existem operações que podem ser aplicadas nas cifras de blocos e que podem ser
     {figuras/cbc.eps}
     \caption[Modo Cipher Block Chaining]{Modo \textit{Cipher Block Chaining}\protect\footnotemark}
 \end{figure} 
-\footnotetext{Disponível em:\url{https://www.adayinthelifeof.nl/2010/12/08/encryption-operating-modes-ecb-vs-cbc/}}
+\footnotetext{Disponível e adaptado de:\url{https://www.adayinthelifeof.nl/2010/12/08/encryption-operating-modes-ecb-vs-cbc/}}
 \item[CFB] muito similar ao CBC, porém é feito um ou-exclusivo da chave com o vetor de inicialização ou bloco criptografado anterior e o resultado é feito um ou-exclusivo com a mensagem em claro.
 \begin{figure}[h]
 \centering
@@ -84,7 +84,7 @@ Existem operações que podem ser aplicadas nas cifras de blocos e que podem ser
     {figuras/cfb.eps}
     \caption[Modo Cipher Feedback]{Modo \textit{Cipher Feedback} \protect\footnotemark} 
 \end{figure}
-\footnotetext{Disponível em: \url{http://crypto.stackexchange.com/questions/2476/cipher-feedback-mode}}
+\footnotetext{Disponível e adaptado de: \url{http://crypto.stackexchange.com/questions/2476/cipher-feedback-mode}}
 \item[OFB] a diferença em relação ao CFB é que o resultado entre o vetor de inicialização ou resultado da operação anterior e a chave serve de entrada para o próximo bloco, ao invés do bloco criptografado.
 \begin{figure}[h]
 \centering
@@ -92,15 +92,15 @@ Existem operações que podem ser aplicadas nas cifras de blocos e que podem ser
     {figuras/ofb.eps}
     \caption[Modo Output Feedback]{Modo \textit{Output Feedback}\protect\footnotemark} 
 \end{figure}
-\footnotetext{Disponível em: \url{http://commons.wikimedia.org/wiki/File:Ofb\_decryption.png}}
+\footnotetext{Disponível e adaptado de: \url{http://commons.wikimedia.org/wiki/File:Ofb\_decryption.png}}
 \item[CTR] utiliza como entrada para a função criptográfica um contador que é acrescentado de um em um. 
 \begin{figure}[h]
 \centering
-\includegraphics[keepaspectratio=true,scale=0.5]
+\includegraphics[keepaspectratio=true,scale=0.7]
     {figuras/ctr.eps}
     \caption[Modo Counter]{Modo \textit{Counter}\protect\footnotemark} 
 \end{figure}
-\footnotetext{Disponível em: \url{http://crypto.stackexchange.com/questions/8151/counter-mode-static-iv-but-different-keys}}
+\footnotetext{Disponível e adaptado de: \url{http://crypto.stackexchange.com/questions/8151/counter-mode-static-iv-but-different-keys}}
 \end{description}
 
 \subsubsection{Algoritmo DES}
@@ -113,7 +113,7 @@ Como dito anteriormente, o DES foi o primeiro algoritmo que foi publicado e util
 		{figuras/des_cipher.eps}
 		\caption[Cifra \textit{DES}]{Cifra DES\protect\footnotemark} 
 \end{figure}
-\footnotetext{Disponível em: \url{http://www.eventid.net/show-DocId-19.htm}}
+\footnotetext{Disponível e adaptado de: \url{http://www.eventid.net/show-DocId-19.htm}}
 
 Propriedades desse algoritmo:
 
@@ -138,7 +138,7 @@ O algoritmo \textit{AES} foi inventado com o intuito de dar mais segurança ao p
 		{figuras/aes_cipher.eps}
 		\caption[Cifra\textit{AES}]{Cifra AES\protect\footnotemark} 
 \end{figure}
-\footnotetext{Disponível em: \url{http://www.ecs.umass.edu/ece/koren/FaultTolerantSystems/simulator/AES-L/help.html}}
+\footnotetext{Disponível e adaptado de: \url{http://www.ecs.umass.edu/ece/koren/FaultTolerantSystems/simulator/AES-L/help.html}}
 
 Propriedades do algoritmo:
 
@@ -161,7 +161,7 @@ Os algoritmos que utilizam a cifra de fluxo o fazem \textit{bit} a \textit{bit} 
     {figuras/stream_cipher.eps}
     \caption[Funcionamento da cifra de fluxo]{Funcionamento da cifra de fluxo\protect\footnotemark} 
 \end{figure}
-\footnotetext{Disponível em: \url{http://www.globalspec.com/reference/81191/203279/2-6-stream-ciphers}}
+\footnotetext{Disponível e adaptado de: \url{http://www.globalspec.com/reference/81191/203279/2-6-stream-ciphers}}
 
 \subsubsection{Algoritmo A5/1}
 \label{algorithm-a51}
@@ -174,7 +174,7 @@ Principal algoritmo usado no mundo para a comunicação \textit{GSM}, foi desenv
     {figuras/a5_1.eps}
     \caption[Estrura do algoritmo A5/1]{Estrura do algoritmo A5/1\protect\footnotemark} 
 \end{figure}
-\footnotetext{Disponível em: \url{http://cryptome.org/a51-bsw.htm}}
+\footnotetext{Disponível e adaptado de: \url{http://cryptome.info/0001/a51-bsw/a51-bsw.htm}}
 
 Cada registrador contém bits importantes para a criptografia e que suas posições são predeterminadas. São os \textit{bits} do \textit{clocking} e os \textit{tapping}, que estão definidos na tabela \ref{important-bits}. Os registradores tem tamanhos diferentes sendo que o R1 tem 19 \textit{bits}, o R2 tem 22 \textit{bits} e o R3 tem 23 \textit{bits}. O algoritmo tem como entradas a chave secreta \textit{Kc}, que tem 64 bits e um vetor de inicialização de 22 bits composto do \textit{frame number}. O \textit{keystream}, de 228 \textit{bits}, é a saída do processo, sendo que os primeiros 114 \textit{bits} são o \textit{keystream} de \textit{downlink} e os outros 114 \textit{bits} são o \textit{keystream} de \textit{uplink}.Cada ciclo no algoritmo é composto por passos específicos em cada registrador:
 
@@ -223,7 +223,7 @@ Esse algoritmo foi desenvolvido por motivos de restrições de exportação do A
     {figuras/a5_2.eps}
     \caption[Estrura do algoritmo A5/2]{Estrura do algoritmo A5/2\protect\footnotemark } 
 \end{figure}
-\footnotetext{Disponível em: \url{http://blog.cryptographyengineering.com/2012/02/sattelite-phone-encryption-is-terrible.html}}
+\footnotetext{Disponível e adaptado de: \url{http://blog.cryptographyengineering.com/2012/02/sattelite-phone-encryption-is-terrible.html}}
 
 Caso o resultado da regra da maioridade dos \textit{clocking} \textit{bits} do R4 seja igual ao do \textit{bit} que se encontra na posição 3 então o registrador R2 é acionado, caso seja igual ao \textit{bit} que se encontra na posição 7 então o registrador R3 é acionado e se for igual ao \textit{bit} que está na posição 10 então o registrador R1 é acionado. Depois que os registradores são acionados, então o registrador R4 é acionado também. A saída desse algoritmo é feita da seguinte forma:
 
