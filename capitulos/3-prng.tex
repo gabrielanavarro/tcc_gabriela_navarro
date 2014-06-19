@@ -24,7 +24,7 @@ Com isso a utilização de geradores de números pseudo-aleatórios se faz neces
 	Esse critério serve para garantir que sabendo um número da sequência, é impossível prever o número anterior ou posterior.
 \end{description}
 
-Um gerador de números pseudo-aleatórios tem como entrada uma semente \footnote{Termo para especificar um número para geração de uma sequência.} A semente normalmente é gerada a partir de um algoritmo \textit{TRNG}. Pelo fato de serem utilizadas como entrada em algoritmos determinísticos as sementes devem ser guardadas de forma segura.
+Um gerador de números pseudo-aleatórios tem como entrada uma semente.\footnote{Termo para especificar um número para geração de uma sequência.} A semente normalmente é gerada a partir de um algoritmo \textit{TRNG}. Pelo fato de serem utilizadas como entrada em algoritmos determinísticos as sementes devem ser guardadas de forma segura.
 
 %\begin{figure}[h]
 %	\centering
@@ -41,10 +41,10 @@ Um gerador de números pseudo-aleatórios tem como entrada uma semente \footnote
 Uma técnica muito usada para geração de números pseudo-aleatórios é um algoritmo que primeiramente foi proposto por \textit{Lehmer}, que é conhecido como método Linear Congruente. \cite{william-stallings} O algoritmo gera uma sequência dependendo das entradas e a função utilizada para essa geração é:
 \begin{equation}
 	\label{Função para geração de números aleatórios.}
-	\mathcal{X}_n = (a \times X_{n - 1} + c)\: \bmod \: n
+	\mathcal{X}_n = (a \times X_{n - 1} + c)\: \bmod \: m	
 \end{equation}
 
-Para cada número produzido na sequência, essa formula é aplicada. A eficiência dessa sequência está diretamente relacionada a escolha das variáveis. A variável \textbf{m} é o módulo da equação e condição de escolha dessa variável é ser maior que 0. Para a variável \textbf{a} é o multiplicador da função e sua condição é ser maior que 0 e menor que \textbf{m}. A variável c é o incremento, sua condição é é estar entre 0 e \textbf{m}. O \textbf{$X_0$} é a semente para a sequência, será o primeiro elemento da sequência e sua condição é estar entre 0 e \textbf{m}.
+Para cada número produzido na sequência, essa formula é aplicada. A eficiência dessa sequência está diretamente relacionada a escolha das variáveis. A variável \textbf{m} é o módulo da equação e a condição de escolha dessa variável é ser maior que 0. A variável \textbf{a} é o multiplicador da função e sua condição é ser maior que 0 e menor que \textbf{m}. A variável c é o incremento e sua condição é estar entre 0 e \textbf{m}. O \textbf{$X_0$} é a semente para a sequência, será o primeiro elemento da sequência e sua condição é estar entre 0 e \textbf{m}.
 
 A escolha dessas entradas determina a periodicidade da sequência e por consequência seu desempenho. Como exemplo de uma sequência com periodicidade 4, as entradas seriam:
 
@@ -61,7 +61,7 @@ A escolha dessas entradas determina a periodicidade da sequência e por consequ�
 	\caption{Parâmetros para sequência com periodicidade 4}
 \end{table}
 
-Portanto o primeiro valor da sequência é o 1, por ser a semente. O segundo valor é calculado da seguinte maneira: 
+Portanto o primeiro valor da sequência é o 1 por ser a semente. O segundo valor é calculado da seguinte maneira: 
 
 \begin{equation}
 	\label{Cálculo do segundo valor}
@@ -109,7 +109,7 @@ A partir do quinto valor, a sequência se repete:
 	\mathcal{X}_n = 1
 \end{equation}
 
-Ou seja, as escolhas dos parâmetros é um passo extremamente importante para esse gerador. Um exemplo com uma periodicidade relativamente grande pode ser obtida trocando apenas o valor de \textbf{m} da resolução anterior:
+Ou seja, a escolha dos parâmetros é um passo extremamente importante para esse gerador. Um exemplo com uma periodicidade relativamente grande pode ser obtida trocando apenas o valor de \textbf{m} da resolução anterior:
 
 \begin{table}[h]
 	\centering
@@ -128,15 +128,15 @@ A sequência gerada a partir dessas variáveis, é:
 
 [1, 5, 25, 14, 33, 17, 11, 18, 16, 6, 30, 2, 10, 13, 28, 29, 34, 22, 36, 32, 12, 23, 4, 20, 26, 19, 21, 31, 7, 25, 24, 9, 8, 3, 15]
 
-Apesar de ter sido maior que a sequência anterior, isso não necessariamente prova sua eficiência, visto que para aplicações como a criptografia, números muito maiores seriam utilizados e sua periodicidade deve ser maior também.
+Apesar de ter sido maior que a sequência anterior, isso não necessariamente prova sua eficiência, visto que para aplicações como a criptografia, números muito maiores seriam utilizados e sua periodicidade teria de ser maior também.
 
 
 \subsection{Gerador Blum Blum Shub}
-Uma estratégia para se gerar números pseudo-aleatórios seguramente é conhecido como Blum Blum Shub, nomeado pelos seus desenvolvedores. Tem talvez a prova pública de sua força criptográfica de algoritmos para qualquer propósito. ~\cite{william-stallings} Os primeiros passos para o algoritmo são:
+Uma estratégia para se gerar números pseudo-aleatórios seguramente é conhecida como Blum Blum Shub, nomeada pelos seus desenvolvedores. Tem a prova pública de sua força criptográfica de algoritmos para qualquer propósito. ~\cite{william-stallings} Os primeiros passos para o algoritmo são:
 
 \begin{enumerate}
 	\item Escolha números primos \textbf{p} e \textbf{q}.
-	\item \textbf{p} e \textbf{q} devem ter resto 4 quando divididos por 4.
+	\item \textbf{p} e \textbf{q} devem ter resto 3 quando divididos por 4.
 	\item Obtenha \textbf{n}, multiplicando \textbf{p} e \textbf{q}.
 	\item Escolha \textbf{s} tal que \textbf{s} é primo relativo de \textbf{n}\footnote{p e q não são fatores de s}.
 \end{enumerate}
@@ -179,7 +179,7 @@ Com esses passos, o algoritmo tem as entradas para que possa ser realizada a ger
 	\mathcal{G}^k \equiv a \bmod p
 \end{equation}
 
-Em que \textbf{k} é um número inteiro postivo e g um inteiro que representará um grupo de números inteiros aleatórios.
+Em que \textbf{k} é um número inteiro positivo e g um inteiro que representará um grupo de números inteiros aleatórios.
 
 \subsubsection{Exemplo}
 
@@ -203,13 +203,13 @@ Existem dois geradores de números pseudo-aleatórios que são publicamente comp
 
 \subsection{Segurança do Blum Blum Shub}
 
-A segurança do \textit{Blum Blum Shub} é obtida pelo fato de que seu funcionamento se baseia na residuasidade quadrática. Esse problema é relacionado em decidir se \textbf{x}, em que mdc(x,N) = 1 e que \textbf{x} está entre 1 $\le$  x $\le$ N. \footnote{N é igual a multiplicação dos números primos escolhidos para a geração dos números.}
+A segurança do \textit{Blum Blum Shub} é obtida pelo fato de que seu funcionamento se baseia na residuasidade quadrática. Esse problema é relacionado em decidir se \textbf{x} é resíduo quadrático nas condições: mdc(x, N) = 1 e que \textbf{x} está entre 1 $\le$  x $\le$ N. \footnote{N é igual a multiplicação dos números primos escolhidos para a geração dos números.}
 
 Para ser um resíduo quadrático, \textbf{x} tem que ter a seguinte propriedade $y ^ 2 \equiv x \: \bmod N$, para um inteiro y. Para esse cálculo, um algoritmo recebe N e x como parâmetros e retorna 1 se for resíduo quadrático e 0 se não for.~\cite{josefin-martin}
 
 \subsection{Segurança do Blum Micali}
 
-Essa segurança é provida pelo problema do logaritmo discreto. Esse gerador utiliza da seguinte função:
+Sua segurança é provida pelo problema do logaritmo discreto. Esse gerador utiliza da seguinte função:
 
 \begin{equation}
 	\mathcal{G}^k \equiv a \: \bmod \: p 
@@ -219,10 +219,10 @@ Realizar a exponenciação logarítmica é um problema fácil de resolver, poré
 
 \subsection{Comparação do Blum Blum Shub E Blum Micali}
 
-No trabalho de Josefin Agerblad e  Martin Andersen em \textit{Provably Secure Pseudo-Random Generators}, foi realizado uma comparação dos dois geradores de números pseudo aleatórios que são comprovadamente seguros nos quesitos de aplicação, velocidade e segurança.
+No trabalho de Josefin Agerblad e  Martin Andersen em \textit{Provably Secure Pseudo-Random Generators}, foi realizada uma comparação dos dois geradores de números pseudo aleatórios, que são comprovadamente seguros, nos quesitos de aplicação, velocidade e segurança.
 
-No quesito aplicação, o \textit{Blum Blum Shub} foi considerado mais vantajoso pelo fato que esse gerador é melhor aplicacado para cifração de chave público e o \textit{Blum Micali} ser mais vantajoso para cifrações de chave privada. Como a cifração de chave pública é mais utilizada na criptografia, o \textit{Blum Blum Shub} foi ganhador nesse quesito.
+No quesito aplicação, o \textit{Blum Blum Shub} foi considerado mais vantajoso pelo fato que esse gerador é melhor aplicado para cifração de chave pública e o \textit{Blum Micali} ser mais vantajoso para cifrações de chave privada. Como a cifração de chave pública é mais utilizada na criptografia, o \textit{Blum Blum Shub} foi ganhador nesse quesito.
 
 No quesito velocidade, os autores não conseguiram determinar qual gerador é mais rápido, visto que para um gerador ser considerado seguro, o desempenho do mesmo é prejudicado já que suas operações são mais complexas.
 
-No quesito segurança, os autores também não conseguiram chegar em um consenso, visto que o problema que dificulta a quebra dos dois geradores são distintos e igualmente difíceis de serem resolvidos.
+No quesito segurança, os autores também não conseguiram chegar a um consenso, visto que o problema que dificulta a quebra dos dois geradores são distintos e igualmente difíceis de serem resolvidos.

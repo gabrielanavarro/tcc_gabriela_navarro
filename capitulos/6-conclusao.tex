@@ -2,9 +2,9 @@
 \label{conclusion}
 
 
-Conforme visto ao longo deste trabalho, existem formas de se obter informações, que devem ser mantidas em sigilo, mesmo não tendo a devida autorização e isto faz com que tenha uma insegurança por parte dos usuários dos algoritmos criptográficos em utiliza-los. Visando esse problema, a proposta deste trabalho é fazer a definição de um algoritmo de cifra de fluxo com balanceamento de frequência de ocorrência de caracteres.
+Conforme visto ao longo deste trabalho, existem formas de se obter informações, que devem ser mantidas em sigilo, mesmo não tendo a devida autorização e isto faz com que haja uma insegurança, por parte dos usuários dos algoritmos criptográficos, em utiliza-los. Visando resolver esse problema, a proposta deste trabalho é fazer a definição de um algoritmo de cifra de fluxo com balanceamento de frequência de ocorrência de caracteres.
 
-Existem diversas técnicas de criptoanálise. Uma dessas é a análise de frequência de ocorrência de caracteres de um texto cifrado. Com essa técnica, o atacante pode ter acesso ao texto em claro, utilizando referências de frequência de ocorrência média de caracteres para cada idioma. O algoritmo neste trabalho proposto tem como foco dificultar a execução dessa técnica, pois as frequências de ocorrência dos caracteres do texto cifrado serão balanceados e assim torna-se impossível determinar qual caractere terá maior frequência no mesmo.
+Existem diversas técnicas de criptoanálise. Uma dessas é a análise de frequência de ocorrência de caracteres de um texto cifrado. Com essa técnica, o atacante pode ter acesso ao texto em claro, utilizando referências de frequência de ocorrência média de caracteres para cada idioma. O algoritmo, neste trabalho proposto, tem como foco dificultar a utilização dessa técnica, pois as frequências de ocorrência dos caracteres do texto cifrado serão balanceadas e assim torna-se impossível determinar qual caractere terá maior frequência no mesmo.
 
 \section{Trabalhos Futuros}
 \label{future-work}
@@ -12,7 +12,7 @@ Existem diversas técnicas de criptoanálise. Uma dessas é a análise de frequ�
 	\subsection{Implementação}
 	\label{implementation}
 	
-	O primeiro passo será a implementação do algoritmo. Para este trabalho será realizado em linguagem C, tomando os devidos cuidados na alocação de memória. 
+	O primeiro passo será a implementação do algoritmo. Para este trabalho será utilizada a linguagem C, tomando os devidos cuidados na alocação de memória. 
 	A implementação dos seguintes geradores de números pseudo-aleatórios também será realizada:
 		\begin{enumerate}
 			\item \textit{Blum Blum Shub}
@@ -25,9 +25,9 @@ Existem diversas técnicas de criptoanálise. Uma dessas é a análise de frequ�
 	\subsection{Testes de Desempenho}
 	\label{tests}
 	
-	Um problema identificado no decorrer da definição do algoritmo foi a possível queda de desempenho na produção do texto cifrado, principalmente nas situações de conflito de posições. Para isso, após a implementação dos algoritmos, serão realizados testes para medir o desempenho do algoritmo.
+	Um problema identificado no decorrer da definição do algoritmo foi a possível queda de desempenho na produção do texto cifrado, principalmente nas situações de conflito de posições. Para isso, após a implementação dos algoritmos, serão realizados testes para medir o seu desempenho.
 
-	Os testes serão realizados nas implementação do algoritmo equalizador em conjunto com:
+	Os testes serão realizados na implementação do algoritmo equalizador em conjunto com:
 	\begin{enumerate}
 		\item Gerador de números pseudo-aleatórios \textit{Blum Blum Shub}.
 		\item Gerador de números pseudo-aleatórios \textit{Blum Micali}.
@@ -58,5 +58,5 @@ Existem diversas técnicas de criptoanálise. Uma dessas é a análise de frequ�
 	\subsection{Melhorias na Implementação}
 	\label{improments}
 	
-	A depender dos resultados obtidos nas comparações dos testes de desempenho, melhorias serão propostas ao algoritmo equalizador de frequência de ocorrência. Se julgadas necessárias, serão implementadas, após isso, os testes de desempenho serão executados novamente no algoritmo e novas comparações serão realizadas. 
+	A depender dos resultados obtidos nas comparações dos testes de desempenho, melhorias serão propostas ao algoritmo equalizador de frequência de ocorrência. Se julgadas necessárias, serão implementadas e, após isso, os testes de desempenho serão executados novamente no algoritmo e novas comparações serão realizadas. 
 	
