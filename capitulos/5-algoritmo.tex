@@ -18,7 +18,7 @@ O algoritmo de cifração terá como entrada um texto em claro e uma sequência 
 
 O mecanismo utilizado para este balanceamento será produzir o texto cifrado em “rodadas” de 256 \textit{bytes} em que cada valor de \textit{byte} cifrado só aparece uma vez por rodada. Isto é, os 256  \textit{bytes} cifrados de cada rodada são distintos, porém a ordem em que aparecem em cada rodada é aleatória (ou melhor dizendo, pseudo-aleatória).
 
-Para se garantir que nenhum valor de \textit{byte} cifrado se repita em uma rodada utiliza-se uma tabela de 256 posições. No início da rodada a tabela tem todas a suas 256 posições marcadas como não ocupadas. Para cada \textit{byte} de texto em claro que se deseja cifrar será feito um ou-exclusivo com o valor correspondente fornecido pelo gerador de números aleatórios resultando no \textit{byte} pré-cifrado. Tendo-se obtido o \textit{byte} pré-cifrado verifica-se se este valor já está ocupado na tabela. 
+Para se garantir que nenhum valor de \textit{byte} cifrado se repita em uma rodada, utiliza-se uma tabela de 256 posições. No início da rodada a tabela tem todas a suas 256 posições marcadas como não ocupadas. Para cada \textit{byte} de texto em claro que se deseja cifrar será feito um ou-exclusivo com o valor correspondente fornecido pelo gerador de números aleatórios resultando no \textit{byte} pré-cifrado. Tendo-se obtido o \textit{byte} pré-cifrado verifica-se se este valor já está ocupado na tabela. 
 
 \begin{figure}[h]
 	\centering
@@ -41,7 +41,7 @@ Para informar ao decifrador que houve um conflito na cifração propomos a utili
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.6]{figuras/funcionamento.eps}
+	\includegraphics[scale=0.4]{figuras/funcionamento.eps}
 	\caption{Esquema do algoritmo de cifração}
 \end{figure}
 
@@ -49,7 +49,7 @@ O processo de cifração, que pode ser visto no pseudo-código na figura \ref{ps
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=1]{figuras/pseudocondigo.eps}
+	\includegraphics[scale=0.6]{figuras/pseudocondigo.eps}
 	\caption{Pseudo código do algoritmo de cifração}
 	\label{pseudo-codigo}
 \end{figure}
@@ -60,7 +60,7 @@ Caso se detecte um conflito de resultados na tabela de balanceamento, é enviado
 
 Então o algoritmo vai executar o comando de descartar os números pseudo-aleatórios, até que se encontre um resultado em uma posição que esteja livre na tabela de balanceamento. 
 
-Ao encontrar essa posição livre, o algoritmo (no lado da cifração) enviará o byte de sinal (sem cifrar) e em seguida enviará o resultado do ou-exclusivo entre \textbf{j} (quantidade de números descartados) e S$_{old}$. Então o valor de \textbf{j} é novamente reinicializado como 0.
+Ao encontrar essa posição livre, o algoritmo (no lado da cifração) enviará o \textit{byte} de sinal (sem cifrar) e em seguida enviará o resultado do ou-exclusivo entre \textbf{j} (quantidade de números descartados) e S$_{old}$. Então o valor de \textbf{j} é novamente reinicializado como 0.
 
 Quando a tabela for totalmente concluída, a rodada termina e o processo se inicia de novo com uma nova rodada, reinicializando-se a tabela (todas as suas posições são marcadas como desocupadas). Esse processo termina quando os \textit{bytes} do texto em claro forem todos cifrados. A cada rodada o \textit{byte} de sinal terá um valor diferente. Escolhemos o primeiro \textit{byte} da sequência de números pseudo-aleatórios da rodada como o \textit{byte} de sinal. Este valor será também o último valor de \textit{byte} cifrado a ser enviado na rodada.
 
@@ -68,7 +68,7 @@ Quando terminarem os \textit{bytes} de texto em claro a serem cifrados, o cifrad
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.6]{figuras/metodo_de_decifra.eps}
+	\includegraphics[scale=0.4]{figuras/metodo_de_decifra.eps}
 	\caption{Esquema do algoritmo de decifração}
 \end{figure}
 
@@ -77,7 +77,7 @@ Podemos observar o processo de decifração na figura \ref{pseudo-codigo-decifra
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=1]{figuras/funcionamento_Decifra.eps}
+	\includegraphics[scale=0.7]{figuras/funcionamento_Decifra.eps}
 	\caption{Pseudo código do algoritmo de decifração}
 	\label{pseudo-codigo-decifrar}
 \end{figure}
@@ -88,12 +88,12 @@ Se o valor do \textit{byte} cifrado for diferente do valor do sinal utilizado na
 
 Se o valor do \textit{byte} cifrado for igual ao \textit{byte} de sinal utilizado na rodada, isso quer dizer que o próximo \textit{byte} do texto cifrado conterá o valor da variável \textbf{j} enviado pelo cifrador, que indica quantos números aleatórios devem ser descartados para o processo de decifração. Ao se descartar esses números, realiza-se a decifração do \textit{byte} cifrado e o processo de decifração volta ao curso normal de execução.
 
-Após cada decifração o valor de \textbf{d} é incrementado. A variável \textbf{d} é responsável para determinar quando a rodada em questão finalizou. Quando o contador \textbf{d} for igual a 255, uma nova rodada se inicia e então o próximo valor da sequência de números aleatórios é separado como o novo \textit{byte} de sinal para a próxima rodada e a variável d é reinicializada com valor 0.
+Se o decifrador receber o valor cifrado que é igual ao valor do sinal da rodada e os dois próximos valores cifrados são: j = 0 e o sinal novamente, isto significa que a rodada terminou. Neste ponto, o próximo valor gerado pelo gerador pseudo-aleatório será separado como o \textit{byte} de sinal da próxima rodada.
 
-Para definir se o processo de decifração terminou, o decifrador testa se o primeiro \textit{byte} cifrado da rodada seguinte recebido é igual ao \textit{byte} de sinal da rodada anterior. Se for igual isto significa que a decifração terminou. Se não for igual, tem-se uma nova rodada.
+Para definir se o processo de decifração terminou, o decifrador testa se o primeiro \textit{byte} cifrado da rodada seguinte recebido é igual ao \textit{byte} de sinal da rodada anterior. Se for igual isto significa que a decifração terminou.
 
 \section{Vantagens}
 
-A maior vantagem desse algoritmo é a equalização das frequências de ocorrência de cada valor de texto cifrado enviado. Excluindo-se os valores dos bytes de sinal e os valores dos números de sequência pseudo-aleatórios a serem desprezados na decifração, a frequência de cada valor possivel dos \textit{bytes} de texto cifrado será idêntica. Isto é, o algoritmo produz um texto cifrado perfeitamente balanceado.
+A maior vantagem desse algoritmo é a equalização das frequências de ocorrência de cada valor de texto cifrado enviado. Excluindo-se os valores dos \textit{bytes} de sinal e os valores dos números de sequência pseudo-aleatórios a serem desprezados na decifração, a frequência de cada valor possivel dos \textit{bytes} de texto cifrado será idêntica. Isto é, o algoritmo produz um texto cifrado perfeitamente balanceado.
 
-Outra vantagem do algoritmo de balanceamento de frequência proposto é que ele é totalmente genérico.  Isto é, ele funciona com qualquer gerador de números pseudo-aleatórios e algoritmos de cifra de fluxo, tais como: A5/1, A5/2, E0, RC4, Blum Blum Shub, Blum Micali, etc.
+Outra vantagem do algoritmo de balanceamento de frequência proposto é que ele é totalmente genérico.  Isto é, ele funciona com qualquer gerador de números pseudo-aleatórios e algoritmos de cifra de fluxo, tais como: A5/1, A5/2, E0, RC4, \textit{Blum Blum Shub}, \textit{Blum Micali}, etc.
