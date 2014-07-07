@@ -1,0 +1,10 @@
+Professor Edson:
+
+Texto:
+- Texto dos algoritmos são muito cansativos de ler.
+- Tirar os bullets e escrever sobre o algoritmo.
+- Fazer figuras de pseudo-código de cada algoritmo.
+- Arrumar português: vírgulas, acentos etc.
+
+Algoritmo:
+- Pensar numa alternativa, o fato de vc mandar um j=0 para avisar que a tabela concluiu e que é preciso atuallizar o sinal dá ao adversário a possibilidade de ter dois números da sua sequência. No gerador linear congruente pode-se obter os parâmetros que foram utilizados para a geração.
