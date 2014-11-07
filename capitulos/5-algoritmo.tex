@@ -54,7 +54,7 @@ O processo de cifração, que pode ser visto no pseudo-código na figura \ref{ps
 	\label{pseudo-codigo}
 \end{figure}
 
-O caminho ideal é o que o resultado da operação ou-exclusivo entre o \textit{byte} do texto em claro e o número aleatório correpondente sempre corresponda a uma posição livre na tabela de balanceamento.
+O caminho ideal é o que o resultado da operação ou-exclusivo entre o \textit{byte} do texto em claro e o número aleatório correspondente sempre corresponda a uma posição livre na tabela de balanceamento.
 
 Caso se detecte um conflito de resultados na tabela de balanceamento, é enviado o \textit{byte} de sinal para o receptor da mensagem, pois com isso o receptor saberá que o próximo valor recebido será a quantidade de números pseudo-aleatórios que deverão ser descartados da sequência. 
 
@@ -94,6 +94,6 @@ Para definir se o processo de decifração terminou, o decifrador testa se o pri
 
 \section{Vantagens}
 
-A maior vantagem desse algoritmo é a equalização das frequências de ocorrência de cada valor de texto cifrado enviado. Excluindo-se os valores dos \textit{bytes} de sinal e os valores dos números de sequência pseudo-aleatórios a serem desprezados na decifração, a frequência de cada valor possivel dos \textit{bytes} de texto cifrado será idêntica. Isto é, o algoritmo produz um texto cifrado perfeitamente balanceado.
+A maior vantagem desse algoritmo é a equalização das frequências de ocorrência de cada valor de texto cifrado enviado. Excluindo-se os valores dos \textit{bytes} de sinal e os valores dos números de sequência pseudo-aleatórios a serem desprezados na decifração, a frequência de cada valor possível dos \textit{bytes} de texto cifrado será idêntica. Isto é, o algoritmo produz um texto cifrado perfeitamente balanceado.
 
 Outra vantagem do algoritmo de balanceamento de frequência proposto é que ele é totalmente genérico.  Isto é, ele funciona com qualquer gerador de números pseudo-aleatórios e algoritmos de cifra de fluxo, tais como: A5/1, A5/2, E0, RC4, \textit{Blum Blum Shub}, \textit{Blum Micali}, etc.

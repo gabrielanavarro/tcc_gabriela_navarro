@@ -2,7 +2,7 @@
 \label{pseudo-random-number-generator}
 
 % 
-Há muitos anos a geração de números aleatórios é objeto de estudo da matemática. Por muito tempo não existiu um algoritmo determinístico para a geração de números que tivesse um período de repetição suficientemente longo para aplicações complexas. Em 1998, os matemáticos japoneses Matishumote e Nishimura inventaram o primeiro algoritmo em que a periocidade ( $2 ^ {19937}$ - 1) excede o número de mudanças rotatórias de elétrons desde a criação do universo. ~\cite{cristophe-diethelm} 
+Há muitos anos a geração de números aleatórios é objeto de estudo da matemática. Por muito tempo não existiu um algoritmo determinístico para a geração de números que tivesse um período de repetição suficientemente longo para aplicações complexas. Em 1998, os matemáticos japoneses Matishumote e Nishimura inventaram o primeiro algoritmo em que a periodicidade ( $2 ^ {19937}$ - 1) excede o número de mudanças rotatórias de elétrons desde a criação do universo. ~\cite{cristophe-diethelm} 
 
 %
 Apesar de existir o \textit{TRNG} ou \textit{True Random Number Generator}, que oferece sequências de números que são aleatórios, as mesmas não são determinísticas e isso faz com que sua utilização seja limitada, visto que em aplicações como a criptografia é necessário reproduzir a mesma sequência para a função de cifrar e de decifrar. 
@@ -16,7 +16,7 @@ Com isso a utilização de geradores de números pseudo-aleatórios se faz neces
 		\begin{description}
 			\item [Distribuição uniforme]
 			Os bits de uma sequência devem ter frequência aproximada, ou seja, a quantidade de 0 deve ser aproximada da quantidade de 1.
-			\item [Indepêndência]
+			\item [Independência]
 			Os números não devem ter relação entre si.
 			
 		\end{description}
@@ -195,7 +195,7 @@ Então para g = 3 e k = 4: 3$^4$ $\equiv$ 13 $\bmod$ 17. Ou seja, o número alea
 \section{Segurança comprovada em geradores de números pseudo-aleatórios}
 \label{security-of-prng}
 
-Segurança comprovada em criptografia significa que quebrar um algoritmo critpográfico específico é tão difícil quanto resolver um problema específico conhecido por ser difícil. ~\cite{josefin-martin}
+Segurança comprovada em criptografia significa que quebrar um algoritmo criptográfico específico é tão difícil quanto resolver um problema específico conhecido por ser difícil. ~\cite{josefin-martin}
 
 Uma das aplicações de números pseudo-aleatórios seguros é servir de geradores de \textit{keystream} para a cifra de fluxo. O algoritmo nesse trabalho proposto, irá utilizar esse de tipo de gerador de \textit{keystream}.
 
@@ -203,7 +203,7 @@ Existem dois geradores de números pseudo-aleatórios que são publicamente comp
 
 \subsection{Segurança do Blum Blum Shub}
 
-A segurança do \textit{Blum Blum Shub} é obtida pelo fato de que seu funcionamento se baseia na residuasidade quadrática. Esse problema é relacionado em decidir se \textbf{x} é resíduo quadrático nas condições: mdc(x, N) = 1 e que \textbf{x} está entre 1 $\le$  x $\le$ N. \footnote{N é igual a multiplicação dos números primos escolhidos para a geração dos números.}
+A segurança do \textit{Blum Blum Shub} é obtida pelo fato de que seu funcionamento se baseia na residualidade quadrática. Esse problema é relacionado em decidir se \textbf{x} é resíduo quadrático nas condições: mdc(x, N) = 1 e que \textbf{x} está entre 1 $\le$  x $\le$ N. \footnote{N é igual a multiplicação dos números primos escolhidos para a geração dos números.}
 
 Para ser um resíduo quadrático, \textbf{x} tem que ter a seguinte propriedade $y ^ 2 \equiv x \: \bmod N$, para um inteiro y. Para esse cálculo, um algoritmo recebe N e x como parâmetros e retorna 1 se for resíduo quadrático e 0 se não for.~\cite{josefin-martin}
 
@@ -215,7 +215,7 @@ Sua segurança é provida pelo problema do logaritmo discreto. Esse gerador util
 	\mathcal{G}^k \equiv a \: \bmod \: p 
 \end{equation}
 
-Realizar a exponenciação logarítmica é um problema fácil de resolver, porém o inverso, o logarítmo discreto, é uma operação comprovadamente difícil.
+Realizar a exponenciação logarítmica é um problema fácil de resolver, porém o inverso, o logaritmo discreto, é uma operação comprovadamente difícil.
 
 \subsection{Comparação do Blum Blum Shub E Blum Micali}
 
