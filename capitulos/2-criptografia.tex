@@ -257,7 +257,29 @@ O RC4 é dividido em três passos fundamentais: a inicialização, geração ale
 
 	\item [Inicialização] RC4 aceita chaves de tamanho variáveis. Na fase de inicialização, o vetor S é inicializado com valores iniciais seguindo o código mostrado a seguir:
 	
-% colocar codigo 
+    \begin{lstlisting}[caption={Código Inicialização}, label=inicialization]
+void rc4Initializer(RC4 * params, char key[]){
+
+  int i,j = 0;
+  size_t keylen = strlen(key);
+  unsigned char temp[255];
+  for(i = 0; i <= CHARACTERS; i++){
+    params->state[i] = i;
+    temp[i] = key[i % keylen];
+  }
+
+  unsigned char swap;
+  for(i = 0; i <= CHARACTERS; i++) {
+    j = (j + params->state[i] + temp[i]) % 256;
+    swap = params->state[j];
+    params->state[j] = params->state[i];
+    params->state[i] = swap;
+  }
+
+  params->i = 0;
+  params->j = 0;
+}
+    \end{lstlisting}
 
 Como pode ser visto no código anterior, um vetor temporário de 256 \textit{bytes} é criado juntamente com a inicialização do vetor de 256 \textit{bytes} S. O vetor T é inicializado com os valores da chave K. Se a chave tem tamanho 256 \textit{bytes}, então T é igual a K. Se K for menor que 256 \textit{bytes}m então a chave é repetida até preencher as 256 posições de T.
 
