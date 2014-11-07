@@ -267,6 +267,15 @@ void rc4Initializer(RC4 * params, char key[]){
     params->state[i] = i;
     temp[i] = key[i % keylen];
   }
+}
+    \end{lstlisting}
+
+Como pode ser visto no código anterior, um vetor temporário de 256 \textit{bytes} é criado juntamente com a inicialização do vetor de 256 \textit{bytes} S. O vetor temp é inicializado com os valores da chave K. Se a chave tem tamanho 256 \textit{bytes}, então T é igual a K. Se K for menor que 256 \textit{bytes}m então a chave é repetida até preencher as 256 posições de T.
+
+Após a inicialização do vetor T, é feita uma permutação inicial utilizando variáveis de controle \textit{i} e \textit{j} e é realizada obedecendo o código abaixo:
+
+    \begin{lstlisting}[caption={Código Permutação Inicial}, label=initialPermutation]
+void intialPermutation(RC4 * params, char key[]){
 
   unsigned char swap;
   for(i = 0; i <= CHARACTERS; i++) {
@@ -281,18 +290,36 @@ void rc4Initializer(RC4 * params, char key[]){
 }
     \end{lstlisting}
 
-Como pode ser visto no código anterior, um vetor temporário de 256 \textit{bytes} é criado juntamente com a inicialização do vetor de 256 \textit{bytes} S. O vetor T é inicializado com os valores da chave K. Se a chave tem tamanho 256 \textit{bytes}, então T é igual a K. Se K for menor que 256 \textit{bytes}m então a chave é repetida até preencher as 256 posições de T.
-
-Após a inicialização do vetor T, é feita uma permutação inicial utilizando variáveis de controle \textit{i} e \textit{j} e é realizada obedecendo o código abaixo:
-
-%colocar codigo.
-
 	\item [Geração Aleatória de \textit{bytes}] Após a permutação inicial, a geração de bytes é feita utilizando de permutações aleatórias do vetor S. Essa geração utiliza das variáveis de controle \textit{i}, \textit{j} e \textit{k}. Essa geração é realizada a cada cifração realizada pelo algoritmo. A geração é feita da seguinte forma:
 	
-%colocar codigo da geração.
+    \begin{lstlisting}[caption={Código Geração Aleatório de \textit{bytes}}, label=randomGeneration]
+char rc4Generator(RC4 * params){
+
+  unsigned char t;
+  unsigned char k;
+  unsigned char swap;
+  params->i = (params->i + 1) % 256;
+  params->j = (params->j + params->state[params->i]) % 256;
+  swap = params->state[params->j];
+  params->state[params->j] = params->state[params->i];
+  params->state[params->i] = swap;
+  t = (params->state[params->i] + params->state[params->j]) % 256;
+  k = params->state[t];
+
+  return k;
+}
+    \end{lstlisting}
 
 	\item [Cifração] Para a fase de cifração é preciso que se obtenha um \textit{byte} da função de gerador aleatório. A cifração desse algoritmo é feita com a operação ou-exclusivo entre o \textit{byte} proveniente do gerador e o \textit{byte} correspondente do texto em claro.
-% colocar codigo.
+
+    \begin{lstlisting}[caption={Código Cifração de \textit{bytes}}, label=encryption]
+char rc4Encryption(RC4 * params, char plainText){
+
+	byteToCipher = rc4Generator(params);
+	return plainText ^ byteToCipher;
+}
+    \end{lstlisting}
+
 \end{description}
 
 
