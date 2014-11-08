@@ -41,20 +41,55 @@ Para informar ao decifrador que houve um conflito na cifração propomos a utili
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.4]{figuras/funcionamento.eps}
+	\includegraphics[scale=0.5]{figuras/funcionamento.eps}
 	\caption{Esquema do algoritmo de cifração}
 \end{figure}
 
 O processo de cifração, que pode ser visto no pseudo-código na figura \ref{pseudo-codigo}, segue os seguintes caminhos:
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[scale=0.6]{figuras/pseudocondigo.eps}
-	\caption{Pseudo código do algoritmo de cifração}
-	\label{pseudo-codigo}
-\end{figure}
+%\begin{figure}[h]
+%	\centering
+%	\includegraphics[scale=0.6]{figuras/pseudocondigo.eps}
+%	\caption{Pseudo código do algoritmo de cifração}
+%	\label{pseudo-codigo}
+%\end{figure}
 
 O caminho ideal é o que o resultado da operação ou-exclusivo entre o \textit{byte} do texto em claro e o número aleatório correspondente sempre corresponda a uma posição livre na tabela de balanceamento.
+
+\begin{lstlisting}[caption={Pseudo-Código}, label=pseudo-codigo]
+sinal = S[0] // primeiro sinal do gerador
+tabela[255] = '0'
+count = 0;
+while(plainText != EOF)
+	if(tabela[plainText[k] ^ S[k]] != '1'){
+		if(j == 0)
+			geraSaida(plainText[k] ^ S[k]);
+		if( j > 0){
+			geraSaida(S[old] ^ j);
+			geraSaida(S[k+j] ^ plainText[k]);
+			j = 0;
+		}
+		count++;
+	}
+	if(tabela[plainText[k] ^ S[k] == '1'){
+		if(j == 0){
+			geraSaida(sinal);
+			S[old] = S[k+1];
+			j = 1;		
+		}
+		if(j > 0){
+			j = j + 1;
+		}
+	}
+	//se tabela completar
+	if(count == 256){
+		reinicializaTabela();
+		sinal = S[k]
+		count = 0;
+	}
+}
+    \end{lstlisting}
+
 
 Caso se detecte um conflito de resultados na tabela de balanceamento, é enviado o \textit{byte} de sinal para o receptor da mensagem, pois com isso o receptor saberá que o próximo valor recebido será a quantidade de números pseudo-aleatórios que deverão ser descartados da sequência. 
 
@@ -62,35 +97,52 @@ Então o algoritmo vai executar o comando de descartar os números pseudo-aleat�
 
 Ao encontrar essa posição livre, o algoritmo (no lado da cifração) enviará o \textit{byte} de sinal (sem cifrar) e em seguida enviará o resultado do ou-exclusivo entre \textbf{j} (quantidade de números descartados) e S$_{old}$. Então o valor de \textbf{j} é novamente reinicializado como 0.
 
-Quando a tabela for totalmente concluída, a rodada termina e o processo se inicia de novo com uma nova rodada, reinicializando-se a tabela (todas as suas posições são marcadas como desocupadas). Esse processo termina quando os \textit{bytes} do texto em claro forem todos cifrados. A cada rodada o \textit{byte} de sinal terá um valor diferente. Escolhemos o primeiro \textit{byte} da sequência de números pseudo-aleatórios da rodada como o \textit{byte} de sinal. Este valor será também o último valor de \textit{byte} cifrado a ser enviado na rodada.
-
-Quando terminarem os \textit{bytes} de texto em claro a serem cifrados, o cifrador envia novamente o valor do \textit{byte} de sinal da última rodada, indicando ao decifrador que o processo de cifração/decifração terminou.
+Quando a tabela for totalmente concluída, a rodada termina e o processo se inicia de novo com uma nova rodada, reinicializando-se a tabela (todas as suas posições são marcadas como desocupadas). Esse processo termina quando os \textit{bytes} do texto em claro forem todos cifrados. A cada rodada o \textit{byte} de sinal terá um valor diferente. Escolhemos o primeiro \textit{byte} da sequência de números pseudo-aleatórios da rodada como o \textit{byte} de sinal.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.4]{figuras/metodo_de_decifra.eps}
+	\includegraphics[scale=0.6]{figuras/metodo_de_decifra.eps}
 	\caption{Esquema do algoritmo de decifração}
 \end{figure}
 
 Podemos observar o processo de decifração na figura \ref{pseudo-codigo-decifrar}. Neste não é necessário se utilizar a tabela de balanceamento. Para se realizar a decifração é necessário que o decifrador tenha a capacidade de produzir a mesma sequência de números aleatórios que o cifrador. Isto implica que ele deve ter a mesma chave que foi utilizada no processo de cifrar.
 
-
-\begin{figure}[h]
-	\centering
-	\includegraphics[scale=0.7]{figuras/funcionamento_Decifra.eps}
-	\caption{Pseudo código do algoritmo de decifração}
-	\label{pseudo-codigo-decifrar}
-\end{figure}
-
 No início de cada rodada na decifração, o primeiro \textit{byte} da sequência aleatória é separado como o \textit{byte} de sinal. Os valores pseudo-aleatórios seguintes serão usados no processo de decifração. O primeiro passo no processo de decifração é comparar o \textit{byte} cifrado recebido com o valor de sinal utilizado na rodada. 
+
+
+%\begin{figure}[h]
+%	\centering
+%	\includegraphics[scale=0.7]{figuras/funcionamento_Decifra.eps}
+%	\caption{Pseudo código do algoritmo de decifração}
+%	\label{pseudo-codigo-decifrar}
+%\end{figure}
+
+    \begin{lstlisting}[caption={Pseudo-Código Decifração}, label=pseudo-codigo-decifrar]
+sinal = S[0] // primeiro sinal do gerador
+count = 0;
+while(cipherText != EOF)
+	if(C[k] != sinal){
+		geraSaida(C[k] ^ S[k];
+		count++;
+	}
+	if((C[k] == sinal){
+		j = C[k+1] ^ S[k+1];
+		S = S[k+j];
+		geraSaida(C[k] ^ S);
+		count++;
+	}
+	//se tabela completar
+	if(count == 256){
+		reinicializaTabela();
+		sinal = S[k]
+		count = 0;
+	}
+}
+    \end{lstlisting}
 
 Se o valor do \textit{byte} cifrado for diferente do valor do sinal utilizado na rodada, realiza-se a operação ou-exclusivo entre o \textit{byte} cifrado e o valor fornecido pelo gerador pseudo-aleatório, obtendo-se assim o \textit{byte} de texto em claro correspondente.
 
 Se o valor do \textit{byte} cifrado for igual ao \textit{byte} de sinal utilizado na rodada, isso quer dizer que o próximo \textit{byte} do texto cifrado conterá o valor da variável \textbf{j} enviado pelo cifrador, que indica quantos números aleatórios devem ser descartados para o processo de decifração. Ao se descartar esses números, realiza-se a decifração do \textit{byte} cifrado e o processo de decifração volta ao curso normal de execução.
-
-Se o decifrador receber o valor cifrado que é igual ao valor do sinal da rodada e os dois próximos valores cifrados são: j = 0 e o sinal novamente, isto significa que a rodada terminou. Neste ponto, o próximo valor gerado pelo gerador pseudo-aleatório será separado como o \textit{byte} de sinal da próxima rodada.
-
-Para definir se o processo de decifração terminou, o decifrador testa se o primeiro \textit{byte} cifrado da rodada seguinte recebido é igual ao \textit{byte} de sinal da rodada anterior. Se for igual isto significa que a decifração terminou.
 
 \section{Vantagens}
 

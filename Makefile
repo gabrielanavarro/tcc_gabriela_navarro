@@ -34,10 +34,12 @@ SOURCES = $(FIXOS_FILES) $(EDITAVEIS_FILES)
 
 .PHONY: all clean dist-clean
 
-all: 
-	@make $(TARGET)
+all: clean
+	@echo "Using" $(NPROCS) "jobs"
+	@make $(TARGET) -j$(NPROCS)
+	pdfinfo $(TARGET)
      
-$(TARGET): $(MAIN_FILE) $(SOURCES) bibliografia.bib
+$(TARGET):$(MAIN_FILE) $(SOURCES) bibliografia.bib
 	$(LATEX) $(MAIN_FILE) $(SOURCES)
 	$(BIBTEX) $(AUX_FILE)
 	$(LATEX) $(MAIN_FILE) $(SOURCES)
@@ -48,7 +50,7 @@ $(TARGET): $(MAIN_FILE) $(SOURCES) bibliografia.bib
 
 clean:
 	rm -f *~ *.dvi *.ps *.backup *.aux *.log
-	rm -f *.lof *.lot *.bbl *.blg *.brf *.toc *.idx
+	rm -f *.lof *.lot *.bbl *.blg *.brf *.toc *.idx *.lol
 	rm -f *.pdf
 	
 dist: clean
