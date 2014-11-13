@@ -11,7 +11,7 @@ Foram utilizados dois computadores para os experimentos aqui descritos. O primei
 
 Durante os experimentos, cabos de rede ligados diretamente no modem foram utilizados para que interferências da rede \textit{wireless} não prejudicasse os resultados dos experimentos. 
 
-Como existem fatores externos aos experimentos(internet, por exemplo) os resultados tendem a variar alguns milisegundos. Para se obter o valor mais acurado, foi feito a coleta de dez resultados por tamanho de texto para cada algoritmo em cada experimento. A média desses resultados serão descritos nas tabelas de resultados de cada experimento.
+Como existem fatores externos aos experimentos(internet, por exemplo) os resultados tendem a variar alguns milissegundos. Para se obter o valor mais acurado, foi feito a coleta de dez resultados por tamanho de texto para cada algoritmo em cada experimento. A média desses resultados serão descritos nas tabelas de resultados de cada experimento.
 
 \section{Tempos de Execução}
 
@@ -30,7 +30,7 @@ Com isso, foi efetuado o aumento da fila de mensagem e vimos que com a arquitetu
 
 \subsection{Experimento 3}
 
-Com os resultados obtidos pelo experimento anterior, resolvemos reavaliar a necessidade de enviar \textit{byte} a \textit{byte} o texto cifrado. Isso porque depois de algumas análises, percebemos que a quantidade de conflitos em uma cifração era equivalente a metade do texto em claro e para cada conflito doi \textit{bytes} a mais eram enviados, ou seja, a quantidade de bytes a mais enviados pelo algoritmo proposto era:
+Com os resultados obtidos pelo experimento anterior, resolvemos reavaliar a necessidade de enviar \textit{byte} a \textit{byte} o texto cifrado. Isso porque depois de algumas análises, percebemos que a quantidade de conflitos em uma cifração era equivalente a metade do texto em claro e para cada conflito três \textit{bytes} a mais eram enviados, ou seja, a quantidade de bytes a mais enviados pelo algoritmo proposto era:
 
 \begin{equation}
 	tcifrado = tclaro + 2 \times (tclaro/2)
@@ -39,17 +39,18 @@ Com os resultados obtidos pelo experimento anterior, resolvemos reavaliar a nece
 Isso resulta no dobro do texto em claro e que somente o algoritmo proposto envia. Portanto, para diminuir a quantidade de envios decidimos enviar os três \textit{bytes} referentes ao conflito(sinal, quantidade de \textit{bytes} descartados e texto cifrado) de uma só vez e isso chegaria perto da quantidade de envios que o \textit{RC4} realiza. O resultado desse experimento está descrito na tabela:
 
 \begin{table}[h]
+\centering
 \begin{tabular}{|c|c|c|c|c|}
 \hline
-\multirow{2}{*}{Tamanho do Texto(caracteres)} & \multicolumn{2}{c|}{RC4}         & \multicolumn{2}{c|}{RC4+Algoritmo} \\ \cline{2-5} 
-                                              & Cifração & Cifração+\textit{Thread} Envio & Cifração  & Cifração+\textit{Thread} Envio  \\ \hline
-5.000                                         &          &                       &           &                        \\ \hline
+\multirow{2}{*}{\centering Tamanho do Texto(caracteres)} & \multicolumn{2}{c|}{RC4}         & \multicolumn{2}{c|}{RC4+Algoritmo} \\ \cline{2-5} 
+                                              & Cifração & Cifração+\textit{Thread} Envio & Cifração  & Cifração+\textit{Thread} Envio   \\ \hline
 10.000                                        & 7.8      & 15.1                  & 12.6      & 15.9                   \\ \hline
 50.000                                        & 19.3     & 33.6                  & 28.2      & 34.9                   \\ \hline
 100.000                                       & 35.9     & 60.1                  & 50.5      & 61                     \\ \hline
 500.000                                       & 157      & 279.2                 & 207.2     & 427.5                  \\ \hline
 1.000.000                                     & 302.8    & 548.6                 & 397.6     & 1020.4                 \\ \hline
 \end{tabular}
+\caption{Tempos do \textit{RC4} e \textit{RC4}+Algoritmo}
 \end{table}
 
 \subsubsection{Tempo Total de Execução}
@@ -62,6 +63,7 @@ Como os resultados anteriores foram os mais satisfatórios que obtivemos durante
 	\item[Envio de sequência de caracteres] Nesse experimento, ao final do texto em claro foi enviado uma sequência de três 0.
 	
 \begin{table}[h]
+\centering
 \begin{tabular}{|c|c|c|c|}
 \hline
 Tamanho do Texto(caracteres) & RC4(ms)  & RC4+Algoritmo(ms) & Tempo a mais(ms) \\ \hline
@@ -71,6 +73,7 @@ Tamanho do Texto(caracteres) & RC4(ms)  & RC4+Algoritmo(ms) & Tempo a mais(ms) \
 500.000                      & 5730     & 6042.2            & 312.2            \\ \hline
 1.000.000                    & 11,429.6 & 12,048.7          & 619.1            \\ \hline
 \end{tabular}
+\caption{Tempo enviando sinal de fim do arquivo '000'}
 \end{table}
 \end{description}
 
@@ -81,16 +84,18 @@ Com esses resultados obtivemos em média 4,1\% de tempo a mais. A maior porcenta
 Esse experimento visa dar maior visibilidade sobre a quantidade média de conflitos que ocorrem em diversos tamanhos de textos e o tempo mediano das resoluções. Esses tempos podem ter uma variação, visto que para cada conflito a função de obter o tempo do sistema foi utilizada duas vezes. Para textos pequenos a variação pode ser pequena, porém a medida que o texto fica maior, esse tempo tende a aumentar também.(Rever isso aqui, será mesmo que afeta o tempo de conflito ou só o tempo total?). A tabela a seguir mostra os resultados obtidos.
 
 \begin{table}[h]
-\begin{tabular}{|l|l|l|l|}
+\centering
+\begin{tabular}{|p{3cm}|c|c|p{3cm}|}
 \hline
 Tamanho do texto(caracteres) & Tempo Extra(ms) & Quantidade de Conflitos & Tempo médio de resolução(ms) \\ \hline
-10.000                        & 10.4            & 5.037                    & 0.002065                     \\ \hline
-50.000                       & 32.8            & 25.174                   & 0.001303                     \\ \hline
-100.000                      & 67              & 49.998                   & 0.001340                     \\ \hline
-500.000                      & 313.7           & 250.086                  & 0.001254                     \\ \hline
-1.000.000                    & 611.8           & 499.890                  & 0.001224                     \\ \hline
-5.000.000                    & 3029.1          & 2.497.605                 & 0.001213                     \\ \hline
+\centering 10.000                        & 10.4            & 5.037                    \centering & 0.002065                     \\ \hline
+\centering 50.000                       & 32.8            & 25.174                   \centering &  0.001303                     \\ \hline
+\centering 100.000                      & 67              & 49.998                   \centering & 0.001340                     \\ \hline
+\centering 500.000                      & 313.7           & 250.086                  \centering & 0.001254                     \\ \hline
+\centering 1.000.000                    & 611.8           & 499.890                  \centering & 0.001224                     \\ \hline
+\centering 5.000.000                    & 3029.1          & 2.497.605                 & {0.001213}                     \\ \hline
 \end{tabular}
+\caption{Quantidade de conflitos identificados utilizando o algoritmo de balanceamento e o tempo médio de resolução.}
 \end{table}
 
 Percebe-se que a média de conflitos para cada tamanho de texto é aproximadamente a metade do tamanho do texto em claro. Outra percepção que pode ser obtida pela tabela é que conforme a quantidade de conflitos aumenta, o tempo médio de resolução diminui.
