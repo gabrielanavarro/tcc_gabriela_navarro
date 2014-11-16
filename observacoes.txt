@@ -10,3 +10,6 @@ Algoritmo:
 - Pensar numa alternativa, o fato de vc mandar um j=0 para avisar que a tabela concluiu e que é preciso atuallizar o sinal dá ao adversário a possibilidade de ter dois números da sua sequência. No gerador linear congruente pode-se obter os parâmetros que foram utilizados para a geração.
 
 So this is a test. I think it works fine!
+
+
+find (diretorio) -type f \( -name *.c -o -name *.h \) .exec echo "\lstinputlisting{* {} *}"

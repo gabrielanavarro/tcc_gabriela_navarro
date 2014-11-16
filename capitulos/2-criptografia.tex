@@ -118,7 +118,24 @@ Como dito anteriormente, o DES foi o primeiro algoritmo que foi publicado e util
 
 Esse algoritmo utiliza chave de 56 \textit{bits} e opera em blocos de dados de 64 \textit{bits}. A fase de inicialização é feita uma permutação do bloco de dados iniciais. O outro passo da fase de inicialização é dividir o bloco de dados em blocos de 32 \textit{bits}. 
 
-Depois dessa divisão, as operações são executadas no bloco que fica a direita como mostrado na figura \ref{cifra-des}. Esse algoritmo introduz dois atributos: confusão e difusão. O atributo de confusão é feito por uma camada de substituição \textit{S-box}. A camada de permutação é feita pela \textit{p-box} e é responsável pelo atributo de difusão na cifra. O resultado dessas duas operações no bloco do lado direito é feito um ou-exclusivo com o lado esquerdo e isso resulta no lado direito do próximo \textit{round}. Essas operações se repetem em todos os 16 \textit{rounds}. No último passo é realizada a inversão da permutação inicial.
+Depois dessa divisão, as operações são executadas no bloco que fica a direita como mostrado na figura \ref{cifra-des}. Esse algoritmo introduz dois atributos: confusão e difusão. O atributo de confusão é feito por uma camada de substituição \textit{S-box}. A camada de permutação é feita pela \textit{p-box} e é responsável pelo atributo de difusão na cifra. O resultado dessas duas operações no bloco do lado direito é feito um ou-exclusivo com o lado esquerdo e isso resulta no lado direito do próximo \textit{round}. Essas operações se repetem em todos os 16 \textit{rounds}. No último passo é realizada a inversão da permutação inicial. No pseudo-código \ref{des-pseudo-code} pode ser demonstrado os passos acima descritos.
+
+    \begin{lstlisting}[caption={Pseudo-código DES}, label=des-pseudo-code]
+void desCipher(char plainBlock[64], char roundKeys[56], char cipherBlock[64]){
+
+  char tempBlock[64] = permutation(plainBlock, initialPermutation)
+  char leftBlock[32] = split(0,32,tempBlock)
+  char rightBlock[32] = split(32,64,tempBlock)
+  for(i = 0; i < 16; i++){
+	mix(leftBlock, rightBlock, roundKey[i])    
+  }
+  swap(leftBlock, rightBlock)
+  
+  tempBlock = combination(leftBlock, rightBlock)
+  cipherBlock = permutation(tempBlock, finalPermutation)
+}
+    \end{lstlisting}
+
 
 \subsubsection{Algoritmo AES}
 
@@ -137,6 +154,22 @@ O algoritmo \textit{AES} foi inventado com o intuito de dar mais segurança ao p
 O algoritmo \textit{AES} utiliza chaves com tamanhos variáveis e essas dependem da quantidade de \textit{rounds} que são utilizados. Exemplo é que para 10 \textit{rounds} o tamanho da chave que deve ser utilizado é de 128 \textit{bits}, para 12 \textit{rounds} o tamanho da chave é de 192 \textit{bits} e para 14 \textit{rounds} o tamanho da chave correspondente é 256 \textit{bits}. Isso é feito pois para cada \textit{round}, um pedaço da chave é utilizado.
 
 O tamanho do bloco que é utilizado é de 128 \textit{bits} e é chamado de estado. O bloco de estado é dividido em uma matriz 4 $\times$ 4. A forma como cada \textit{round} é feita pode ser vista na figura \ref{cifra-aes}. Todos os \textit{rounds} são idênticos, com exceção do último \textit{round}. Em cada \textit{round} a operação de substituição com a função \textit{S-box} é feita e essa operação introduz confusão a cifra. Outra operação que é realizada em cada \textit{round} é a de permutação com a função de \textit{p-box} e introduz difusão a cifra. A permutação é composta pela mistura de colunas e linhas da matriz que o bloco foi dividido. A diferença entre o último \textit{round} e os anteriores é o passo de mistura das colunas, o documento de proposta de algoritmo explica o porque: Para que a cifra e o inverso da mesma sejam mais similares em estrutura, a camada de mistura de colunas do último \textit{round} é diferente das camadas de permutações de \textit{rounds} anteriores.\cite{aes-proposal}
+
+    \begin{lstlisting}[caption={Pseudo-código AES}, label=aes-pseudo-code]
+void aesCipher(char plainState[128], char roundKeys[rounds], char cipherState[128]){
+
+  char matrix[4][4] = transformInMatrix(plainState)
+  for(i = 0; i < rounds; i++){
+	char tempMatrix[4][4] = sBox(matrix)   
+	tempMatrix = shiftRows(tempMatrix) 
+	tempMatrix = mixColumns(tempMatrix)
+	matrix = AddKeys(tempMatrix, roundKeys[i])
+  }
+  char tempMatrix[4][4] = sBox(matrix)
+  tempMatrix = shiftRows(tempMatrix)
+  cipherBlock = AddKeys(tempMatrix, roundKeys[round])
+}
+    \end{lstlisting}
 
 \subsection{Cifra de Fluxo}
 \label{stream-cipher}
@@ -186,15 +219,39 @@ Cada registrador contém \textit{bits} importantes para a criptografia e suas po
 
 A operação de ou-exclusivo é realizada entre os \textit{tapping bits} de cada registrador. Utilizando a regra de maioridade\footnote{Essa regra funciona da seguinte maneira, os três \textit{clocking bits} de cada registrador são comparados e os registradores que tiverem os \textit{bits} que teve maior ocorrência na comparação são acionados, por exemplo o R1 tem \textit{bit} 1, o R2 tem \textit{bit} 0 e o R3 tem \textit{bit} 1, então o \textit{bit} com maior ocorrência é o 1, sendo assim somente os registradores R1 e R3 são acionados naquele ciclo.} com os \textit{clocking} bits. O registrador é acionado se o valor contido no \textit{clocking bits} for igual ao resultado da regra de maioridade e então os \textit{bits} do registrador são deslocado da direita para a posição mais a esquerda do registrador.
 
-%colocar codigo para a operação anterior
+\begin{lstlisting}[caption={Pseudo-código A5/1}, label=a51-pseudo-code]
+void a51Generation(key key[64]){
+
+  int i;
+  for(i = 0; i < 64; i++){
+  	R1[0] = R1[0] ^ key[i]
+	R2[0] = R2[0] ^ key[i]
+	R3[0] = R3[0] ^ key[i]  
+  }
+  	
+
+  registers R1[19] ,R2[22], R[23]
+  
+  resultR1 = R1[13] ^ R1[16] ^ R1[17], R1[18]
+  resultR2 = R2[20] ^ R2[21]
+  resultR3 = R3[7] ^ R3[20] ^ R3[21] ^ R3[22]
+  
+  clockingBit = marjorityRule(R1[8], R2[10], R3[10])
+  if(R1[8] == clockingBit){
+  	deslocateToTheLeft(resultR1)
+  }else if(R2[10] == clockingBit){
+    deslocateToTheLeft(resultR2)
+  }else if(R3[10] == clockingBit){
+    deslocateToTheLeft(resultR3)
+  }
+  
+  output = R1[18] ^ R2[21] ^ R3[22]
+}
+    \end{lstlisting}
 
 Se o registrador for acionado, então o resultado do ou-exclusivo do primeiro passo deve ser passado para a posição zero do registrador correspondente.
 
-%colocar codigo para a operação anterior
-
 Finalmente, a saída é definida pelo ou-exclusivo dos \textit{bits} dos registradores nas posições: R1[18], R2[21] e R[22]. Para a fase de iniciação é utilizada a chave de 64 \textit{bits} e passa de \textit{bit} por \textit{bit} fazendo ou-exclusivo da posição 0 de cada registrador com o \textit{bit} da chave. O algoritmo ignora o resultado das primeiras 100 execuções e depois retorna os \textit{bits} do \textit{keystream} a cada 228 ciclos, gerando os 228 \textit{bits} de saída.
-
-%colocar codigo para a operação anterior
 
 \subsubsection{Algoritmo A5/2}
 \label{algorithm-a52}
@@ -223,6 +280,34 @@ Esse algoritmo foi desenvolvido por motivos de restrições de exportação do A
 \footnotetext{Disponível e adaptado de: \url{http://blog.cryptographyengineering.com/2012/02/sattelite-phone-encryption-is-terrible.html}}
 
 Caso o resultado da regra da maioridade dos \textit{clocking} \textit{bits} do R4 seja igual ao do \textit{bit} que se encontra na posição 3 então o registrador R2 é acionado, caso seja igual ao \textit{bit} que se encontra na posição 7 então o registrador R3 é acionado e se for igual ao \textit{bit} que está na posição 10 então o registrador R1 é acionado. Depois que os registradores são acionados, então o registrador R4 é acionado também. A saída desse algoritmo é feita da seguinte forma: 
+
+\begin{lstlisting}[caption={Pseudo-código A5/2}, label=a52-pseudo-code]
+void a52Cipher(key key[64]){
+
+  registers R1[18] ,R2[21], R3[22], R4[16]
+  int i;
+  for(i = 0; i < 64; i++){
+  	R1[0] = R1[0] ^ key[i]
+	R2[0] = R2[0] ^ key[i]
+	R3[0] = R3[0] ^ key[i]  
+  }
+  
+  resultR1 = R1[13] ^ R1[16] ^ R1[17], R1[18]
+  resultR2 = R2[20] ^ R2[21]
+  resultR3 = R3[7] ^ R3[20] ^ R3[21] ^ R3[22]
+  
+  clockingBit = marjorityRule(R1[8], R2[10], R3[10])
+  if(R1[8] == clockingBit){
+  	deslocateToTheLeft(resultR1)
+  }else if(R2[10] == clockingBit){
+    deslocateToTheLeft(resultR2)
+  }else if(R3[10] == clockingBit){
+    deslocateToTheLeft(resultR3)
+  }
+  
+  output = R1[18] ^ R2[21] ^ R3[22]
+}
+    \end{lstlisting}
 
 \begin{enumerate}
 	\item É calculado o complementar do \textit{bit} da posição especificada de cada registrador.

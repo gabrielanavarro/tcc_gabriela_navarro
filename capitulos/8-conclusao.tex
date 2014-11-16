@@ -6,57 +6,13 @@ Conforme visto ao longo deste trabalho, existem formas de se obter informações
 
 Existem diversas técnicas de criptoanálise. Uma dessas é a análise de frequência de ocorrência de caracteres de um texto cifrado. Com essa técnica, o atacante pode ter acesso ao texto em claro, utilizando referências de frequência de ocorrência média de caracteres para cada idioma. O algoritmo, neste trabalho proposto, tem como foco dificultar a utilização dessa técnica, pois as frequências de ocorrência dos caracteres do texto cifrado serão balanceadas e assim torna-se impossível determinar qual caractere terá maior frequência no mesmo.
 
+Após a execução dos experimentos, podemos afirmar que a utilização do algoritmo em conjunto com o \textit{RC4} é possível com um impacto pequeno no desempenho do tempo total. Algumas observações devem ser feitas, por exemplo: a utilização da fila de mensagem do \textit{Linux} impacta que deve haver uma alteração em seu tamanho para que o algoritmo funcione sem impactos e a utilização desse algoritmo é indicado para comunicações síncronas, pois somente dessa forma, os desempenhos do \textit{RC4} e do \textit{RC4} e o algoritmo se assemelham. 
+
 \section{Trabalhos Futuros}
 \label{future-work}
 
-	\subsection{Implementação}
-	\label{implementation}
-	
-	O primeiro passo será a implementação do algoritmo. Para este trabalho será utilizada a linguagem C, tomando os devidos cuidados na alocação de memória. 
-	A implementação dos seguintes geradores de números pseudo-aleatórios também será realizada:
-		\begin{enumerate}
-			\item \textit{Blum Blum Shub}
-			\item \textit{Blum Micali}
-			\item Gerador linear congruente 
-		\end{enumerate}		 
-	O motivo para escolha desses geradores deve-se ao fato de que os dois primeiros são comprovadamente seguros e o último é um exemplo de geradores de números aleatórios que usa registradores como base. 
-	Como há a possibilidade de utilizar o algoritmo de equalização em conjunto com outros algoritmos de cifra de fluxo, o algoritmo que será utilizado em conjunto com esse equalizador será o \textit{RC4}
-	
-	\subsection{Testes de Desempenho}
-	\label{tests}
-	
-	Um problema identificado no decorrer da definição do algoritmo foi a possível queda de desempenho na produção do texto cifrado, principalmente nas situações de conflito de posições. Para isso, após a implementação dos algoritmos, serão realizados testes para medir o seu desempenho.
-
-	Os testes serão realizados na implementação do algoritmo equalizador em conjunto com:
-	\begin{enumerate}
-		\item Gerador de números pseudo-aleatórios \textit{Blum Blum Shub}.
-		\item Gerador de números pseudo-aleatórios \textit{Blum Micali}.
-		\item Gerador linear congruente. 
-		\item Algoritmo RC4 com gerador de números pseudo-aleatórios \textit{Blum Blum Shub}.
-		\item Algoritmo RC4 com gerador de números pseudo-aleatórios \textit{Blum Micali}.
-		\item Algoritmo RC4 com gerador linear congruente.
-	\end{enumerate}
-	
-	Para obter dados que possam ser comparativos, os seguintes algoritmos serão implementados e comparados com os resultados obtidos utilizando o algoritmo equalizador.
-	
-	\begin{enumerate}
-		\item Algoritmo RC4 com gerador de números pseudo-aleatórios \textit{Blum Blum Shub}.
-		\item Algoritmo RC4 com gerador de números pseudo-aleatórios \textit{Blum Micali}.
-		\item Algoritmo RC4 com gerador linear congruente.
-	\end{enumerate}
-
-%	\subsection{Testes de Segurança}
-	
-%	O documento NIST SP 800-22 produzido pelo NIST especifica testes estatísticos que definem se um dado algoritmo produz um resultado seguro. Neste documento são especificados os seguintes testes:
-	
-%	\begin{description}
-%		\item 
-%	\end{description}	 
-	
-%	Esses testes serão implementados. Esses testes serão executados para análise de segurança do algoritmo equalizador de frequência de ocorrências. A partir desses resultados, um relatório será produzido especificando e explicando os resultados.
-	
-	\subsection{Melhorias na Implementação}
-	\label{improments}
-	
-	A depender dos resultados obtidos nas comparações dos testes de desempenho, melhorias serão propostas ao algoritmo equalizador de frequência de ocorrência. Se julgadas necessárias, serão implementadas e, após isso, os testes de desempenho serão executados novamente no algoritmo e novas comparações serão realizadas. 
+	\begin{description}
+		\item [Comunicações assíncronas] Após análises, foi percebido que uma melhoria que deve ser implementada é a possibilidade de se utilizar o algoritmo em comunicações assíncronas. 
+		\item [Multi-\textit{threading}] Uma maneira de auxiliar o algoritmo em questão de performance, seria implementa-lo de forma a aceitar ser multi-\textit{threading} para a cifração e envio. Uma maneira de fazer com que as mensagens cheguem na ordem deve ser pensada.
+	\end{description}
 	

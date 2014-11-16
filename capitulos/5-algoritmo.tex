@@ -22,7 +22,7 @@ Para se garantir que nenhum valor de \textit{byte} cifrado se repita em uma roda
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.7]{figuras/tabela.eps}
+	\includegraphics[scale=0.5]{figuras/tabela.eps}
 	\caption{Tabela de \textit{byte} para uso do algoritmo}
 \end{figure}
 
@@ -37,15 +37,16 @@ Aqui se introduz o problema de como enviar ao decifrador as seguintes informaç�
 	\item Em ocorrendo o conflito, qual o número de valores na sequência pseudo-aleatória deverão ser desprezados na decifração.
 \end{enumerate}
 
-Para informar ao decifrador que houve um conflito na cifração propomos a utilização de um valor de \textit{byte} entre 0 e 255 chamado de \textbf{sinal}. Este valor será enviado pelo cifrador como parte da sequência de \textit{bytes} cifrados indicando ao decifrador que o \textit{byte} seguinte na sequência de \textit{bytes} cifrados corresponderá ao número de valores da sequência produzida pelo gerador pseudo-aleatório que deverão ser desprezados.  Após o envio do \textit{byte} de sinal, o cifrador  enviará o valor da variável j (também cifrado), e finalmente enviará o \textit{byte} cifrado.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.5]{figuras/funcionamento.eps}
+	\includegraphics[scale=0.4]{figuras/funcionamento.eps}
 	\caption{Esquema do algoritmo de cifração}
 \end{figure}
 
-O processo de cifração, que pode ser visto no pseudo-código na figura \ref{pseudo-codigo}, segue os seguintes caminhos:
+Para informar ao decifrador que houve um conflito na cifração propomos a utilização de um valor de \textit{byte} entre 0 e 255 chamado de \textbf{sinal}. Este valor será enviado pelo cifrador como parte da sequência de \textit{bytes} cifrados indicando ao decifrador que o \textit{byte} seguinte na sequência de \textit{bytes} cifrados corresponderá ao número de valores da sequência produzida pelo gerador pseudo-aleatório que deverão ser desprezados.  Após o envio do \textit{byte} de sinal, o cifrador  enviará o valor da variável j (também cifrado), e finalmente enviará o \textit{byte} cifrado.
+
+O processo de cifração, que pode ser visto no pseudo-código \ref{pseudo-codigo}, segue os seguintes caminhos:
 
 %\begin{figure}[h]
 %	\centering
@@ -95,17 +96,18 @@ Caso se detecte um conflito de resultados na tabela de balanceamento, é enviado
 
 Então o algoritmo vai executar o comando de descartar os números pseudo-aleatórios, até que se encontre um resultado em uma posição que esteja livre na tabela de balanceamento. 
 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.4]{figuras/metodo_de_decifra.eps}
+	\caption{Esquema do algoritmo de decifração}
+\end{figure}
+
 Ao encontrar essa posição livre, o algoritmo (no lado da cifração) enviará o \textit{byte} de sinal (sem cifrar) e em seguida enviará o resultado do ou-exclusivo entre \textbf{j} (quantidade de números descartados) e S$_{old}$. Então o valor de \textbf{j} é novamente reinicializado como 0.
 
 Quando a tabela for totalmente concluída, a rodada termina e o processo se inicia de novo com uma nova rodada, reinicializando-se a tabela (todas as suas posições são marcadas como desocupadas). Esse processo termina quando os \textit{bytes} do texto em claro forem todos cifrados. A cada rodada o \textit{byte} de sinal terá um valor diferente. Escolhemos o primeiro \textit{byte} da sequência de números pseudo-aleatórios da rodada como o \textit{byte} de sinal.
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[scale=0.6]{figuras/metodo_de_decifra.eps}
-	\caption{Esquema do algoritmo de decifração}
-\end{figure}
-
-Podemos observar o processo de decifração na figura \ref{pseudo-codigo-decifrar}. Neste não é necessário se utilizar a tabela de balanceamento. Para se realizar a decifração é necessário que o decifrador tenha a capacidade de produzir a mesma sequência de números aleatórios que o cifrador. Isto implica que ele deve ter a mesma chave que foi utilizada no processo de cifrar.
+Podemos observar o processo de decifração no pseudo-código \ref{pseudo-codigo-decifrar}. Neste não é necessário se utilizar a tabela de balanceamento. Para se realizar a decifração é necessário que o decifrador tenha a capacidade de produzir a mesma sequência de números aleatórios que o cifrador. Isto implica que ele deve ter a mesma chave que foi utilizada no processo de cifrar.
 
 No início de cada rodada na decifração, o primeiro \textit{byte} da sequência aleatória é separado como o \textit{byte} de sinal. Os valores pseudo-aleatórios seguintes serão usados no processo de decifração. O primeiro passo no processo de decifração é comparar o \textit{byte} cifrado recebido com o valor de sinal utilizado na rodada. 
 
