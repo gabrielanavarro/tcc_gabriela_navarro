@@ -2,17 +2,24 @@
 \label{conclusion}
 
 
-Conforme visto ao longo deste trabalho, existem formas de se obter informações, que devem ser mantidas em sigilo, mesmo não tendo a devida autorização e isto faz com que haja uma insegurança, por parte dos usuários dos algoritmos criptográficos, em utiliza-los. Visando resolver esse problema, a proposta deste trabalho é fazer a definição de um algoritmo de cifra de fluxo com balanceamento de frequência de ocorrência de caracteres.
+Conforme visto ao longo deste trabalho, existem formas de se obter informações, que devem ser mantidas em sigilo, mesmo não tendo a devida autorização e isto faz com que haja uma insegurança, por parte dos usuários dos algoritmos criptográficos, em utilizá-los. Visando resolver esse problema, a proposta deste trabalho é fazer a definição de um algoritmo de cifra de fluxo com balanceamento de frequência de ocorrência de caracteres.
 
 Existem diversas técnicas de criptoanálise. Uma dessas é a análise de frequência de ocorrência de caracteres de um texto cifrado. Com essa técnica, o atacante pode ter acesso ao texto em claro, utilizando referências de frequência de ocorrência média de caracteres para cada idioma. O algoritmo, neste trabalho proposto, tem como foco dificultar a utilização dessa técnica, pois as frequências de ocorrência dos caracteres do texto cifrado serão balanceadas e assim torna-se impossível determinar qual caractere terá maior frequência no mesmo.
 
-Após a execução dos experimentos, podemos afirmar que a utilização do algoritmo em conjunto com o \textit{RC4} é possível com um impacto pequeno no desempenho do tempo total. Algumas observações devem ser feitas, por exemplo: a utilização da fila de mensagem do \textit{Linux} impacta que deve haver uma alteração em seu tamanho para que o algoritmo funcione sem impactos e a utilização desse algoritmo é indicado para comunicações síncronas, pois somente dessa forma, os desempenhos do \textit{RC4} e do \textit{RC4} e o algoritmo se assemelham. 
+Após a execução dos experimentos, podemos afirmar que a utilização do algoritmo em conjunto com o \textit{RC4} é possível com um impacto pequeno no desempenho do tempo total. Algumas observações devem ser feitas, por exemplo:
+
+\begin{enumerate}
+	\item a utilização da fila de mensagem do \textit{Linux} impacta e haver uma alteração em seu tamanho para que o algoritmo funcione sem impactos
+	\item a utilização desse algoritmo é indicado para comunicações síncronas, pois somente dessa forma, os desempenhos do \textit{RC4} e do \textit{RC4} e o algoritmo se assemelham. 
+\end{enumerate}
 
 \section{Trabalhos Futuros}
 \label{future-work}
 
 	\begin{description}
 		\item [Comunicações assíncronas] Após análises, foi percebido que uma melhoria que deve ser implementada é a possibilidade de se utilizar o algoritmo em comunicações assíncronas. 
-		\item [Multi-\textit{threading}] Uma maneira de auxiliar o algoritmo em questão de performance, seria implementa-lo de forma a aceitar ser multi-\textit{threading} para a cifração e envio. Uma maneira de fazer com que as mensagens cheguem na ordem deve ser pensada.
+		\item [Multi-\textit{threading}] Uma maneira de auxiliar o algoritmo em questão de desempenho, seria implementá-lo de forma a aceitar ser multi-\textit{threading} para a cifração e envio. Uma maneira de fazer com que as mensagens cheguem na ordem deve ser pensada.
+		\item [Fila de mensagem] estudar uma forma de implementar a comunicação entre as threads sem o seu uso para evitar que o seu tamanho seja um gargalo
+		\item [Geradores] Encontrar uma maneira eficiente de utilizar os geradores: linear congruente, \textit{Blum Blum Shub} e \textit{Blum Micali}
 	\end{description}
 	

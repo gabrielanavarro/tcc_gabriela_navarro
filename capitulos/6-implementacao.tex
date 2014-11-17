@@ -1,13 +1,13 @@
 \chapter{Implementação}
 \label{implementation-algorithm}
 
-Neste capítulo será apresentado detalhes da implementação deste trabalho. Será apresentado a arquitetura que foi criada para o desenvolvimento do algoritmo proposto, um diagrama de sequência, que proverá uma visibilidade sobre os passos que são seguidos na execução do algoritmo e uma explicação sobre os elementos que compõe o algoritmo.
+Neste capítulo serão apresentados detalhes da implementação deste trabalho. Será apresentada a arquitetura que foi criada para o desenvolvimento do algoritmo proposto, um diagrama de sequência, que proverá melhor visibilidade sobre os passos que são seguidos na sua execução e uma explicação sobre os elementos que o compõe.
 
 \section{Arquitetura}
 
-A figura \ref{architecture} demonstra a arquitetura que foi utilizada para a realização dos experimentos. A arquitetura foi desenvolvida afim de se aproximar a uma utilização real de um algoritmo de criptografia. As partes do cifrador e do decifrador são utilizadas em dois computadores distintos utilizando o protocolo de rede TCP/IP.
+A figura \ref{architecture} apresenta a arquitetura que foi utilizada para a realização dos experimentos. A arquitetura foi desenvolvida com o intuito de reproduzir uma aplicação real de um algoritmo de criptografia. As partes do cifrador e do decifrador são executadas em dois computadores distintos que se comunicam utilizando o protocolo de rede TCP/IP.
 
-De maneira geral, cada lado terá uma \textit{thread} que auxiliará no envio do \textit{byte} cifrado usando o \textit{socket} TCP/IP. A parte de cifração/decifração será utilizando o núcleo do \textit{RC4} e junto utilizando o algoritmo proposto.
+De maneira geral, cada lado terá uma \textit{thread} que auxiliará no envio/recebimento do \textit{byte} cifrado usando o \textit{socket} TCP/IP. A parte de cifração/decifração será utilizando o núcleo do \textit{RC4} alterado de forma a implementar o algoritmo de balanceamento proposto
 
 \begin{figure}[h]
 	\centering
@@ -20,33 +20,31 @@ De maneira geral, cada lado terá uma \textit{thread} que auxiliará no envio do
 
 Esse elemento é responsável por fazer a inicialização do gerador que será utilizado  no algoritmo.
 
-O gerador escolhido para os experimentos foi o do próprio \textit{RC4}. A entrada utilizada é uma chave gerada pelo \textit{ssh-keygen}.
+O gerador escolhido para os experimentos foi o do próprio \textit{RC4}. O \textit{RC4} tem como entradas o texto em claro que será cifrado e uma chave, esta chave é utilizada para fazer a inicialização do gerador. A chave utilizada foi gerada pelo \textit{ssh-keygen}.
 
 \subsection{Gerador de \textit{Bytes}}
 
-Como explicado anteriormente, o gerador escolhido foi o do próprio \textit{RC4} e sua geração foi feita de acordo com que o algoritmo aconselha. 
+Como explicado anteriormente, o gerador escolhido foi o do próprio \textit{RC4} e sua geração foi feita de acordo com o que o algoritmo aconselha. 
 
 
 \subsection{Fila de Mensagem}
 
-A fila de mensagem foi utilizada para intermediar entre o cifrador/decifrador e a \textit{thread} que enviaria/receberia os \textit{bytes}. 
-
-Primeiramente, o cifrado escreve os \textit{bytes} cifrados na fila de mensagem. A \textit{thread} é responsável por realizar a leitura dos \textit{bytes} e envia-los para o decifrador.
-
-No decifrador, por sua vez, a \textit{thread} é responsável por receber os \textit{bytes} que são enviados pelo cifrador e escreve-las na fila de mensagem do decifrador. O decifrador realiza as operações a partir dos \textit{bytes} que estão contidos na fila de mensagem.
+A fila de mensagem foi utilizada para servir de intermediário entre o cifrador/decifrador e a \textit{thread} que envia/recebe os \textit{bytes} cifrados. 
   
 \subsection{\textit{Thread} de Envio para Decifrador}
 
-No processo de cifração, para auxiliar o envio dos \textit{bytes} cifrados, é utilizado uma \textit{thread} que sua responsabilidade é fazer a leitura da fila de mensagem e enviar os \textit{bytes} ali contidos. 
+Esta thread é responsável por retirar os bytes cifrados da fila de mensagens e os enviar, via \textit{TCP/IP}, para o decifrador.
 
-Isso foi feito, pois a comunicação é a parte que mais causará \textit{overhead} no algoritmo e para fazer com que a execução não fosse atrapalhada pela troca de mensagens entre os processos.
+Optou-se pelo uso desta \textit{thread} para minimizar o \textit{overhead} do envio dos bytes pela rede através da paralelização da execução,  evitando, com isso, que o cifrador fique parado aguardando a rede.
 \subsection{\textit{Thread} para Receber do Cifrador}
 
-Assim como no cifrador, o decifrador também conta com uma \textit{thread} auxiliadora para receber os \textit{bytes} que são enviados pelo cifrador e escrever na fila de mensagem.
+Assim como no cifrador, o decifrador também conta com uma \textit{thread} auxiliar para receber os \textit{bytes} que são enviados pelo cifrador e escrever na fila de mensagem.
+
+Neste caso, provavelmente, o uso da \textit{thread} não traz um ganho apreciável, visto que a rede é o maior gargalo.
 
 \subsection{\textit{TCP/IP}}
 
-Quando estávamos analisando o melhor protocolo de comunicação para ser utilizado em conjunto com o algoritmo, decidimos pelo TCP/IP pela reciprocidade que o mesmo contém. 
+Quando estávamos analisando o melhor protocolo de comunicação para ser utilizado em conjunto com o algoritmo, decidimos pelo TCP/IP pela reciprocidade que o mesmo contém,, além da garantia de entrega e sequência dos dados 
 
 Em algoritmos de criptografia, a ordem com que os \textit{bytes} são enviados/lidos é de extrema importância, para que o texto decifrado tenha consistência e integridade. 
 \subsection{Decifrador}
@@ -59,7 +57,7 @@ O decifrador irá ter acesso aos \textit{bytes} cifrados na fila de mensagem que
 
 Processo responsável em cifrar os \textit{bytes} em claro que se deseja obter segurança.
 
-O cifrador fará a leitura dos \textit{bytes} em claro de um arquivo e fará a operação ou-exclusivo com o \textit{byte} d gerador.
+Uma vez cifrado, postará na fila de mensagens para que a \textit{thread} de envio faça a sua parte e envie o mesmo para o decifrador
 
 \section{Diagrama de Sequência}
 
@@ -72,6 +70,21 @@ O diagrama de sequência representado na figura \ref{sequence-diagram} tem como 
 	\label{sequence-diagram}
 \end{figure}
 
-O primeiro processo que deve ser iniciado é o de decifração, ele é responsável por iniciar o servidor em que o processo de cifra irá se conectar para fazer a comunicação e envio de \textit{bytes} cifrados. Como apresentado na arquitetura, cada lado da comunicação tem uma \textit{thread} para auxiliar os processos e uma fila de mensagem para fazer o intermédio entre o processo e essa \textit{thread}. No lado da decifração, o objetivo da \textit{thread} é fazer a leitura do \textit{socket} de comunicação e escrever as mensagens obtidas nessa leitura na fila de mensagem. O processo de decifração irá fazer a leitura dessa fila de mensagem para realizar a decifração.
 
-Quando o processo de cifração é iniciado é preciso realizar a conexão com o servidor e o servidor precisa aceita-lo. Ao fazer essa conexão, o processo de cifração está pronto para fazer a comunicação, portanto, é necessário iniciar os elementos auxiliares, como a \textit{thread} que irá fazer a leitura da fila de mensagem e enviar para o lado do decifrador e também a própria fila de mensagem. Então, primeiramente o processo de cifração faz a leitura do arquivo que contém a mensagem a ser cifrada e realiza a cifração. Após a cifração, essa mensagem é colocada na fila de mensagem e a partir daí a \textit{thread} é responsável de enviar essa mensagem para o lado do servidor.
+\begin{enumerate}
+	\item O processo de decifração deve ser o primeiro a ser iniciado, pois ele é responsável por iniciar o servidor em que o processo da cifra irá se conectar para a comunicação e envio de \textit{bytes} cifrados.
+	\item Em seguida, o processo de decifração irá iniciar a \textit{thread} que será responsável por ler as mensagens proveniente do \textit{socket} de comunicação.
+	\item O processo de decifração também inicia a fila de mensagem que irá utilizar.
+	\item Quando o processo de cifração inicia, ele tenta se conectar com o servidor e o servidor o aceita ou não.
+	\item Quando a comunicação é estabelecida, o processo de cifração inicia a \textit{thread} que será responsável por enviar os \textit{bytes} cifrados para o decifrador.
+	\item Por fim, o processo de cifração também inicia a fila de mensagem.
+	\item Os passos anteriores são somente para inicialização dos processos e \textit{threads}. A parte de cifração começa quando tudo já está iniciado e acontece da seguinte forma:
+		\begin{enumerate}
+			\item O processo de cifração faz a leitura do arquivo que contém o texto em claro e junto com o \textit{byte} do gerador executa a operação de ou-exclusivo.
+			\item Em seguida, o \textit{byte} cifrado é postado na fila de mensagem.
+			\item Por sua vez, a \textit{thread} que envia os \textit{bytes} cifrados, faz a leitura da fila de mensagem e envia para o decifrador o \textit{byte} cifrado.
+			\item A \textit{thread} que faz a leitura do \textit{socket}, recebe o valor do \textit{byte} cifrado e o escreve na fila de mensagem do decifrador.
+			\item Por fim, o decifrador faz a leitura da fila de mensagem e o decifra realizando a operação ou-exclusivo com o \textit{byte} do gerador.
+		\end{enumerate}
+
+\end{enumerate}

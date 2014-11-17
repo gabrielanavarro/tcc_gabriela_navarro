@@ -26,7 +26,7 @@ Para se garantir que nenhum valor de \textit{byte} cifrado se repita em uma roda
 	\caption{Tabela de \textit{byte} para uso do algoritmo}
 \end{figure}
 
-Caso o valor do \textit{byte} pré-cifrado obtido corresponda a uma posição já ocupada na tabela, este valor não será aceito como \textit{byte} cifrado e o próximo valor da sequência pseudo-aleatória será utilizado para tentar novamente a cifração do \textit{byte} em claro. Este procedimento será repetido até que o valor pré-cifrado obtido corresponda a uma posição não ocupada na tabela, quando então este valor será aceito como o \textit{byte} cifrado (correspondente ao byte de texto em claro que está sendo processado pelo cifrador). O número de valores da sequência pseudo-aleatória não utilizados será contabilizado em uma variável j. 
+Caso o valor do \textit{byte} pré-cifrado obtido corresponda a uma posição já ocupada na tabela,temos um conflito. Este valor não será aceito como \textit{byte} cifrado e o próximo valor da sequência pseudo-aleatória será utilizado para tentar novamente a cifração do \textit{byte} em claro. Este procedimento será repetido até que o valor pré-cifrado obtido corresponda a uma posição não ocupada na tabela, quando então este valor será aceito como o \textit{byte} cifrado (correspondente ao byte de texto em claro que está sendo processado pelo cifrador). O número de valores da sequência pseudo-aleatória não utilizados será contabilizado em uma variável j. 
 
 Caso o valor do \textit{byte} pré-cifrado obtido corresponda a uma posição não ocupada na tabela, este valor será aceito como \textit{byte} cifrado, a posição correspondente na tabela será marcada como ocupada, e a variável j será reinicializada com o valor 0.
 
@@ -44,7 +44,7 @@ Aqui se introduz o problema de como enviar ao decifrador as seguintes informaç�
 	\caption{Esquema do algoritmo de cifração}
 \end{figure}
 
-Para informar ao decifrador que houve um conflito na cifração propomos a utilização de um valor de \textit{byte} entre 0 e 255 chamado de \textbf{sinal}. Este valor será enviado pelo cifrador como parte da sequência de \textit{bytes} cifrados indicando ao decifrador que o \textit{byte} seguinte na sequência de \textit{bytes} cifrados corresponderá ao número de valores da sequência produzida pelo gerador pseudo-aleatório que deverão ser desprezados.  Após o envio do \textit{byte} de sinal, o cifrador  enviará o valor da variável j (também cifrado), e finalmente enviará o \textit{byte} cifrado.
+Para informar ao decifrador que houve um conflito na cifração propomos a utilização de um valor de \textit{byte} entre 0 e 255 chamado de \textbf{sinal}.Este valor é o primeiro \textit{byte} do gerador de \textit{bytes}, e será atualizado a cada vez que a tabela se completa, se tornando o primeiro valor do gerador pseudo-aleatório da próxima rodada. Este valor será enviado pelo cifrador como parte da sequência de \textit{bytes} cifrados indicando ao decifrador que o \textit{byte} seguinte na sequência de \textit{bytes} cifrados corresponderá ao número de valores da sequência produzida pelo gerador pseudo-aleatório que deverão ser desprezados. O decifrador saberá o \textit{byte} recebido é sinal por meio de um contador, que será incrementado a cada vez que um \textit{byte} for decifrado. Após o envio do \textit{byte} de sinal, o cifrador  enviará o valor da variável j (também cifrado), e finalmente enviará o \textit{byte} cifrado.
 
 O processo de cifração, que pode ser visto no pseudo-código \ref{pseudo-codigo}, segue os seguintes caminhos:
 
@@ -57,7 +57,7 @@ O processo de cifração, que pode ser visto no pseudo-código \ref{pseudo-codig
 
 O caminho ideal é o que o resultado da operação ou-exclusivo entre o \textit{byte} do texto em claro e o número aleatório correspondente sempre corresponda a uma posição livre na tabela de balanceamento.
 
-\begin{lstlisting}[caption={Pseudo-Código}, label=pseudo-codigo]
+\begin{lstlisting}[caption={Pseudo-Código Cifração}, label=pseudo-codigo]
 sinal = S[0] // primeiro sinal do gerador
 tabela[255] = '0'
 count = 0;
@@ -105,7 +105,7 @@ Então o algoritmo vai executar o comando de descartar os números pseudo-aleat�
 
 Ao encontrar essa posição livre, o algoritmo (no lado da cifração) enviará o \textit{byte} de sinal (sem cifrar) e em seguida enviará o resultado do ou-exclusivo entre \textbf{j} (quantidade de números descartados) e S$_{old}$. Então o valor de \textbf{j} é novamente reinicializado como 0.
 
-Quando a tabela for totalmente concluída, a rodada termina e o processo se inicia de novo com uma nova rodada, reinicializando-se a tabela (todas as suas posições são marcadas como desocupadas). Esse processo termina quando os \textit{bytes} do texto em claro forem todos cifrados. A cada rodada o \textit{byte} de sinal terá um valor diferente. Escolhemos o primeiro \textit{byte} da sequência de números pseudo-aleatórios da rodada como o \textit{byte} de sinal.
+Quando a tabela for totalmente concluída, a rodada termina e o processo se inicia de novo com uma nova rodada, reinicializando-se a tabela (todas as suas posições são marcadas como desocupadas) e um novo sinal é gerado. Esse processo termina quando os \textit{bytes} do texto em claro forem todos cifrados. A cada rodada o \textit{byte} de sinal terá um valor diferente. Escolhemos o primeiro \textit{byte} da sequência de números pseudo-aleatórios da rodada como o \textit{byte} de sinal.
 
 Podemos observar o processo de decifração no pseudo-código \ref{pseudo-codigo-decifrar}. Neste não é necessário se utilizar a tabela de balanceamento. Para se realizar a decifração é necessário que o decifrador tenha a capacidade de produzir a mesma sequência de números aleatórios que o cifrador. Isto implica que ele deve ter a mesma chave que foi utilizada no processo de cifrar.
 
@@ -148,6 +148,6 @@ Se o valor do \textit{byte} cifrado for igual ao \textit{byte} de sinal utilizad
 
 \section{Vantagens}
 
-A maior vantagem desse algoritmo é a equalização das frequências de ocorrência de cada valor de texto cifrado enviado. Excluindo-se os valores dos \textit{bytes} de sinal e os valores dos números de sequência pseudo-aleatórios a serem desprezados na decifração, a frequência de cada valor possível dos \textit{bytes} de texto cifrado será idêntica. Isto é, o algoritmo produz um texto cifrado perfeitamente balanceado.
+A maior vantagem deste algoritmo é a equalização das frequências de ocorrência de cada valor de texto cifrado enviado. Excluindo-se os valores dos \textit{bytes} de sinal e os valores dos números de sequência pseudo-aleatórios a serem desprezados na decifração, a frequência de cada valor possível dos \textit{bytes} de texto cifrado será idêntica. Isto é, o algoritmo produz um texto cifrado perfeitamente balanceado.
 
 Outra vantagem do algoritmo de balanceamento de frequência proposto é que ele é totalmente genérico.  Isto é, ele funciona com qualquer gerador de números pseudo-aleatórios e algoritmos de cifra de fluxo, tais como: A5/1, A5/2, E0, RC4, \textit{Blum Blum Shub}, \textit{Blum Micali}, etc.

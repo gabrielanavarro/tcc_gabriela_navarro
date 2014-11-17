@@ -1,17 +1,24 @@
 \chapter{Resultados}
 \label{results}
 
-Nesse trabalho foi desenvolvido diversos experimentos para se chegar a um resultado satisfatório do algoritmo proposto. Esses resultados se dividiram principalmente em tempos de execução, neste os resultados foram divididos em tempos de execução da cifração, da cifração combinada com a \textit{thread} de envio, cifração combinada com a \textit{thread} de envio e a decifração e por fim a medição de quanto tempo médio é necessário para a resolução de um conflito.
+Neste trabalho foram desenvolvidos diversos experimentos para se chegar a um resultado considerado satisfatório para a implementação do algoritmo proposto.O critério utilizado para a avaliação e validação dos experimentos foi o tempo total de execução. O tempo total de execução é a soma do processo da cifração combinada com a \textit{thread} de envio e a decifração. 
 
-Depois de alguns experimentos com os geradores linear congruente, \textit{Blum Blum Shub} e \textit{Blum Micali}, chegou-se a conclusão que a utilização desses geradores complicaria a análise de desempenho entre o \textit{RC4} e o algoritmo aqui proposto. Isso se deve ao fato de que esses geradores são principalmente para geração de números e para se ter números com uma repetibilidade menor seria preciso uma determinação de como usar a chave fornecida para a cifração e transforma-la em entradas satisfatórias para esses geradores. Esses geradores demandam valores muito específicos para que o algoritmo tenha resultados satisfatórios e se esses requisitos não forem satisfeitos pode-se chegar a um \textit{loop} infinito na procura de um \textit{byte} que satisfaça as condições do algoritmo de balanceamento proposto.
+Os primeiros experimentos analisaram os tempos do processo de cifração e \textit{thread} de envio e a medição dos tempos médios necessários para a resolução dos conflitos.
+
+Depois de alguns experimentos com os geradores: linear congruente, \textit{Blum Blum Shub} e \textit{Blum Micali}, chegou-se a conclusão que a utilização destes geradores complicaria a análise de desempenho entre o \textit{RC4} e o algoritmo aqui proposto. Isso se deve ao fato de que esses geradores são usados principalmente para geração de números, sem a preocupação com a sua repetibilidade. Para conseguir números com uma repetibilidade menor, seria necessário estudar o uso da chave fornecida para a cifração e transformá-la em entradas satisfatórias para estes geradores. Estes geradores demandam valores muito específicos para que o algoritmo tenha resultados satisfatórios e se esses requisitos não forem satisfeitos pode-se chegar a um \textit{loop} infinito na procura de um \textit{byte} que satisfaça as condições do algoritmo de balanceamento proposto.
+
+O \textit{RC4}, por outro lado, se demonstrou bastante eficaz na geração de números esparsos o suficiente para minimizar os conflitos e evitar a possibilidade do \textit{loop} infinito, sendo, por esta razão, o único utilizado para este estudo.
+
+Uma vez escolhida a melhor implementação do algoritmo, usou-se o \textit{RC4} puro para servir de base de tempo para verificar o \textit{overhead} imposto na cifrarão pelo algoritmo proposto.
+
 
 \section{Ambiente Utilizado para Experimentos}
 
-Foram utilizados dois computadores para os experimentos aqui descritos. O primeiro computador, que era responsável pela cifração do texto em claro tem processador Intel i7, 16GB de memória RAM e utiliza o sistema operacional Ubuntu 14.04. O segundo computador, responsável pela decifração, tem processador Intel i7, 8GB de memória RAM e também utiliza Ubuntu 14.04 como sistema operacional.
+Foram utilizados dois computadores para os experimentos aqui descritos. O primeiro computador, que foi o responsável pela cifração do texto em claro, tem processador Intel i7, 16GB de memória RAM e utiliza o sistema operacional Ubuntu 14.04. O segundo computador, responsável pela decifração, tem processador Intel i7, 8GB de memória RAM e também utiliza Ubuntu 14.04 como sistema operacional.
 
-Durante os experimentos, cabos de rede ligados diretamente no modem foram utilizados para que interferências da rede \textit{wireless} não prejudicasse os resultados dos experimentos. 
+Durante os experimentos, cabos de rede ligados diretamente no \textit{switch} de rede foram utilizados para que interferências da rede \textit{wireless} não prejudicassem os resultados dos experimentos. 
 
-Como existem fatores externos aos experimentos(internet, por exemplo) os resultados tendem a variar alguns milissegundos. Para se obter o valor mais acurado, foi feito a coleta de dez resultados por tamanho de texto para cada algoritmo em cada experimento. A média desses resultados serão descritos nas tabelas de resultados de cada experimento.
+Como existem fatores externos aos experimentos(internet, por exemplo) os resultados tendem a variar alguns milissegundos. Para se obter o valor mais acurado, foram coletados dez resultados por tamanho de texto para cada algoritmo em cada experimento e calculada a média, que será apresentada nas tabela de resultados dos experimentos
 
 \section{Tempos de Execução}
 
@@ -40,7 +47,7 @@ O primeiro experimento foi realizado utilizando somente a arquitetura que foi ex
 
 \subsection{Experimento 2}
 
-Depois de análise dos resultados do primeiro experimento e a comparação dos resultados do \textit{RC4} e \textit{RC4} em conjunto com o algoritmo proposto, percebeu-se que algo que estava sendo utilizado na arquitetura do algoritmo e que não era o algoritmo em si estava afetando o desempenho da execução. Isso se deve ao fato de que o \textit{RC4} também ter obtido resultados insatisfatórios. Depois de uma análise, descobriu-se que o tamanho da fila de mensagem que estava sendo utilizado era o problema. Devido ao seu tamanho estar limitado a poucos caracteres, a \textit{thread} de envio não estava sendo suficientemente rápida  e isso estava fazendo com que o tempo da cifração também fosse prejudicado. Outro indício que esse era o problema e não o algoritmo em si é que o tempo de cifração e tempo da \textit{thread} de envio é praticamente o mesma. 
+Depois de análise dos resultados do primeiro experimento e a comparação dos resultados do \textit{RC4} e \textit{RC4} em conjunto com o algoritmo proposto, percebeu-se que algo que estava sendo utilizado na arquitetura do algoritmo e que não era o algoritmo em si estava afetando o desempenho da execução. A constatação se  se deve ao fato de que o \textit{RC4} também ter obtido resultados insatisfatórios. Depois de uma análise, descobriu-se que o tamanho da fila de mensagem \textit{default}, que estava sendo utilizado, era o problema. Devido ao seu tamanho estar limitado a poucos caracteres, a \textit{thread} de envio não estava sendo suficientemente rápida  e isso estava fazendo com que o tempo da cifração também fosse prejudicado. Outro indício que esse era o problema e não o algoritmo em si é que o tempo de cifração e tempo da \textit{thread} de envio era praticamente o mesmo. 
 
 Com isso, foi efetuado o aumento da fila de mensagem e vimos que com a arquitetura implementada nesse trabalho isso é de extrema importância para o bom desempenho do algoritmo. Os resultados com a fila de mensagem expandida está na tabela \ref{results-experiment-2}.
 
@@ -54,7 +61,7 @@ Com isso, foi efetuado o aumento da fila de mensagem e vimos que com a arquitetu
 100000                               & 36.2     & 60                & 73           & 114.2                 \\ \hline
 500000                               & 154.4    & 279.6             & 333.6        & 548.2                 \\ \hline
 1000000                              & 304.2    & 544.2             & 663.2        & 1169.6                \\ \hline
-5000000                              & 1400.4   & 3528              & 3139         &                       \\ \hline
+5000000                              & 1400.4   & 3528              & 3139         & 6743.2      \\ \hline
 \end{tabular}
 \caption{Tempos obtidos no experimento 2}
 \label{results-experiment-2}
@@ -68,7 +75,7 @@ Com os resultados obtidos pelo experimento anterior, resolvemos reavaliar a nece
 	tcifrado = tclaro + 2 \times (tclaro/2)
 \end{equation}
 
-Isso resulta no dobro do texto em claro e que somente o algoritmo proposto envia. Portanto, para diminuir a quantidade de envios decidimos enviar os três \textit{bytes} referentes ao conflito(sinal, quantidade de \textit{bytes} descartados e texto cifrado) de uma só vez e isso chegaria perto da quantidade de envios que o \textit{RC4} realiza. O resultado desse experimento está descrito na tabela \ref{results-experiment-3}.
+Isso resulta no dobro do texto em claro e que somente o algoritmo proposto envia. Portanto, para diminuir a quantidade de envios decidimos enviar os três \textit{bytes} referentes ao conflito(sinal, quantidade de \textit{bytes} descartados e \textit{byte} cifrado) de uma só vez , aproximando, com isso, da quantidade de envios que o \textit{RC4} realiza. O resultado desse experimento está descrito na tabela \ref{results-experiment-3}.
 
 \begin{table}[h]
 \centering
@@ -88,7 +95,7 @@ Isso resulta no dobro do texto em claro e que somente o algoritmo proposto envia
 
 \subsubsection{Tempo Total de Execução}
 
-Como os resultados anteriores foram os mais satisfatórios que obtivemos durante toda a fase de testes desse trabalho, decidimos dar uma visão de tempo de execução total. Nessa parte do experimento, o tempo de execução que foi levado em conta foram: cifração, \textit{thread} de envio e recebimento e decifração. Para se obter o tempo total foi necessário a utilização de um meio de informar para o lado da decifração que o lado da cifração havia acabado,porque senão a decifração ficaria esperando novos \textit{bytes} para decifrar. Portanto duas opções foram realizadas:
+Como os resultados anteriores foram os mais satisfatórios que obtivemos durante toda a fase de testes desse trabalho, decidimos dar uma visão de tempo de execução total. Nessa parte do experimento, o tempo de execução que foi levado em conta foram: cifração, \textit{thread} de envio e recebimento e decifração. Para se obter o tempo total foi necessário a utilização de um meio de informar para o lado da decifração que o lado da cifração havia acabado,porque senão a decifração ficaria esperando novos \textit{bytes} para decifrar. Portanto duas opções foram testadas:
 
 \begin{description}
 	\item [Envio de dois \textit{bytes}] Nesse experimento, para cada \textit{byte} cifrado enviado era enviado um \textit{byte} que indicava o final do texto em claro para o lado da decifração.
@@ -108,9 +115,9 @@ Como os resultados anteriores foram os mais satisfatórios que obtivemos durante
 \caption{Experimento tempo total enviando 2 \textit{bytes}}
 \end{table}
 
-Essa opção de envio foi descartado, visto que o tempo que a \textit{thread} utiliza para enviar aumentou consideravelmente. Portanto, decidimos pela estratégia que mostraremos a seguir.
+Essa opção de envio foi descartada, visto que o tempo que a \textit{thread} utiliza para enviar aumentou consideravelmente. Portanto, decidimos pela estratégia que mostraremos a seguir.
 	
-	\item[Envio de sequência de caracteres] Nesse experimento, ao final do texto em claro foi enviado uma sequência de três 0.
+	\item[Envio de sequência de caracteres] Nesse experimento, ao final do texto em claro foi enviado uma sequência de três bytes 0 como um marcador de fim de cifragem.
 	
 \begin{table}[h]
 \centering
@@ -131,7 +138,7 @@ Com esses resultados obtivemos em média 4,34\% de tempo a mais. A maior porcent
 
 \subsection{Resolução de Conflitos}
 
-Esse experimento visa dar maior visibilidade sobre a quantidade média de conflitos que ocorrem em diversos tamanhos de textos e o tempo mediano das resoluções. Esses tempos podem ter uma variação, visto que para cada conflito a função de obter o tempo do sistema foi utilizada duas vezes. Para textos pequenos a variação pode ser pequena, porém a medida que o texto fica maior, esse tempo tende a aumentar também.(Rever isso aqui, será mesmo que afeta o tempo de conflito ou só o tempo total?). A tabela a seguir mostra os resultados obtidos.
+Esse experimento visa dar maior visibilidade sobre a quantidade média de conflitos que ocorrem em diversos tamanhos de textos e o tempo médio das resoluções. Esses tempos podem ter uma variação, visto que para cada conflito a função de obter o tempo do sistema foi utilizada duas vezes. Para textos pequenos a variação pode ser pequena, porém a medida que o texto fica maior, esse tempo tende a aumentar também.(Rever isso aqui, será mesmo que afeta o tempo de conflito ou só o tempo total?). A tabela \ref{amount-conflicts} mostra os resultados obtidos.
 
 \begin{table}[h]
 \centering
@@ -146,6 +153,7 @@ Tamanho do texto(caracteres) & Tempo Extra(ms) & Quantidade de Conflitos & Tempo
 \centering 5.000.000                    & 3029.1          & 2.497.605                 & {0.001213}                     \\ \hline
 \end{tabular}
 \caption{Quantidade de conflitos e tempo médio de resolução.}
+\label{amount-conflicts}
 \end{table}
 
 Percebe-se que a média de conflitos para cada tamanho de texto é aproximadamente a metade do tamanho do texto em claro. Outra percepção que pode ser obtida pela tabela é que conforme a quantidade de conflitos aumenta, o tempo médio de resolução diminui.
