@@ -279,7 +279,7 @@ Esse algoritmo foi desenvolvido por motivos de restrições de exportação do A
 \end{figure}
 \footnotetext{Disponível e adaptado de: \url{http://blog.cryptographyengineering.com/2012/02/sattelite-phone-encryption-is-terrible.html}}
 
-Caso o resultado da regra da maioridade dos \textit{clocking} \textit{bits} do R4 seja igual ao do \textit{bit} que se encontra na posição 3 então o registrador R2 é acionado, caso seja igual ao \textit{bit} que se encontra na posição 7 então o registrador R3 é acionado e se for igual ao \textit{bit} que está na posição 10 então o registrador R1 é acionado. Depois que os registradores são acionados, então o registrador R4 é acionado também. A saída desse algoritmo é feita da seguinte forma: 
+Caso o resultado da regra da maioridade dos \textit{clocking} \textit{bits} do R4 seja igual ao do \textit{bit} que se encontra na posição 3 então o registrador R2 é acionado, caso seja igual ao \textit{bit} que se encontra na posição 7 então o registrador R3 é acionado e se for igual ao \textit{bit} que está na posição 10 então o registrador R1 é acionado. Depois que os registradores são acionados, então o registrador R4 é acionado também. A saída desse algoritmo é feita da forma demonstrada pelo pseudo-código \ref{a52-pseudo-code}
 
 \begin{lstlisting}[caption={Pseudo-código A5/2}, label=a52-pseudo-code]
 void a52Cipher(key key[64]){
