@@ -228,7 +228,6 @@ void a51Generation(key key[64]){
 	R2[0] = R2[0] ^ key[i]
 	R3[0] = R3[0] ^ key[i]  
   }
-  	
 
   registers R1[19] ,R2[22], R[23]
   
@@ -275,7 +274,7 @@ Esse algoritmo foi desenvolvido por motivos de restrições de exportação do A
 \centering
 \includegraphics[keepaspectratio=true,scale=0.5]
     {figuras/a5_2.eps}
-    \caption[Estrura do algoritmo A5/2]{Estrura do algoritmo A5/2\protect\footnotemark } 
+    \caption[Estrutura do algoritmo A5/2]{Estrutura do algoritmo A5/2\protect\footnotemark } 
 \end{figure}
 \footnotetext{Disponível e adaptado de: \url{http://blog.cryptographyengineering.com/2012/02/sattelite-phone-encryption-is-terrible.html}}
 
@@ -285,27 +284,34 @@ Caso o resultado da regra da maioridade dos \textit{clocking} \textit{bits} do R
 void a52Cipher(key key[64]){
 
   registers R1[18] ,R2[21], R3[22], R4[16]
-  int i;
-  for(i = 0; i < 64; i++){
-  	R1[0] = R1[0] ^ key[i]
-	R2[0] = R2[0] ^ key[i]
-	R3[0] = R3[0] ^ key[i]  
+
+  clockingBit = marjorityRule(R4[3], R4[7], R4[10])
+  
+  resultR1 = 0  
+  resultR2 = 0  
+  resultR3 = 0
+  if(clockingBit == R4[3]){
+  	// R2 
+  	complement = 1 ^ R2[16]
+  	resultR2 = marjorityRule(complement, R2[9], R2[13]) ^ R2[21]
+  	deslocateToLeft(R2, R2[21] ^ R2[20])
+  
+  } else if(clockingBit == R4[7]) {
+  // R3
+  	complement = 1 ^ R3[13]
+  	resultR3 = marjorityRule(complement, R3[16], R3[18]) ^ R3[22]
+  	deslocateToLeft(R3, R3[22] ^ R3[21] ^R3[20])  
+  
+  } else {
+  //R1
+    complement = 1 ^ R1[14]
+  	resultR1 = marjorityRule(complement, R1[12], R1[15]) ^ R1[18]
+  	deslocateToLeft(R1.R1[18] ^ R1[17] ^R1[16] ^ R1[13]) 
   }
   
-  resultR1 = R1[13] ^ R1[16] ^ R1[17], R1[18]
-  resultR2 = R2[20] ^ R2[21]
-  resultR3 = R3[7] ^ R3[20] ^ R3[21] ^ R3[22]
+  deslocateToLeft(R4, R4[16] ^ R4[11])
   
-  clockingBit = marjorityRule(R1[8], R2[10], R3[10])
-  if(R1[8] == clockingBit){
-  	deslocateToTheLeft(resultR1)
-  }else if(R2[10] == clockingBit){
-    deslocateToTheLeft(resultR2)
-  }else if(R3[10] == clockingBit){
-    deslocateToTheLeft(resultR3)
-  }
-  
-  output = R1[18] ^ R2[21] ^ R3[22]
+  output = resultR1 ^ resultR2 ^ resultR3
 }
     \end{lstlisting}
 
@@ -315,19 +321,33 @@ void a52Cipher(key key[64]){
 	\item É feito um ou-exclusivo do resultado do item anterior com o \textit{bit} mais significativo do registrador de cada registrador.
 \end{enumerate}
 
-%colocar codigo para a operação anterior
 
 \subsubsection{Algoritmo E0}
 \label{algorithm-e0}
 
 Utilizado para proteger informações que utilizam a tecnologia \textit{bluetooth}. O principal objetivo dessa tecnologia é conectar dois aparelhos para transferência de algum tipo de informação.
 
+\begin{figure}[h]
+	\includegraphics[scale=1]{figuras/e0.eps}
+	\caption{Estrutura do algoritmo E0\cite{fluhrer-lucksl}}
+	\label{e0-structure}
+\end{figure}
+
 O algoritmo também é baseado no uso de registradores e a saída é gerada em ou-exclusivo de \textit{bits} de cada registrador. Nessa estrutura são utilizados 4 registradores com tamanhos 25, 31, 33 e 39 \textit{bits}. O sistema da geração do \textit{keystream} é um pouco diferente, a cada \textit{clock tick} todos os registradores são acionados e é feito um ou-exclusivo da saída de cada um. A operação é descrita a seguir:
 
-\begin{enumerate}
-	\item Além dos 4 registradores, o sistema é composto de dois registradores de 2 bits $c_t$ e $c_{t-1}$.
-	\item A cada \textit{clock tick} todos os registradores são acionados e o valor de $ c_t $ é transferido para $ c_{t-1}$ e o valor de $ c_t$ é atualizado com os valores do do $ c_{t-1}$ e dos registradores.
-\end{enumerate}
+\begin{lstlisting}[caption={Pseudo-código E0}, label=e0-pseudo-code]
+void e0Cipher(key key[64]){
+
+  registers R1[25] ,R2[31], R3[33], R4[39]
+
+
+  while(clockTick) {
+  	result = sum(R1,R2, R3, R4)
+  	char finiteStateMachine[3] = msb(result)
+  	output = finiteStateMachine ^ lsb(result)
+  }
+}
+    \end{lstlisting}
 
 \subsubsection{Algoritmo RC4}
 \label{algorithm-rc4}
@@ -342,13 +362,20 @@ O RC4 é dividido em três passos fundamentais: a inicialização, geração ale
 
 	\item [Inicialização] RC4 aceita chaves de tamanho variáveis. Na fase de inicialização, o vetor S é inicializado com valores iniciais seguindo o código mostrado a seguir:
 	
-    \begin{lstlisting}[caption={Código Inicialização}, label=inicialization]
+    \begin{lstlisting}[caption={Código 
+Inicialização}, label=inicialization]
+typedef struct RC4{
+	int i;
+	int j;
+	char state[255];
+}
+
 void rc4Initializer(RC4 * params, char key[]){
 
   int i,j = 0;
   size_t keylen = strlen(key);
   unsigned char temp[255];
-  for(i = 0; i <= CHARACTERS; i++){
+  for(i = 0; i <= 255; i++){
     params->state[i] = i;
     temp[i] = key[i % keylen];
   }
@@ -363,7 +390,7 @@ Após a inicialização do vetor T, é feita uma permutação inicial utilizando
 void intialPermutation(RC4 * params, char key[]){
 
   unsigned char swap;
-  for(i = 0; i <= CHARACTERS; i++) {
+  for(i = 0; i <= 255; i++) {
     j = (j + params->state[i] + temp[i]) % 256;
     swap = params->state[j];
     params->state[j] = params->state[i];
@@ -444,6 +471,29 @@ C = M $^ e$ $\bmod$ n. Sendo que M é o inteiro correspondente a parte do texto 
 M = C $^ d$ $\bmod$ n. Sendo que C é o texto cifrado, M o texto em claro e \textbf{d} é a chave privada.
 \end{description}
 
+\begin{lstlisting}[caption={Pseudo-código RSA}, label=rsa-pseudo-code]
+void rsaCipher(key key[64], char plainText){
+	int p = getBigPrime()
+	int q = getBigPrime()
+	
+	while( p == q){
+		q = getBigPrime()
+	}
+	
+	int n = p * q
+	
+	e = mdc(phi(n, e)
+	while(e != 1){
+		e = mdc(phi(n, e)
+	}
+	
+	d = pow(e, (-1)) % phi(n)
+	
+	c = pow(plainText, e) % n
+	
+}
+    \end{lstlisting}
+
 %
 \section{Criptoanálise}
 \label{cryptanalysis}
@@ -459,7 +509,7 @@ Esse ataque visa procurar por exaustão a chave usada para cifrar a mensagem. Te
 
 \begin{table}[h]
 \centering
-	\begin{tabular}{|l|l|}
+	\begin{tabular}{|c|c|}
 		\hline
 		Tamanho da chave & Tempo para quebrar \\ \hline
 		32 & 2.15 milissegundos \\ \hline
@@ -477,7 +527,7 @@ Esse método visa analisar a frequência de ocorrência de cada carácter de um 
 
 \begin{table}[h]
 \centering
-\begin{tabular}{|l|l|l|l|}
+\begin{tabular}{|c|c|c|c|}
 	\hline
 	Letra & Frequência no texto & Letra & Frequência no texto \\ \hline
 	a & 8.167 & n & 6.749 \\ \hline

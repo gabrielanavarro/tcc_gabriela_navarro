@@ -14,7 +14,7 @@ Uma vez escolhida a melhor implementação do algoritmo, usou-se o \textit{RC4} 
 
 \section{Ambiente Utilizado para Experimentos}
 
-Foram utilizados dois computadores para os experimentos aqui descritos. O primeiro computador, que foi o responsável pela cifração do texto em claro, tem processador Intel i7, 16GB de memória RAM e utiliza o sistema operacional Ubuntu 14.04. O segundo computador, responsável pela decifração, tem processador Intel i7, 8GB de memória RAM e também utiliza Ubuntu 14.04 como sistema operacional.
+Foram utilizados dois computadores para os experimentos aqui descritos. O primeiro computador, que foi o responsável pela cifração do texto em claro, tem processador Intel i7, 16GB de memória RAM e utiliza o sistema operacional Ubuntu 14.04. O segundo computador, responsável pela decifração, tem processador Intel i7, 8GB de memória RAM e também utiliza Ubuntu 14.04 como sistema operacional. O compilador utilizado para ambos os computadores foi o \textit{gcc} 4.8.2.
 
 Durante os experimentos, cabos de rede ligados diretamente no \textit{switch} de rede foram utilizados para que interferências da rede \textit{wireless} não prejudicassem os resultados dos experimentos. 
 
@@ -124,11 +124,11 @@ Essa opção de envio foi descartada, visto que o tempo que a \textit{thread} ut
 \begin{tabular}{|p{3cm}|c|c|c|}
 \hline
 Tamanho do texto(caracteres) & RC4(ms)  & RC4+Algoritmo(ms) & Tempo a mais(ms) \\ \hline
-10.000                       & 125.2    & 127.6             & 2.4              \\ \hline
-50.000                       & 605.9    & 623               & 17.1             \\ \hline
-100.000                      & 1144.8   & 1214.6            & 69.8             \\ \hline
-500.000                      & 5730     & 6042.2            & 312.2            \\ \hline
-1.000.000                    & 11,429.6 & 12,048.7          & 619.1            \\ \hline
+\centering 10.000                       & 125.2    & 127.6             & 2.4              \\ \hline
+\centering 50.000                       & 605.9    & 623               & 17.1             \\ \hline
+\centering 100.000                      & 1144.8   & 1214.6            & 69.8             \\ \hline
+\centering 500.000                      & 5730     & 6042.2            & 312.2            \\ \hline
+\centering 1.000.000                    & 11,429.6 & 12,048.7          & 619.1            \\ \hline
 \end{tabular}
 \caption{Tempo enviando sinal de fim do arquivo '000'}
 \end{table}

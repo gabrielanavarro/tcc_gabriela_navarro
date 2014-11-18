@@ -58,23 +58,23 @@ O processo de cifração, que pode ser visto no pseudo-código \ref{pseudo-codig
 O caminho ideal é o que o resultado da operação ou-exclusivo entre o \textit{byte} do texto em claro e o número aleatório correspondente sempre corresponda a uma posição livre na tabela de balanceamento.
 
 \begin{lstlisting}[caption={Pseudo-Código Cifração}, label=pseudo-codigo]
-sinal = S[0] // primeiro sinal do gerador
-tabela[255] = '0'
+signal = S[0] // primeiro sinal do gerador
+table[255] = '0'
 count = 0;
 while(plainText != EOF)
-	if(tabela[plainText[k] ^ S[k]] != '1'){
+	if(table[plainText[k] ^ S[k]] != '1'){
 		if(j == 0)
-			geraSaida(plainText[k] ^ S[k]);
+			output(plainText[k] ^ S[k]);
 		if( j > 0){
-			geraSaida(S[old] ^ j);
-			geraSaida(S[k+j] ^ plainText[k]);
+			output(S[old] ^ j);
+			output(S[k+j] ^ plainText[k]);
 			j = 0;
 		}
 		count++;
 	}
 	if(tabela[plainText[k] ^ S[k] == '1'){
 		if(j == 0){
-			geraSaida(sinal);
+			output(signal);
 			S[old] = S[k+1];
 			j = 1;		
 		}
@@ -84,8 +84,8 @@ while(plainText != EOF)
 	}
 	//se tabela completar
 	if(count == 256){
-		reinicializaTabela();
-		sinal = S[k]
+		resetTable();
+		signal = S[k]
 		count = 0;
 	}
 }
@@ -120,23 +120,23 @@ No início de cada rodada na decifração, o primeiro \textit{byte} da sequênci
 %\end{figure}
 
     \begin{lstlisting}[caption={Pseudo-Código Decifração}, label=pseudo-codigo-decifrar]
-sinal = S[0] // primeiro sinal do gerador
+signal = S[0] // primeiro sinal do gerador
 count = 0;
 while(cipherText != EOF)
 	if(C[k] != sinal){
-		geraSaida(C[k] ^ S[k];
+		output(C[k] ^ S[k];
 		count++;
 	}
-	if((C[k] == sinal){
+	if((C[k] == signal){
 		j = C[k+1] ^ S[k+1];
 		S = S[k+j];
-		geraSaida(C[k] ^ S);
+		output(C[k] ^ S);
 		count++;
 	}
 	//se tabela completar
 	if(count == 256){
-		reinicializaTabela();
-		sinal = S[k]
+		resetTable();
+		signal = S[k]
 		count = 0;
 	}
 }
