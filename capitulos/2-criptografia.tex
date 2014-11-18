@@ -127,9 +127,10 @@ void desCipher(char plainBlock[64], char roundKeys[56], char cipherBlock[64]){
   char leftBlock[32] = split(0,32,tempBlock)
   char rightBlock[32] = split(32,64,tempBlock)
   for(i = 0; i < 16; i++){
-	mix(leftBlock, rightBlock, roundKey[i])    
+	sbox = sbox(rightBlock)  
+	pbox = pbox(sbox)
+	rightBlock = pbox ^ leftBlock
   }
-  swap(leftBlock, rightBlock)
   
   tempBlock = combination(leftBlock, rightBlock)
   cipherBlock = permutation(tempBlock, finalPermutation)
@@ -139,7 +140,7 @@ void desCipher(char plainBlock[64], char roundKeys[56], char cipherBlock[64]){
 
 \subsubsection{Algoritmo AES}
 
-O algoritmo \textit{AES} foi inventado com o intuito de dar mais segurança ao processo de criptografia e foi adotado como algoritmo padrão pelo \textit{NIST}.Esse algoritmo, ao contrário do \textit{DES} não utiliza a cifra de \textit{feistel} como base. 
+O algoritmo \textit{AES} foi inventado com o intuito de dar mais segurança ao processo de criptografia e foi adotado como algoritmo padrão pelo \textit{NIST}. Esse algoritmo, ao contrário do \textit{DES}, não utiliza a cifra de \textit{feistel} como base. 
 
 \begin{figure}[h]
 	\centering
@@ -165,8 +166,7 @@ void aesCipher(char plainState[128], char roundKeys[rounds], char cipherState[12
 	tempMatrix = mixColumns(tempMatrix)
 	matrix = AddKeys(tempMatrix, roundKeys[i])
   }
-  char tempMatrix[4][4] = sBox(matrix)
-  tempMatrix = shiftRows(tempMatrix)
+  tempMatrix = shiftRows(matrix)
   cipherBlock = AddKeys(tempMatrix, roundKeys[round])
 }
     \end{lstlisting}
@@ -206,7 +206,7 @@ Cada registrador contém \textit{bits} importantes para a criptografia e suas po
 
 \begin{table}[h]
 \centering
-	\begin{tabular}{|l|l|l|}
+	\begin{tabular}{|c|c|c|}
 		\hline
 		Registrador & \textit{Clocking Bits} & \textit{Tapping Bits} \\ \hline
 		R1 & 8 & 13, 16, 17, 18 \\ \hline
@@ -231,7 +231,7 @@ void a51Generation(key key[64]){
 
   registers R1[19] ,R2[22], R[23]
   
-  resultR1 = R1[13] ^ R1[16] ^ R1[17], R1[18]
+  resultR1 = R1[13] ^ R1[16] ^ R1[17] ^ R1[18]
   resultR2 = R2[20] ^ R2[21]
   resultR3 = R3[7] ^ R3[20] ^ R3[21] ^ R3[22]
   
@@ -259,7 +259,7 @@ Esse algoritmo foi desenvolvido por motivos de restrições de exportação do A
 
 \begin{table}[h]
 \centering
-	\begin{tabular}{|l|l|l|l|}
+	\begin{tabular}{|c|c|c|c|}
 		\hline
 		Registrador & \textit{Clocking Bits} & \textit{Tapping Bits} & \textit{Bits} utilizados na função maioridade \\ \hline
 		R1 & 8 & 13, 16, 17, 18  & 12, 14*\protect\footnotemark , 15\\ \hline
@@ -472,6 +472,10 @@ M = C $^ d$ $\bmod$ n. Sendo que C é o texto cifrado, M o texto em claro e \tex
 \end{description}
 
 \begin{lstlisting}[caption={Pseudo-código RSA}, label=rsa-pseudo-code]
+int phi(p, q){
+	return (p - 1) * (q - 1)
+}
+
 void rsaCipher(key key[64], char plainText){
 	int p = getBigPrime()
 	int q = getBigPrime()
@@ -484,10 +488,10 @@ void rsaCipher(key key[64], char plainText){
 	
 	e = mdc(phi(n, e)
 	while(e != 1){
-		e = mdc(phi(n, e)
+		e = mdc(phi(n, e))
 	}
 	
-	d = pow(e, (-1)) % phi(n)
+	d = pow(e, (-1)) % (n - 1)
 	
 	c = pow(plainText, e) % n
 	
