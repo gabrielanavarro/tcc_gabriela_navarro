@@ -40,7 +40,7 @@ Optou-se pelo uso desta \textit{thread} para minimizar o \textit{overhead} do en
 
 Assim como no cifrador, o decifrador também conta com uma \textit{thread} auxiliar para receber os \textit{bytes} que são enviados pelo cifrador e escrever na fila de mensagem.
 
-Neste caso, provavelmente, o uso da \textit{thread} não traz um ganho apreciável, visto que a rede é o maior gargalo.
+Neste caso, provavelmente, o uso da \textit{thread} não traz um ganho apreciável, visto que a rede é o maior gargalo, por isso, a leitura do \textit{socket} é feita a medida que o \textit{buffer} do \textit{TCP/IP} se completa.
 
 \subsection{\textit{TCP/IP}}
 

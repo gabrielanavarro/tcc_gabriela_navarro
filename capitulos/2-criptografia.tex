@@ -63,7 +63,7 @@ Existem operações que podem ser aplicadas nas cifras de blocos e que podem ser
 \item [ECB] a mensagem é dividida em blocos e consiste em cifrar os blocos de forma independente um do outro e com uma chave fixa. A desvantagem desse modo de cifra é que blocos de texto em claro iguais produzem blocos de texto cifrado iguais.
 \begin{figure}[h]
 \centering
-\includegraphics[keepaspectratio=true,scale=1.0]
+\includegraphics[keepaspectratio=true,scale=0.8]
 	{figuras/ecb.eps}
 	\caption[Modo Electronic Codebook]{Modo \textit{Electronic Codebook}\protect\footnotemark}
 	
@@ -72,7 +72,7 @@ Existem operações que podem ser aplicadas nas cifras de blocos e que podem ser
 \item[CBC] a mensagem é dividida em blocos e o modo de cifra utiliza da operação de ou-exclusivo entre um vetor de inicialização (para o primeiro bloco) e o texto em claro\footnote{Mensagem que deve ser mantida em sigilo e que se deseja cifrar.} e por fim um ou-exclusivo do resultado com a chave. A partir do segundo bloco, ao invés de um vetor de inicialização, é utilizado o bloco criptografado anterior.
 \begin{figure}[h]
 \centering
-\includegraphics[keepaspectratio=true,scale=1.0]
+\includegraphics[keepaspectratio=true,scale=0.8]
     {figuras/cbc.eps}
     \caption[Modo Cipher Block Chaining]{Modo \textit{Cipher Block Chaining}\protect\footnotemark}
 \end{figure} 
@@ -80,7 +80,7 @@ Existem operações que podem ser aplicadas nas cifras de blocos e que podem ser
 \item[CFB] a mensagem também é dividida em blocos e esse modo de cifra é muito similar ao CBC, porém é feito um ou-exclusivo da chave com o vetor de inicialização, o bloco criptografado anterior e com o resultado é feito um ou-exclusivo com a mensagem em claro.
 \begin{figure}[h]
 \centering
-\includegraphics[keepaspectratio=true,scale=1.0]
+\includegraphics[keepaspectratio=true,scale=0.8]
     {figuras/cfb.eps}
     \caption[Modo Cipher Feedback]{Modo \textit{Cipher Feedback} \protect\footnotemark} 
 \end{figure}
@@ -88,7 +88,7 @@ Existem operações que podem ser aplicadas nas cifras de blocos e que podem ser
 \item[OFB] a diferença em relação ao CFB é que o resultado entre o vetor de inicialização e a chave ou resultado da operação anterior e a chave, serve de entrada para o próximo bloco, ao invés do bloco criptografado.
 \begin{figure}[h]
 \centering
-\includegraphics[keepaspectratio=true,scale=1.0]
+\includegraphics[keepaspectratio=true,scale=0.8]
     {figuras/ofb.eps}
     \caption[Modo Output Feedback]{Modo \textit{Output Feedback}\protect\footnotemark} 
 \end{figure}
@@ -96,7 +96,7 @@ Existem operações que podem ser aplicadas nas cifras de blocos e que podem ser
 \item[CTR] utiliza como entrada para a função criptográfica um contador que é acrescentado de um em um. 
 \begin{figure}[h]
 \centering
-\includegraphics[keepaspectratio=true,scale=1.0]
+\includegraphics[keepaspectratio=true,scale=0.8]
     {figuras/ctr.eps}
     \caption[Modo Counter]{Modo \textit{Counter}\protect\footnotemark} 
 \end{figure}
