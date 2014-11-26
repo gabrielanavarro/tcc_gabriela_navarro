@@ -100,20 +100,20 @@ Como os resultados anteriores foram os mais satisfatórios que obtivemos durante
 \begin{description}
 	\item [Envio de dois \textit{bytes}] Nesse experimento, para cada \textit{byte} cifrado enviado era enviado um \textit{byte} que indicava o final do texto em claro para o lado da decifração.
 	
-	\begin{table}[h]
-\begin{tabular}{|c|c|c|c|c|}
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{3cm}|c|c|c|c|}
 \hline
-\multirow{2}{3cm}{Tamanho do texto(caracteres)} & \multicolumn{2}{c|}{RC4(ms)}     & \multicolumn{2}{c|}{RC4 + algoritmo(ms)} \\ \cline{2-5} 
-                                     & Cifração(ms) & Cifração + \textit{Thread} & Cifração     & Cifração + \textit{Thread}    \\ \hline
-10000                                & 8.2      & 11.6              & 10.4         & 17.6                  \\ \hline
-50000                                & 21.2     & 33.4              & 27           & 61.8                  \\ \hline
-100000                               & 36.2     & 61.8              & 47.4         & 426.8                 \\ \hline
-500000                               & 159.6    & 281.2             & 212.4        & 426.8                 \\ \hline
-1000000                              & 311.2    & 574.4             & 419          & 835                   \\ \hline
-5000000                              & 1540.8   & 2794.2            & 2086         & 4501.4                \\ \hline
+Tamanho do texto(carater) & RC4(ms) & RC4 + algoritmo(ms) & Tempo a mais(ms) & Porcentagem \\ \hline
+\centering 10000                        & 106.8   & 108.1               & 1.32      & 1.24 \\ \hline
+\centering 50000                        & 517.4   & 530                 & 12.56      & 2.43 \\ \hline
+\centering 100000                       & 1036    & 1061.6              & 25.6             & 2.47 \\ \hline
+\centering 500000                       & 5152.6  & 5306.6              & 153.93      & 2.99 \\ \hline
+\centering 1000000                      & 10321.1 & 10607.1             & 285.99      & 2.77 \\ \hline
+\centering 5000000                      & 51591.8 & 53276.7             & 1684.92      & 3.27 \\ \hline
 \end{tabular}
 \caption{Experimento tempo total enviando 2 \textit{bytes}}
-\end{table}
+\end{table}	
 
 Essa opção de envio foi descartada, visto que o tempo que a \textit{thread} utiliza para enviar aumentou consideravelmente. Portanto, decidimos pela estratégia que mostraremos a seguir.
 	
@@ -121,14 +121,14 @@ Essa opção de envio foi descartada, visto que o tempo que a \textit{thread} ut
 	
 \begin{table}[h]
 \centering
-\begin{tabular}{|p{3cm}|c|c|c|}
+\begin{tabular}{|p{3cm}|c|c|c|c|}
 \hline
-Tamanho do texto(caracteres) & RC4(ms)  & RC4+Algoritmo(ms) & Tempo a mais(ms) \\ \hline
-\centering 10.000                       & 125.2    & 127.6             & 2.4              \\ \hline
-\centering 50.000                       & 605.9    & 623               & 17.1             \\ \hline
-\centering 100.000                      & 1144.8   & 1214.6            & 69.8             \\ \hline
-\centering 500.000                      & 5730     & 6042.2            & 312.2            \\ \hline
-\centering 1.000.000                    & 11,429.6 & 12,048.7          & 619.1            \\ \hline
+Tamanho do texto(caracteres) & RC4(ms)  & RC4+Algoritmo(ms) & Tempo a mais(ms) & Porcentagem  \\ \hline
+\centering 10.000                       & 125.2    & 127.6             & 2.4   &   1.92        \\ \hline
+\centering 50.000                       & 605.9    & 623               & 17.1    &   2.82      \\ \hline
+\centering 100.000                      & 1144.8   & 1214.6            & 69.8     &   6.09     \\ \hline
+\centering 500.000                      & 5730     & 6042.2            & 312.2       &   5.45 \\ \hline
+\centering 1.000.000                    & 11,429.6 & 12,048.7          & 619.1    &   5.42     \\ \hline
 \end{tabular}
 \caption{Tempo enviando sinal de fim do arquivo '000'}
 \end{table}
