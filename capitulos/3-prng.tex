@@ -2,20 +2,20 @@
 \label{pseudo-random-number-generator}
 
 % 
-Há muitos anos a geração de números aleatórios é objeto de estudo da matemática. Por muito tempo não existiu um algoritmo determinístico para a geração de números que tivesse um período de repetição suficientemente longo para aplicações complexas. Em 1998, os matemáticos japoneses Matishumote e Nishimura inventaram o primeiro algoritmo em que a periodicidade ( $2 ^ {19937}$ - 1) excede o número de mudanças rotatórias de elétrons desde a criação do universo. ~\cite{cristophe-diethelm} 
+Há muitos anos a geração de números aleatórios é objeto de estudo da matemática. Por muito tempo, não existiu um algoritmo determinístico para a geração de números que tivesse um período de repetição suficientemente longo para aplicações complexas. Em 1998, os matemáticos japoneses Matishumote e Nishimura inventaram o primeiro algoritmo em que a periodicidade ( $2 ^ {19937}$ - 1) excede o número de mudanças rotatórias de elétrons desde a criação do universo \cite{cristophe-diethelm}.
 
 %
 Apesar de existir o \textit{TRNG} ou \textit{True Random Number Generator}, que oferece sequências de números que são aleatórios, as mesmas não são determinísticas e isso faz com que sua utilização seja limitada, visto que em aplicações como a criptografia é necessário reproduzir a mesma sequência para a função de cifrar e de decifrar. 
 
 %
-Com isso a utilização de geradores de números pseudo-aleatórios se faz necessária, porém a sequência gerada deve seguir dois critérios para que seus números possam ser considerados aleatórios:
+Com isso, a utilização de geradores de números pseudo-aleatórios se faz necessária, porém a sequência gerada deve seguir dois critérios para que seus números possam ser considerados aleatórios:
 
 \begin{description}
 	\item [1 - Aleatoriedade]
 	O principal requisito para uma sequência ser considerada aleatória é seus números serem aleatórios. Dois critérios podem ser usados para validar uma sequência:
 		\begin{description}
 			\item [Distribuição uniforme]
-			Os bits de uma sequência devem ter frequência aproximada, ou seja, a quantidade de 0 deve ser aproximada da quantidade de 1.
+			Os \textit{bits} de uma sequência devem ter frequência aproximada, ou seja, a quantidade de 0 deve ser aproximada da quantidade de 1.
 			\item [Independência]
 			Os números não devem ter relação entre si.
 			
@@ -38,20 +38,20 @@ Um gerador de números pseudo-aleatórios tem como entrada uma semente.\footnote
 \section{Geradores}
 \subsection{Gerador Linear Congruente}
 
-Uma técnica muito usada para geração de números pseudo-aleatórios é um algoritmo que primeiramente foi proposto por \textit{Lehmer}, que é conhecido como método Linear Congruente. \cite{william-stallings} O algoritmo gera uma sequência dependendo das entradas e a função utilizada para essa geração é:
+Uma técnica muito usada para geração de números pseudo-aleatórios é um algoritmo que primeiramente foi proposto por \textit{Lehmer}, que é conhecido como método Linear Congruente \cite{william-stallings}. O algoritmo gera uma sequência dependendo das entradas e a função utilizada para essa geração é:
 \begin{equation}
 	\label{Função para geração de números aleatórios.}
 	\mathcal{X}_n = (a \times X_{n - 1} + c)\: \bmod \: m	
 \end{equation}
 
-Para cada número produzido na sequência, essa formula é aplicada. A eficiência dessa sequência está diretamente relacionada a escolha das variáveis. A variável \textbf{m} é o módulo da equação e a condição de escolha dessa variável é ser maior que 0. A variável \textbf{a} é o multiplicador da função e sua condição é ser maior que 0 e menor que \textbf{m}. A variável c é o incremento e sua condição é estar entre 0 e \textbf{m}. O \textbf{$X_0$} é a semente para a sequência, será o primeiro elemento da sequência e sua condição é estar entre 0 e \textbf{m}.
+Para cada número produzido na sequência, essa fórmula é aplicada. A eficiência dessa sequência está diretamente relacionada a escolha das variáveis. A variável \textbf{m} é o módulo da equação e a condição de escolha dessa variável é ser maior que 0. A variável \textbf{a} é o multiplicador da função e sua condição é ser maior que 0 e menor que \textbf{m}. A variável \textbf{c} é o incremento e sua condição é estar entre 0 e \textbf{m}. O \textbf{$X_0$} é a semente para a sequência, será o primeiro elemento da sequência e sua condição é estar entre 0 e \textbf{m}.
 
 A escolha dessas entradas determina a periodicidade da sequência e por consequência seu desempenho. Como exemplo de uma sequência com periodicidade 4, as entradas seriam:
 
 \begin{table}[h]
 	\centering
-	\begin{tabular}{|c|c|}	
-	\hline
+	\begin{tabular}{ c c }	
+	\toprule
 		Variável & Valor \\ \hline
 		\textbf{a} & 5 \\ \hline
 		\textbf{c} & 0 \\ \hline
@@ -113,8 +113,8 @@ Ou seja, a escolha dos parâmetros é um passo extremamente importante para esse
 
 \begin{table}[h]
 	\centering
-	\begin{tabular}{|c|c|}	
-		\hline
+	\begin{tabular}{ c c }	
+		\toprule
 		Variável & Valor \\ \hline
 		\textbf{a} & 5 \\ \hline
 		\textbf{c} & 0 \\ \hline
@@ -128,11 +128,11 @@ A sequência gerada a partir dessas variáveis, é:
 
 [1, 5, 25, 14, 33, 17, 11, 18, 16, 6, 30, 2, 10, 13, 28, 29, 34, 22, 36, 32, 12, 23, 4, 20, 26, 19, 21, 31, 7, 25, 24, 9, 8, 3, 15]
 
-Apesar de ter sido maior que a sequência anterior, isso não necessariamente prova sua eficiência, visto que para aplicações como a criptografia, números muito maiores seriam utilizados e sua periodicidade teria de ser maior também.
+Apesar de ter sido maior que a sequência anterior, isso não necessariamente prova sua eficiência, visto que, para aplicações como a criptografia, números muito maiores seriam utilizados e sua periodicidade teria de ser maior também.
 
 
 \subsection{Gerador Blum Blum Shub}
-Uma estratégia para se gerar números pseudo-aleatórios seguramente é conhecida como Blum Blum Shub, nomeada pelos seus desenvolvedores. Tem a prova pública de sua força criptográfica de algoritmos para qualquer propósito. ~\cite{william-stallings} Os primeiros passos para o algoritmo são:
+Uma estratégia para se gerar números pseudo-aleatórios seguramente é conhecida como \textit{Blum Blum Shub}, nomeada pelos seus desenvolvedores. Tem a prova pública de sua força criptográfica de algoritmos para qualquer propósito \cite{william-stallings}. Os primeiros passos para o algoritmo são:
 
 \begin{enumerate}
 	\item Escolha números primos \textbf{p} e \textbf{q}.
@@ -162,7 +162,7 @@ Ou seja, os \textit{bits} menos significantes são retirados a cada número prod
 \subsection{Gerador Blum Micali}
 \label{blum-micali-generator}
 
-O gerador Blum Micali é um gerador de números pseudo-aleatórios provadamente seguro e foi criado por Manuel Blum, que também participou do desenvolvimento do Blum Blum Shub, e Silvio Micali. ~\cite{josefin-martin}
+O gerador Blum Micali é um gerador de números pseudo-aleatórios provadamente seguro e foi criado por Manuel Blum, que também participou do desenvolvimento do Blum Blum Shub, e Silvio Micali \cite{josefin-martin}.
 
 O gerador é executado utilizando os seguintes passos iniciais:
 
@@ -195,7 +195,7 @@ Então para g = 3 e k = 4: 3$^4$ $\equiv$ 13 $\bmod$ 17. Ou seja, o número alea
 \section{Segurança comprovada em geradores de números pseudo-aleatórios}
 \label{security-of-prng}
 
-Segurança comprovada em criptografia significa que quebrar um algoritmo criptográfico específico é tão difícil quanto resolver um problema específico conhecido por ser difícil. ~\cite{josefin-martin}
+Segurança comprovada em criptografia significa que quebrar um algoritmo criptográfico específico é tão difícil quanto resolver um problema específico conhecido por ser difícil \cite{josefin-martin}.
 
 Uma das aplicações de números pseudo-aleatórios seguros é servir de geradores de \textit{keystream} para a cifra de fluxo. O algoritmo nesse trabalho proposto, irá utilizar esse de tipo de gerador de \textit{keystream}.
 
@@ -203,9 +203,9 @@ Existem dois geradores de números pseudo-aleatórios que são publicamente comp
 
 \subsection{Segurança do Blum Blum Shub}
 
-A segurança do \textit{Blum Blum Shub} é obtida pelo fato de que seu funcionamento se baseia na residualidade quadrática. Esse problema é relacionado em decidir se \textbf{x} é resíduo quadrático nas condições: mdc(x, N) = 1 e que \textbf{x} está entre 1 $\le$  x $\le$ N. \footnote{N é igual a multiplicação dos números primos escolhidos para a geração dos números.}
+A segurança do \textit{Blum Blum Shub} é obtida pelo fato de que seu funcionamento se baseia na residualidade quadrática. Esse problema, é relacionado em decidir se \textbf{x} é resíduo quadrático nas condições: mdc(x, N) = 1 e que \textbf{x} está entre 1 $\le$  x $\le$ N. \footnote{N é igual a multiplicação dos números primos escolhidos para a geração dos números.}
 
-Para ser um resíduo quadrático, \textbf{x} tem que ter a seguinte propriedade $y ^ 2 \equiv x \: \bmod N$, para um inteiro y. Para esse cálculo, um algoritmo recebe N e x como parâmetros e retorna 1 se for resíduo quadrático e 0 se não for.~\cite{josefin-martin}
+Para ser um resíduo quadrático, \textbf{x} tem que ter a seguinte propriedade $y ^ 2 \equiv x \: \bmod N$, para um inteiro y. Para esse cálculo, um algoritmo recebe N e x como parâmetros e retorna 1 se for resíduo quadrático e 0 se não for\cite{josefin-martin}.
 
 \subsection{Segurança do Blum Micali}
 

@@ -5,7 +5,7 @@ Neste capítulo serão apresentados detalhes da implementação deste trabalho. 
 
 \section{Arquitetura}
 
-A figura \ref{architecture} apresenta a arquitetura que foi utilizada para a realização dos experimentos. A arquitetura foi desenvolvida com o intuito de reproduzir uma aplicação real de um algoritmo de criptografia. As partes do cifrador e do decifrador são executadas em dois computadores distintos que se comunicam utilizando o protocolo de rede TCP/IP.
+A Figura \ref{architecture} apresenta a arquitetura que foi utilizada para a realização dos experimentos. A arquitetura foi desenvolvida com o intuito de reproduzir uma aplicação real de um algoritmo de criptografia. As partes do cifrador e do decifrador são executadas em dois computadores distintos que se comunicam utilizando o protocolo de rede TCP/IP.
 
 De maneira geral, cada lado terá uma \textit{thread} que auxiliará no envio/recebimento do \textit{byte} cifrado usando o \textit{socket} TCP/IP. A parte de cifração/decifração será utilizando o núcleo do \textit{RC4} alterado de forma a implementar o algoritmo de balanceamento proposto
 
@@ -61,7 +61,7 @@ Uma vez cifrado, postará na fila de mensagens para que a \textit{thread} de env
 
 \section{Diagrama de Sequência}
 
-O diagrama de sequência representado na figura \ref{sequence-diagram} tem como objetivo demonstrar como os processos,cifra e  decifra, interagem com os outros elementos, tais como: fila de mensagem, \textit{threads} e a comunicação entre os mesmos. 
+O diagrama de sequência representado na Figura \ref{sequence-diagram} tem como objetivo demonstrar como os processos,cifra e  decifra, interagem com os outros elementos, tais como: fila de mensagem, \textit{threads} e a comunicação entre os mesmos. 
 
 \begin{figure}[h]
 	\centering

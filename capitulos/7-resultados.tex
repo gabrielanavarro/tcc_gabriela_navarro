@@ -26,13 +26,13 @@ Esses experimentos foram realizados principalmente para a aproximação de um re
 
 \subsection{Experimento 1}
 
-O primeiro experimento foi realizado utilizando somente a arquitetura que foi explanada no capítulo \ref{implementation-algorithm}, sem qualquer intervenção sobre o algoritmo. Os resultados foram totalmente insatisfatórios, como podem ser observados na tabela \ref{results-experiment-1}.
+O primeiro experimento foi realizado utilizando somente a arquitetura que foi explanada no Capítulo \ref{implementation-algorithm}, sem qualquer intervenção sobre o algoritmo. Os resultados foram totalmente insatisfatórios, como podem ser observados na Tabela \ref{results-experiment-1}.
 
 \begin{table}[h]
 \centering
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-\multirow{2}{3cm}{Tamanho do texto(caracteres)} & \multicolumn{2}{c|}{RC4(ms)}     & \multicolumn{2}{c|}{RC4 + algoritmo(ms)} \\ \cline{2-5} 
+\begin{tabular}{ c c c c c }
+\toprule
+\multirow{2}{3cm}{Tamanho do texto(caracteres)} & \multicolumn{2}{c}{RC4(ms)}     & \multicolumn{2}{c}{RC4 + algoritmo(ms)} \\ 
                                      & Cifração & Cifração + \textit{Thread} & Cifração     & Cifração + \textit{Thread}     \\ \hline
 10000                                & 12.3     & 13.4              & 18.75        & 19.75                 \\ \hline
 50000                                & 51.6     & 54.2              & 97.875       & 98.875                \\ \hline
@@ -47,14 +47,14 @@ O primeiro experimento foi realizado utilizando somente a arquitetura que foi ex
 
 \subsection{Experimento 2}
 
-Depois de análise dos resultados do primeiro experimento e a comparação dos resultados do \textit{RC4} e \textit{RC4} em conjunto com o algoritmo proposto, percebeu-se que algo que estava sendo utilizado na arquitetura do algoritmo e que não era o algoritmo em si estava afetando o desempenho da execução. A constatação se  se deve ao fato de que o \textit{RC4} também ter obtido resultados insatisfatórios. Depois de uma análise, descobriu-se que o tamanho da fila de mensagem \textit{default}, que estava sendo utilizado, era o problema. Devido ao seu tamanho estar limitado a poucos caracteres, a \textit{thread} de envio não estava sendo suficientemente rápida  e isso estava fazendo com que o tempo da cifração também fosse prejudicado. Outro indício que esse era o problema e não o algoritmo em si é que o tempo de cifração e tempo da \textit{thread} de envio era praticamente o mesmo. 
+Depois de análise dos resultados do primeiro experimento e a comparação dos resultados do \textit{RC4} e \textit{RC4} em conjunto com o algoritmo proposto, percebeu-se que algo que estava sendo utilizado na arquitetura do algoritmo e que não era o algoritmo em si estava afetando o desempenho da execução. A constatação se deve ao fato de que o \textit{RC4} também ter obtido resultados insatisfatórios. Depois de uma análise, descobriu-se que o tamanho da fila de mensagem \textit{default}, que estava sendo utilizado, era o problema. Devido ao seu tamanho estar limitado a poucos caracteres, a \textit{thread} de envio não estava sendo suficientemente rápida  e isso estava fazendo com que o tempo da cifração também fosse prejudicado. Outro indício que esse era o problema e não o algoritmo em si é que o tempo de cifração e tempo da \textit{thread} de envio era praticamente o mesmo. 
 
-Com isso, foi efetuado o aumento da fila de mensagem e vimos que com a arquitetura implementada nesse trabalho isso é de extrema importância para o bom desempenho do algoritmo. Os resultados com a fila de mensagem expandida está na tabela \ref{results-experiment-2}.
+Com isso, foi efetuado o aumento da fila de mensagem e vimos que com a arquitetura implementada nesse trabalho isso é de extrema importância para o bom desempenho do algoritmo. Os resultados com a fila de mensagem expandida está na Tabela \ref{results-experiment-2}.
 
 \begin{table}[h]
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-\multirow{2}{3cm}{Tamanho do texto(caracteres)} & \multicolumn{2}{c|}{RC4(ms)}     & \multicolumn{2}{c|}{RC4 + algoritmo(ms)} \\ \cline{2-5} 
+\begin{tabular}{ c c c c c }
+\toprule
+\multirow{2}{3cm}{Tamanho do texto(caracteres)} & \multicolumn{2}{c}{RC4(ms)}     & \multicolumn{2}{c}{RC4 + algoritmo(ms)} \\ 
                                      & Cifração & Cifração + Thread & Cifração     & Cifração + Thread     \\ \hline
 10000                                & 6.2      & 10.4              & 11.8         & 17.4                  \\ \hline
 50000                                & 22.6     & 34.4              & 40           & 60.6                  \\ \hline
@@ -69,19 +69,19 @@ Com isso, foi efetuado o aumento da fila de mensagem e vimos que com a arquitetu
 
 \subsection{Experimento 3}
 
-Com os resultados obtidos pelo experimento anterior, resolvemos reavaliar a necessidade de enviar \textit{byte} a \textit{byte} o texto cifrado. Isso porque depois de algumas análises, percebemos que a quantidade de conflitos em uma cifração era equivalente a metade do texto em claro e para cada conflito três \textit{bytes} a mais eram enviados, ou seja, a quantidade de bytes a mais enviados pelo algoritmo proposto era:
+Com os resultados obtidos pelo experimento anterior, resolvemos reavaliar a necessidade de enviar \textit{byte} a \textit{byte} o texto cifrado. Isso porque depois de algumas análises, percebemos que a quantidade de conflitos em uma cifração era equivalente a metade do texto em claro e para cada conflito dois \textit{bytes} a mais eram enviados, ou seja, a quantidade de bytes a mais enviados pelo algoritmo proposto era:
 
 \begin{equation}
 	tcifrado = tclaro + 2 \times (tclaro/2)
 \end{equation}
 
-Isso resulta no dobro do texto em claro e que somente o algoritmo proposto envia. Portanto, para diminuir a quantidade de envios decidimos enviar os três \textit{bytes} referentes ao conflito(sinal, quantidade de \textit{bytes} descartados e \textit{byte} cifrado) de uma só vez , aproximando, com isso, da quantidade de envios que o \textit{RC4} realiza. O resultado desse experimento está descrito na tabela \ref{results-experiment-3}.
+Isso resulta no dobro do texto em claro e que somente o algoritmo proposto envia. Portanto, para diminuir a quantidade de envios, decidimos enviar os três \textit{bytes} referentes ao conflito(sinal, quantidade de \textit{bytes} descartados e \textit{byte} cifrado) de uma só vez , aproximando, com isso, da quantidade de envios que o \textit{RC4} realiza. O resultado desse experimento está descrito na Tabela \ref{results-experiment-3}.
 
 \begin{table}[h]
 \centering
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-\multirow{2}{3cm}{Tamanho do texto(caracteres)} & \multicolumn{2}{c|}{RC4(ms)}         & \multicolumn{2}{c|}{RC4+Algoritmo(ms)} \\ \cline{2-5} 
+\begin{tabular}{ c c c c c }
+\toprule
+\multirow{2}{3cm}{Tamanho do texto(caracteres)} & \multicolumn{2}{c}{RC4(ms)}         & \multicolumn{2}{c}{RC4+Algoritmo(ms)} \\ %\cline{2-5} 
                                               & Cifração & Cifração + \textit{Thread} & Cifração  & Cifração + \textit{Thread}   \\ \hline
 10.000                                        & 7.8      & 15.1                  & 12.6      & 15.9                   \\ \hline
 50.000                                        & 19.3     & 33.6                  & 28.2      & 34.9                   \\ \hline
@@ -102,8 +102,8 @@ Como os resultados anteriores foram os mais satisfatórios que obtivemos durante
 	
 \begin{table}[h]
 \centering
-\begin{tabular}{|p{3cm}|c|c|c|c|}
-\hline
+\begin{tabular}{ p{3cm} c c c c }
+\toprule
 Tamanho do texto(carater) & RC4(ms) & RC4 + algoritmo(ms) & Tempo a mais(ms) & Porcentagem \\ \hline
 \centering 10000                        & 106.8   & 108.1               & 1.32      & 1.24 \\ \hline
 \centering 50000                        & 517.4   & 530                 & 12.56      & 2.43 \\ \hline
@@ -121,8 +121,8 @@ Essa opção de envio foi descartada, visto que o tempo que a \textit{thread} ut
 	
 \begin{table}[h]
 \centering
-\begin{tabular}{|p{3cm}|c|c|c|c|}
-\hline
+\begin{tabular}{ p{3cm} c c c c }
+\toprule
 Tamanho do texto(caracteres) & RC4(ms)  & RC4+Algoritmo(ms) & Tempo a mais(ms) & Porcentagem  \\ \hline
 \centering 10.000                       & 125.2    & 127.6             & 2.4   &   1.92        \\ \hline
 \centering 50.000                       & 605.9    & 623               & 17.1    &   2.82      \\ \hline
@@ -138,12 +138,12 @@ Com esses resultados obtivemos em média 4,34\% de tempo a mais. A maior porcent
 
 \subsection{Resolução de Conflitos}
 
-Esse experimento visa dar maior visibilidade sobre a quantidade média de conflitos que ocorrem em diversos tamanhos de textos e o tempo médio das resoluções. Esses tempos podem ter uma variação, visto que para cada conflito a função de obter o tempo do sistema foi utilizada duas vezes. Para textos pequenos a variação pode ser pequena, porém a medida que o texto fica maior, esse tempo tende a aumentar também. A tabela \ref{amount-conflicts} mostra os resultados obtidos.
+Este experimento, visa dar maior visibilidade sobre a quantidade média de conflitos que ocorrem em diversos tamanhos de textos e o tempo médio das resoluções. Esses tempos podem ter uma variação, visto que para cada conflito a função de obter o tempo do sistema foi utilizada duas vezes. Para textos pequenos, a variação pode ser pequena, porém a medida que o texto fica maior, esse tempo tende a aumentar também. A Tabela \ref{amount-conflicts} mostra os resultados obtidos.
 
 \begin{table}[h]
 \centering
-\begin{tabular}{|p{3cm}|c|c|p{3cm}|}
-\hline
+\begin{tabular}{ p{3cm} c c p{3cm}}
+\toprule
 Tamanho do texto(caracteres) & Tempo Extra(ms) & Quantidade de Conflitos & Tempo médio de resolução(ms) \\ \hline
 \centering 10.000                        & 10.4            & 5.037                    \centering & 0.002065               \\ \hline
 \centering 50.000                       & 32.8            & 25.174                   \centering &  0.001303                     \\ \hline
@@ -156,4 +156,4 @@ Tamanho do texto(caracteres) & Tempo Extra(ms) & Quantidade de Conflitos & Tempo
 \label{amount-conflicts}
 \end{table}
 
-Percebe-se que a média de conflitos para cada tamanho de texto é aproximadamente a metade do tamanho do texto em claro. Outra percepção que pode ser obtida pela tabela é que conforme a quantidade de conflitos aumenta, o tempo médio de resolução diminui.
+Percebe-se que a média de conflitos para cada tamanho de texto é aproximadamente a metade do tamanho do texto em claro. Outra percepção que pode ser obtida pela tabela, é que conforme a quantidade de conflitos aumenta, o tempo médio de resolução diminui.
